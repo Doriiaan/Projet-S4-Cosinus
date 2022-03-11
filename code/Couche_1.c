@@ -1,15 +1,19 @@
-#define _POSIX_C_SOURCE_1
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <sys/stat.h>
-/* constantes symboliques pour les droits d’accès */
-#include <fcntl.h> /* constantes symboliques pour les différents types d’ouverture */
-#include<header.h>
+/******************************************
+ * Quand on écrit des focntions, rajouter *
+ * les définitions des fonctions dans le  *
+ * fichier Couche1.h avec commentaires    *
+ ******************************************/
+
+#include "header.h"
+
+/* Varibales globales */
 
 
+/**
+  Renvoit le nombre de blocs nécessaire au stockage de n octet
+  input : n octets (int)
+  ouput : n blocs  (int)
+*/
 int computenblock(int nb_octet){
     int somme = 0;
     while(nb_octet>=BLOCK_SIZE){
@@ -23,8 +27,10 @@ int computenblock(int nb_octet){
 }
 
 
-int main(void){
-    int a ;
-    a = computenblock(40);
+/**
+  Initialise la variable globale de type virtual_disk_t
+  input : nom du repertoire contenant le disque
+*/
+void init_disk_sos(char* nom_repertoire_disque){
 
 }
