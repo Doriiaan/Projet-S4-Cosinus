@@ -26,6 +26,23 @@ int computenblock(int nb_octet){
     return somme;
 }
 
+void write_block(int pos , char buffer[BLOCK_SIZE]){
+	FILE* fichier = NULL;
+	fichier = fopen("text.txt" , "r+");
+	fseek(fichier , pos , SEEK_SET);
+	fwrite( buffer, BLOCK_SIZE, 1, fichier );                       // Avant C99
+}
+
+block_t lire_block(int pos ){
+	block_t t;
+	FILE* fichier = NULL;
+	fichier = fopen("text.txt" , "r+");
+	fseek(fichier , pos , SEEK_SET);
+	fread(t.data , BLOCK_SIZE , 1 , fichier);
+	return t;
+
+}
+
 
 /**
   Initialise la variable globale de type virtual_disk_t
