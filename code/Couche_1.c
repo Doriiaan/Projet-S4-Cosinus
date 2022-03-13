@@ -28,7 +28,7 @@ int computenblock(int nb_octet){
 
 void write_block(int pos , char buffer[BLOCK_SIZE]){
 	FILE* fichier = NULL;
-	fichier = fopen("text.txt" , "r+");
+	fichier = fopen("d0.txt" , "r+"); // a remplacer par le nom du fichier d0
 	fseek(fichier , pos , SEEK_SET);
 	fwrite( buffer, BLOCK_SIZE, 1, fichier );                       // Avant C99
 }
@@ -36,7 +36,7 @@ void write_block(int pos , char buffer[BLOCK_SIZE]){
 block_t lire_block(int pos ){
 	block_t t;
 	FILE* fichier = NULL;
-	fichier = fopen("text.txt" , "r+");
+	fichier = fopen("d0.txt" , "r+");   // a remplacer par le nom du fichier d0
 	fseek(fichier , pos , SEEK_SET);
 	fread(t.data , BLOCK_SIZE , 1 , fichier);
 	return t;
