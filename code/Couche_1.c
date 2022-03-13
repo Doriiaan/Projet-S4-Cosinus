@@ -26,14 +26,16 @@ int computenblock(int nb_octet){
     return somme;
 }
 
+//changer le fopen r+ en w pour avoir juste le droit en ecriture
 void write_block(int pos , block_t t){
 	FILE* fichier = NULL;
 	fichier = fopen("text.txt" , "r+"); // a remplacer par le nom du fichier d0
 	fseek(fichier , pos , SEEK_SET);	// on se place au debut avec un decalage de pos
-	fwrite( t.data, BLOCK_SIZE, 1, fichier );   // on ecrit ce qui se trouve dans t.data sur le fichier , on ecrit un bloc de taille BLOCK_SIZE      
+	fwrite( t.data, BLOCK_SIZE, 1, fichier );   // on ecrit ce qui se trouve dans t.data sur le fichier , on ecrit un bloc de taille BLOCK_SIZE
 	// Avant C99
 }
 
+//changer le fopen r+ en r pour avoir juste le droit en lecture
 block_t lire_block(int pos ){
 	block_t t;
 	FILE* fichier = NULL;
