@@ -1,15 +1,14 @@
 /**
+* @file Couche1.c
 * @author Groupe Cosinus
-* @brief Implémentation de la couche 1 en C
+* @brief Implémentation de la couche 1
 * @date Avril 2022
 *
 */
 
 #include "Couche1.h"
 
-
 virtual_disk_t *virtual_disk_sos;
-int systeme = 1;
 
 
 /**
@@ -62,7 +61,16 @@ block_t read_block(int pos ){
 void init_disk_sos(char* nom_repertoire_disque){
 
   virtual_disk_sos = malloc(sizeof(virtual_disk_t));
-  // ouverture du fichier passé en parametre en lecture et ecriture
-  virtual_disk_sos->storage = fopen(nom_repertoire_disque, "r+");
 
+  //creation chemin disque
+  char path_disque[SIZE_PATH_DISQUE];
+  strcpy(path_disque, nom_repertoire_disque);
+  strcat(path_disque, "/d0");
+
+  FILE *disque;
+  if(!(disque = fopen(path_disque, "r+"))){
+    printf("Erreur ouverture disque\n");
+    exit(1);
+  }
+  virtual_disk_sos->storage = disque;
 }

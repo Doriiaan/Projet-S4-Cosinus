@@ -1,2 +1,66 @@
 \hypertarget{Couche2_8h}{}\doxysection{Couche2.\+h File Reference}
 \label{Couche2_8h}\index{Couche2.h@{Couche2.h}}
+
+
+Header de l\textquotesingle{}Implémentation de la couche 2.  
+
+
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche1.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{Couche2_8h_a3cbb06b2d8d28a4aecc9a6a9581f9bd6}{write\+\_\+super\+\_\+block}} (\mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}} $\ast$super\+\_\+block)
+\begin{DoxyCompactList}\small\item\em fonction pour écrire le super bloc déjà initilisé sur le disque \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche2_8h_a7d34fd304760b084fa218e8e14f129f7}{read\+\_\+super\+\_\+block}} (\mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}} $\ast$super\+\_\+block)
+\begin{DoxyCompactList}\small\item\em Lis la valeur du super bloc et la rentre dans une variable déjà initilisé \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header de l\textquotesingle{}Implémentation de la couche 2. 
+
+\begin{DoxyAuthor}{Author}
+Groupe Cosinus 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Avril 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Couche2_8h_a3cbb06b2d8d28a4aecc9a6a9581f9bd6}\label{Couche2_8h_a3cbb06b2d8d28a4aecc9a6a9581f9bd6}} 
+\index{Couche2.h@{Couche2.h}!write\_super\_block@{write\_super\_block}}
+\index{write\_super\_block@{write\_super\_block}!Couche2.h@{Couche2.h}}
+\doxysubsubsection{\texorpdfstring{write\_super\_block()}{write\_super\_block()}}
+{\footnotesize\ttfamily void write\+\_\+super\+\_\+block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}} $\ast$}]{super\+\_\+block }\end{DoxyParamCaption})}
+
+
+
+fonction pour écrire le super bloc déjà initilisé sur le disque 
+
+
+\begin{DoxyParams}{Parameters}
+{\em super\+\_\+block\+\_\+t} & $\ast$super\+\_\+block \+: Pointeur sur le super block déjà initilisé \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche2_8h_a7d34fd304760b084fa218e8e14f129f7}\label{Couche2_8h_a7d34fd304760b084fa218e8e14f129f7}} 
+\index{Couche2.h@{Couche2.h}!read\_super\_block@{read\_super\_block}}
+\index{read\_super\_block@{read\_super\_block}!Couche2.h@{Couche2.h}}
+\doxysubsubsection{\texorpdfstring{read\_super\_block()}{read\_super\_block()}}
+{\footnotesize\ttfamily void read\+\_\+super\+\_\+block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}} $\ast$}]{super\+\_\+block }\end{DoxyParamCaption})}
+
+
+
+Lis la valeur du super bloc et la rentre dans une variable déjà initilisé 
+
+
+\begin{DoxyParams}{Parameters}
+{\em super\+\_\+block\+\_\+t} & $\ast$super\+\_\+block \+: Super block déjà initialisé \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}

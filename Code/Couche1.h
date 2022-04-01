@@ -1,15 +1,17 @@
 /**
+* @file Couche1.h
 * @author Groupe Cosinus
-* @brief Implémentation de la couche 1 en C
+* @brief Header de l'Implémentation de la couche 1
 * @date Avril 2022
 *
 */
+
 #ifndef __COUCHE1_H__
 #define __COUCHE1_H__
 
 #include "header.h"
 
-
+#define SIZE_PATH_DISQUE 100
 /**
 *  @brief Renvoit le nombre de blocs nécessaire pour stocker nb_octets
 *  @param int nb_octets : Nombre d'octets

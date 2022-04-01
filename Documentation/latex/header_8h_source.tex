@@ -13,90 +13,92 @@
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{sha256_8h}{sha256.h}}"{}}}
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{sha256__utils_8h}{sha256\_utils.h}}"{}}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{comment}{// pour les droits : minuscule = pas le droit, majuscule = droit ok}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#define rw 0 }\textcolor{comment}{// 00}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#define rW 1 }\textcolor{comment}{// 01}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#define Rw 2 }\textcolor{comment}{// 10}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#define RW 3 }\textcolor{comment}{// 11}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#define ROOT\_UID 0}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#define FILENAME\_MAX\_SIZE 32 }\textcolor{comment}{// nb max de caractères des noms de fichiers}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#define MAX\_FILE\_SIZE (2*1024) }\textcolor{comment}{// taille max d'un fichier (uchar)}}
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#define INODE\_TABLE\_SIZE 10 }\textcolor{comment}{// taille fixe = nb max de fichiers dans le SE}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#define MAX\_MSG 1024 }\textcolor{comment}{// uchar}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#define TIMESTAMP\_SIZE 24+2 }\textcolor{comment}{// avec \(\backslash\)0 et pour que ça tombe juste avec les blocs}}
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#define NB\_USERS 5}}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#define BLOCK\_SIZE 4 }\textcolor{comment}{// octets}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{\#define SUPER\_BLOCK\_SIZE 4 }\textcolor{comment}{// nb blocs}}
-\DoxyCodeLine{29 \textcolor{preprocessor}{\#define INODES\_START SUPER\_BLOCK\_SIZE*BLOCK\_SIZE+1 }\textcolor{comment}{// en octets}}
-\DoxyCodeLine{30 \textcolor{preprocessor}{\#define INODE\_SIZE FILENAME\_MAX\_SIZE/BLOCK\_SIZE+6+(TIMESTAMP\_SIZE*2)/BLOCK\_SIZE}}
-\DoxyCodeLine{31 \textcolor{comment}{//= 27 en blocs = 8 blocs de filename+6 uint+timestamps}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}; \textcolor{comment}{// même taille que int}}
-\DoxyCodeLine{34 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}}; \textcolor{comment}{// 8 bits non signés = octet}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{comment}{// structure pour la table des utilisateurs}}
-\DoxyCodeLine{37 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structuser__s}{user\_s}}\{}
-\DoxyCodeLine{38   \textcolor{keywordtype}{char} \mbox{\hyperlink{structuser__s_a4f6d439e99cd327f6adc574bfa396340}{login}}[\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\_MAX\_SIZE}}];}
-\DoxyCodeLine{39   \textcolor{keywordtype}{char} \mbox{\hyperlink{structuser__s_a3eb21a430bedbdb19a466b068ce49dd6}{passwd}}[\mbox{\hyperlink{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}{SHA256\_BLOCK\_SIZE}}*2 + 1]; \textcolor{comment}{// 64 hex char = haché du passwd}}
-\DoxyCodeLine{40 \} \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\_t}};}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{comment}{// pour gérer l'uid tout le long de la session}}
-\DoxyCodeLine{43 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsession__s}{session\_s}}\{}
-\DoxyCodeLine{44   \textcolor{keywordtype}{int} \mbox{\hyperlink{structsession__s_a8c5a58ee30e0a67005054d75db15a30e}{userid}};}
-\DoxyCodeLine{45 \} \mbox{\hyperlink{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}{session\_t}};}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{comment}{/* Type of a block of data */}}
-\DoxyCodeLine{48 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structblock__s}{block\_s}}\{}
-\DoxyCodeLine{49     \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}} \mbox{\hyperlink{structblock__s_a29513c7dce2bc0070356c377ee04e173}{data}}[\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}]; \textcolor{comment}{// une case par octet}}
-\DoxyCodeLine{50 \} \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\_t}};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52 \textcolor{comment}{/* Type of the pseudo-\/inode structure */}}
-\DoxyCodeLine{53 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structinode__s}{inode\_s}}\{}
-\DoxyCodeLine{54   \textcolor{comment}{// type file vs dir}}
-\DoxyCodeLine{55   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_a6f64b8aa47874f12156c3fc2892cc03b}{filename}}[\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\_MAX\_SIZE}}]; \textcolor{comment}{// dont '\(\backslash\)0'}}
-\DoxyCodeLine{56   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a669d6ae0a6e66a3bd14fe0e5260f7736}{size}}; \textcolor{comment}{// du fichier en octets}}
-\DoxyCodeLine{57   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a4a0cc231cde43895f59789f19b2bd6a8}{uid}}; \textcolor{comment}{//user id proprio}}
-\DoxyCodeLine{58   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a8104c8f22347e71cc599c80f3c2e6513}{uright}}; \textcolor{comment}{//owner's rights between 0 and 3 coding rw in binary}}
-\DoxyCodeLine{59   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a27290219ae868327f11a954384a117e1}{oright}}; \textcolor{comment}{// other's right idem}}
-\DoxyCodeLine{60   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_a3083c5a5c2d0318f01264def15b8d68e}{ctimestamp}}[\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\_SIZE}}]; \textcolor{comment}{// date creation : 26 octets}}
-\DoxyCodeLine{61   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_ab17e26a1d270bac2a7b4d0ee87246717}{mtimestamp}}[\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\_SIZE}}]; \textcolor{comment}{// date dernière modif. : 26 octets}}
-\DoxyCodeLine{62   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_abc68ec821529f915b5c42b41e7063a33}{nblock}}; \textcolor{comment}{// nblock du fichier = (size+BLOCK\_SIZE-\/1)/BLOCK\_SIZE ?}}
-\DoxyCodeLine{63   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a4002ed3efe33ffc95f004244a6f057bb}{first\_byte}}; \textcolor{comment}{// number of the first byte on the virtual disk}}
-\DoxyCodeLine{64 \} \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\_t}};}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{comment}{/* Type of the inode table */}}
-\DoxyCodeLine{67 \textcolor{keyword}{typedef} \mbox{\hyperlink{structinode__s}{inode\_t}} \mbox{\hyperlink{header_8h_a5521b19dad3852291fc7d603382e6b99}{inode\_table\_t}}[\mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\_TABLE\_SIZE}}];\textcolor{comment}{// la taille est fixe}}
-\DoxyCodeLine{68 \textcolor{keyword}{typedef} \mbox{\hyperlink{structuser__s}{user\_t}} \mbox{\hyperlink{header_8h_a6e90d613338ad6d397498c5d854b4718}{users\_table\_t}}[\mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\_USERS}}]; \textcolor{comment}{// taille fixe. L'indice est l'uid.}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsuper__block__s}{super\_block\_s}}\{}
-\DoxyCodeLine{71   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a71684efa7eacd3760ca13455f0d6c62d}{number\_of\_files}}; \textcolor{comment}{// dans super bloc}}
-\DoxyCodeLine{72   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a29efe97d3a19060c8e16e31010c35ff1}{number\_of\_users}}; \textcolor{comment}{// idem}}
-\DoxyCodeLine{73   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a29dbd39793f01a556f586252851ebe38}{nb\_blocks\_used}} ; \textcolor{comment}{//}}
-\DoxyCodeLine{74   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_ab5e9ffeb92e0d2cf880ceb94704711c1}{first\_free\_byte}}; \textcolor{comment}{// premier octet libre}}
-\DoxyCodeLine{75   \} \mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\_block\_t}};}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77 \textcolor{comment}{/* Type of the virtual disk system */}}
-\DoxyCodeLine{78 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structvirtual__disk__s}{virtual\_disk\_s}} \{}
-\DoxyCodeLine{79     \mbox{\hyperlink{structsuper__block__s}{super\_block\_t}} \mbox{\hyperlink{structvirtual__disk__s_ae1d3b0a82b67f7219c7c8e4d36f4dfa8}{super\_block}};}
-\DoxyCodeLine{80     \mbox{\hyperlink{header_8h_a6e90d613338ad6d397498c5d854b4718}{users\_table\_t}} \mbox{\hyperlink{structvirtual__disk__s_a12fe71d2fc0c5151d041d525b2ea37df}{users\_table}}; \textcolor{comment}{// tableau}}
-\DoxyCodeLine{81     \mbox{\hyperlink{header_8h_a5521b19dad3852291fc7d603382e6b99}{inode\_table\_t}} \mbox{\hyperlink{structvirtual__disk__s_a48e96ab3edf67f86e8defcf7defd598a}{inodes}};\textcolor{comment}{// tableau}}
-\DoxyCodeLine{82     FILE *\mbox{\hyperlink{structvirtual__disk__s_a3855c1f0de66c3a15c8ca84c4be211bc}{storage}}; \textcolor{comment}{//fichier vdisk du système de fichiers}}
-\DoxyCodeLine{83 \} \mbox{\hyperlink{header_8h_aaf09485b84abb570966e29863675619f}{virtual\_disk\_t}};}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85 \textcolor{comment}{// structure pour les fichiers}}
-\DoxyCodeLine{86 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structfile__s}{file\_s}}\{}
-\DoxyCodeLine{87   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structfile__s_a29a3bdf87cd12283810c3f4d7fc4490c}{size}}; \textcolor{comment}{// Size of file in bytes with pading ie compléter le dernier bloc avec des zéros}}
-\DoxyCodeLine{88   \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}} \mbox{\hyperlink{structfile__s_af7670b96321e47eb5e31145969b9aade}{data}} [\mbox{\hyperlink{header_8h_a649ad5274d988d17a275a3cead056746}{MAX\_FILE\_SIZE}}] ; \textcolor{comment}{// only text files}}
-\DoxyCodeLine{89 \} \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\_t}} ;}
-\DoxyCodeLine{90 }
-\DoxyCodeLine{91 \textcolor{comment}{// structure pour gérer les commandes de l'interprète}}
-\DoxyCodeLine{92 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structcmd__s}{cmd\_s}}\{}
-\DoxyCodeLine{93     \textcolor{keywordtype}{char} ** \mbox{\hyperlink{structcmd__s_a11696b13884ad02fdc9b1636fa8d2060}{tabArgs}}; \textcolor{comment}{// tableau des arguments}}
-\DoxyCodeLine{94     \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmd__s_af9f3250f31e6e35efd35e7dd96b03147}{nbArgs}}; \textcolor{comment}{// nombre d'arguments}}
-\DoxyCodeLine{95 \} \mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\_t}};}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_\_OS\_DEFINES\_\_}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{comment}{// pour les droits : minuscule = pas le droit, majuscule = droit ok}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define rw 0 }\textcolor{comment}{// 00}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define rW 1 }\textcolor{comment}{// 01}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define Rw 2 }\textcolor{comment}{// 10}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define RW 3 }\textcolor{comment}{// 11}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define ROOT\_UID 0}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#define FILENAME\_MAX\_SIZE 32 }\textcolor{comment}{// nb max de caractères des noms de fichiers}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define MAX\_FILE\_SIZE (2*1024) }\textcolor{comment}{// taille max d'un fichier (uchar)}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#define INODE\_TABLE\_SIZE 10 }\textcolor{comment}{// taille fixe = nb max de fichiers dans le SE}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#define MAX\_MSG 1024 }\textcolor{comment}{// uchar}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TIMESTAMP\_SIZE 24+2 }\textcolor{comment}{// avec \(\backslash\)0 et pour que ça tombe juste avec les blocs}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define NB\_USERS 5}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define BLOCK\_SIZE 4 }\textcolor{comment}{// octets}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define SUPER\_BLOCK\_SIZE 4 }\textcolor{comment}{// nb blocs}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define INODES\_START SUPER\_BLOCK\_SIZE*BLOCK\_SIZE+1 }\textcolor{comment}{// en octets}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define INODE\_SIZE FILENAME\_MAX\_SIZE/BLOCK\_SIZE+6+(TIMESTAMP\_SIZE*2)/BLOCK\_SIZE}}
+\DoxyCodeLine{32 \textcolor{comment}{//= 27 en blocs = 8 blocs de filename+6 uint+timestamps}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}; \textcolor{comment}{// même taille que int}}
+\DoxyCodeLine{35 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}}; \textcolor{comment}{// 8 bits non signés = octet}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{comment}{// structure pour la table des utilisateurs}}
+\DoxyCodeLine{38 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structuser__s}{user\_s}}\{}
+\DoxyCodeLine{39   \textcolor{keywordtype}{char} \mbox{\hyperlink{structuser__s_a4f6d439e99cd327f6adc574bfa396340}{login}}[\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\_MAX\_SIZE}}];}
+\DoxyCodeLine{40   \textcolor{keywordtype}{char} \mbox{\hyperlink{structuser__s_a3eb21a430bedbdb19a466b068ce49dd6}{passwd}}[\mbox{\hyperlink{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}{SHA256\_BLOCK\_SIZE}}*2 + 1]; \textcolor{comment}{// 64 hex char = haché du passwd}}
+\DoxyCodeLine{41 \} \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\_t}};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{comment}{// pour gérer l'uid tout le long de la session}}
+\DoxyCodeLine{44 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsession__s}{session\_s}}\{}
+\DoxyCodeLine{45   \textcolor{keywordtype}{int} \mbox{\hyperlink{structsession__s_a8c5a58ee30e0a67005054d75db15a30e}{userid}};}
+\DoxyCodeLine{46 \} \mbox{\hyperlink{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}{session\_t}};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{comment}{/* Type of a block of data */}}
+\DoxyCodeLine{49 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structblock__s}{block\_s}}\{}
+\DoxyCodeLine{50     \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}} \mbox{\hyperlink{structblock__s_a29513c7dce2bc0070356c377ee04e173}{data}}[\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}]; \textcolor{comment}{// une case par octet}}
+\DoxyCodeLine{51 \} \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\_t}};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{comment}{/* Type of the pseudo-\/inode structure */}}
+\DoxyCodeLine{54 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structinode__s}{inode\_s}}\{}
+\DoxyCodeLine{55   \textcolor{comment}{// type file vs dir}}
+\DoxyCodeLine{56   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_a6f64b8aa47874f12156c3fc2892cc03b}{filename}}[\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\_MAX\_SIZE}}]; \textcolor{comment}{// dont '\(\backslash\)0'}}
+\DoxyCodeLine{57   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a669d6ae0a6e66a3bd14fe0e5260f7736}{size}}; \textcolor{comment}{// du fichier en octets}}
+\DoxyCodeLine{58   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a4a0cc231cde43895f59789f19b2bd6a8}{uid}}; \textcolor{comment}{//user id proprio}}
+\DoxyCodeLine{59   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a8104c8f22347e71cc599c80f3c2e6513}{uright}}; \textcolor{comment}{//owner's rights between 0 and 3 coding rw in binary}}
+\DoxyCodeLine{60   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a27290219ae868327f11a954384a117e1}{oright}}; \textcolor{comment}{// other's right idem}}
+\DoxyCodeLine{61   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_a3083c5a5c2d0318f01264def15b8d68e}{ctimestamp}}[\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\_SIZE}}]; \textcolor{comment}{// date creation : 26 octets}}
+\DoxyCodeLine{62   \textcolor{keywordtype}{char} \mbox{\hyperlink{structinode__s_ab17e26a1d270bac2a7b4d0ee87246717}{mtimestamp}}[\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\_SIZE}}]; \textcolor{comment}{// date dernière modif. : 26 octets}}
+\DoxyCodeLine{63   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_abc68ec821529f915b5c42b41e7063a33}{nblock}}; \textcolor{comment}{// nblock du fichier = (size+BLOCK\_SIZE-\/1)/BLOCK\_SIZE ?}}
+\DoxyCodeLine{64   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structinode__s_a4002ed3efe33ffc95f004244a6f057bb}{first\_byte}}; \textcolor{comment}{// number of the first byte on the virtual disk}}
+\DoxyCodeLine{65 \} \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\_t}};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{comment}{/* Type of the inode table */}}
+\DoxyCodeLine{68 \textcolor{keyword}{typedef} \mbox{\hyperlink{structinode__s}{inode\_t}} \mbox{\hyperlink{header_8h_a5521b19dad3852291fc7d603382e6b99}{inode\_table\_t}}[\mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\_TABLE\_SIZE}}];\textcolor{comment}{// la taille est fixe}}
+\DoxyCodeLine{69 \textcolor{keyword}{typedef} \mbox{\hyperlink{structuser__s}{user\_t}} \mbox{\hyperlink{header_8h_a6e90d613338ad6d397498c5d854b4718}{users\_table\_t}}[\mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\_USERS}}]; \textcolor{comment}{// taille fixe. L'indice est l'uid.}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsuper__block__s}{super\_block\_s}}\{}
+\DoxyCodeLine{72   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a71684efa7eacd3760ca13455f0d6c62d}{number\_of\_files}}; \textcolor{comment}{// dans super bloc}}
+\DoxyCodeLine{73   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a29efe97d3a19060c8e16e31010c35ff1}{number\_of\_users}}; \textcolor{comment}{// idem}}
+\DoxyCodeLine{74   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_a29dbd39793f01a556f586252851ebe38}{nb\_blocks\_used}} ; \textcolor{comment}{//}}
+\DoxyCodeLine{75   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structsuper__block__s_ab5e9ffeb92e0d2cf880ceb94704711c1}{first\_free\_byte}}; \textcolor{comment}{// premier octet libre}}
+\DoxyCodeLine{76   \} \mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\_block\_t}};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{comment}{/* Type of the virtual disk system */}}
+\DoxyCodeLine{79 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structvirtual__disk__s}{virtual\_disk\_s}} \{}
+\DoxyCodeLine{80     \mbox{\hyperlink{structsuper__block__s}{super\_block\_t}} \mbox{\hyperlink{structvirtual__disk__s_ae1d3b0a82b67f7219c7c8e4d36f4dfa8}{super\_block}};}
+\DoxyCodeLine{81     \mbox{\hyperlink{header_8h_a6e90d613338ad6d397498c5d854b4718}{users\_table\_t}} \mbox{\hyperlink{structvirtual__disk__s_a12fe71d2fc0c5151d041d525b2ea37df}{users\_table}}; \textcolor{comment}{// tableau}}
+\DoxyCodeLine{82     \mbox{\hyperlink{header_8h_a5521b19dad3852291fc7d603382e6b99}{inode\_table\_t}} \mbox{\hyperlink{structvirtual__disk__s_a48e96ab3edf67f86e8defcf7defd598a}{inodes}};\textcolor{comment}{// tableau}}
+\DoxyCodeLine{83     FILE *\mbox{\hyperlink{structvirtual__disk__s_a3855c1f0de66c3a15c8ca84c4be211bc}{storage}}; \textcolor{comment}{//fichier vdisk du système de fichiers}}
+\DoxyCodeLine{84 \} \mbox{\hyperlink{header_8h_aaf09485b84abb570966e29863675619f}{virtual\_disk\_t}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{comment}{// structure pour les fichiers}}
+\DoxyCodeLine{87 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structfile__s}{file\_s}}\{}
+\DoxyCodeLine{88   \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structfile__s_a29a3bdf87cd12283810c3f4d7fc4490c}{size}}; \textcolor{comment}{// Size of file in bytes with pading ie compléter le dernier bloc avec des zéros}}
+\DoxyCodeLine{89   \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}} \mbox{\hyperlink{structfile__s_af7670b96321e47eb5e31145969b9aade}{data}} [\mbox{\hyperlink{header_8h_a649ad5274d988d17a275a3cead056746}{MAX\_FILE\_SIZE}}] ; \textcolor{comment}{// only text files}}
+\DoxyCodeLine{90 \} \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\_t}} ;}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{comment}{// structure pour gérer les commandes de l'interprète}}
+\DoxyCodeLine{93 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structcmd__s}{cmd\_s}}\{}
+\DoxyCodeLine{94     \textcolor{keywordtype}{char} ** \mbox{\hyperlink{structcmd__s_a11696b13884ad02fdc9b1636fa8d2060}{tabArgs}}; \textcolor{comment}{// tableau des arguments}}
+\DoxyCodeLine{95     \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmd__s_af9f3250f31e6e35efd35e7dd96b03147}{nbArgs}}; \textcolor{comment}{// nombre d'arguments}}
+\DoxyCodeLine{96 \} \mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\_t}};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_\_OS\_DEFINES\_\_}}
 
 \end{DoxyCode}

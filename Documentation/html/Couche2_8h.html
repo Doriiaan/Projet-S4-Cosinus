@@ -83,11 +83,87 @@ $(document).ready(function(){initNavTree('Couche2_8h.html',''); initResizable();
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Couche2.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
+<p>Header de l'Implémentation de la couche 2.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="header_8h_source.html">header.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Couche1_8h_source.html">Couche1.h</a>&quot;</code><br />
+</div>
 <p><a href="Couche2_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3cbb06b2d8d28a4aecc9a6a9581f9bd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a3cbb06b2d8d28a4aecc9a6a9581f9bd6">write_super_block</a> (<a class="el" href="header_8h.html#aad306ea6e0c04b1f8c96d699c3369f3d">super_block_t</a> *super_block)</td></tr>
+<tr class="memdesc:a3cbb06b2d8d28a4aecc9a6a9581f9bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction pour écrire le super bloc déjà initilisé sur le disque  <a href="Couche2_8h.html#a3cbb06b2d8d28a4aecc9a6a9581f9bd6">More...</a><br /></td></tr>
+<tr class="separator:a3cbb06b2d8d28a4aecc9a6a9581f9bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d34fd304760b084fa218e8e14f129f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a7d34fd304760b084fa218e8e14f129f7">read_super_block</a> (<a class="el" href="header_8h.html#aad306ea6e0c04b1f8c96d699c3369f3d">super_block_t</a> *super_block)</td></tr>
+<tr class="memdesc:a7d34fd304760b084fa218e8e14f129f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lis la valeur du super bloc et la rentre dans une variable déjà initilisé  <a href="Couche2_8h.html#a7d34fd304760b084fa218e8e14f129f7">More...</a><br /></td></tr>
+<tr class="separator:a7d34fd304760b084fa218e8e14f129f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Header de l'Implémentation de la couche 2. </p>
+<dl class="section author"><dt>Author</dt><dd>Groupe Cosinus </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Avril 2022 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3cbb06b2d8d28a4aecc9a6a9581f9bd6" name="a3cbb06b2d8d28a4aecc9a6a9581f9bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cbb06b2d8d28a4aecc9a6a9581f9bd6">&#9670;&nbsp;</a></span>write_super_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_super_block </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="header_8h.html#aad306ea6e0c04b1f8c96d699c3369f3d">super_block_t</a> *&#160;</td>
+          <td class="paramname"><em>super_block</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fonction pour écrire le super bloc déjà initilisé sur le disque </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">super_block_t</td><td>*super_block : Pointeur sur le super block déjà initilisé </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing </dd></dl>
+
+</div>
+</div>
+<a id="a7d34fd304760b084fa218e8e14f129f7" name="a7d34fd304760b084fa218e8e14f129f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d34fd304760b084fa218e8e14f129f7">&#9670;&nbsp;</a></span>read_super_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void read_super_block </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="header_8h.html#aad306ea6e0c04b1f8c96d699c3369f3d">super_block_t</a> *&#160;</td>
+          <td class="paramname"><em>super_block</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lis la valeur du super bloc et la rentre dans une variable déjà initilisé </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">super_block_t</td><td>*super_block : Super block déjà initialisé </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

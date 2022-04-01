@@ -1,24 +1,121 @@
 \hypertarget{Couche1_8h}{}\doxysection{Couche1.\+h File Reference}
 \label{Couche1_8h}\index{Couche1.h@{Couche1.h}}
+
+
+Header de l\textquotesingle{}Implémentation de la couche 1.  
+
+
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Couche1_8h_a38e3c7bcea7447f58c599bf4fc2b1669}{SIZE\+\_\+\+PATH\+\_\+\+DISQUE}}~100
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{Couche1_8h_aef786896e2e46b0e6d4fe5ed3d7a3185}{computenblock}} (int nb\+\_\+octet)
-\item 
+int \mbox{\hyperlink{Couche1_8h_a31ff60f8cc31ef7cfb22fd56b4ce3ea5}{computenblock}} (int nb\+\_\+octets)
+\begin{DoxyCompactList}\small\item\em Renvoit le nombre de blocs nécessaire pour stocker nb\+\_\+octets. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche1_8h_a452d98c55f22b50e7b47e694949631ed}{write\+\_\+block}} (int pos, \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} t)
+\begin{DoxyCompactList}\small\item\em Ecrit un bloc à la position demande sur le disque. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} \mbox{\hyperlink{Couche1_8h_a6b56b95d2c9d2f79cbbb6dc60d6c7379}{read\+\_\+block}} (int pos)
+\begin{DoxyCompactList}\small\item\em Lis un bloc à la position pos sur le systeme. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{Couche1_8h_a980c54b07b1b3ff324f94382b064dcc3}{init\+\_\+disk\+\_\+sos}} (char $\ast$nom\+\_\+repertoire\+\_\+disque)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Création et initialisation de la variable disque. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header de l\textquotesingle{}Implémentation de la couche 1. 
+
+\begin{DoxyAuthor}{Author}
+Groupe Cosinus 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Avril 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Couche1_8h_a38e3c7bcea7447f58c599bf4fc2b1669}\label{Couche1_8h_a38e3c7bcea7447f58c599bf4fc2b1669}} 
+\index{Couche1.h@{Couche1.h}!SIZE\_PATH\_DISQUE@{SIZE\_PATH\_DISQUE}}
+\index{SIZE\_PATH\_DISQUE@{SIZE\_PATH\_DISQUE}!Couche1.h@{Couche1.h}}
+\doxysubsubsection{\texorpdfstring{SIZE\_PATH\_DISQUE}{SIZE\_PATH\_DISQUE}}
+{\footnotesize\ttfamily \#define SIZE\+\_\+\+PATH\+\_\+\+DISQUE~100}
+
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{Couche1_8h_aef786896e2e46b0e6d4fe5ed3d7a3185}\label{Couche1_8h_aef786896e2e46b0e6d4fe5ed3d7a3185}} 
+\mbox{\Hypertarget{Couche1_8h_a31ff60f8cc31ef7cfb22fd56b4ce3ea5}\label{Couche1_8h_a31ff60f8cc31ef7cfb22fd56b4ce3ea5}} 
 \index{Couche1.h@{Couche1.h}!computenblock@{computenblock}}
 \index{computenblock@{computenblock}!Couche1.h@{Couche1.h}}
 \doxysubsubsection{\texorpdfstring{computenblock()}{computenblock()}}
-{\footnotesize\ttfamily int computenblock (\begin{DoxyParamCaption}\item[{int}]{nb\+\_\+octet }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int computenblock (\begin{DoxyParamCaption}\item[{int}]{nb\+\_\+octets }\end{DoxyParamCaption})}
 
+
+
+Renvoit le nombre de blocs nécessaire pour stocker nb\+\_\+octets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & nb\+\_\+octets \+: Nombre d\textquotesingle{}octets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: Nombre de blocs nécessaire pour stocker nb\+\_\+octets 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche1_8h_a452d98c55f22b50e7b47e694949631ed}\label{Couche1_8h_a452d98c55f22b50e7b47e694949631ed}} 
+\index{Couche1.h@{Couche1.h}!write\_block@{write\_block}}
+\index{write\_block@{write\_block}!Couche1.h@{Couche1.h}}
+\doxysubsubsection{\texorpdfstring{write\_block()}{write\_block()}}
+{\footnotesize\ttfamily void write\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{pos,  }\item[{\mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}}}]{t }\end{DoxyParamCaption})}
+
+
+
+Ecrit un bloc à la position demande sur le disque. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & pos \+: Position à laquelle écrire le bloc \\
+\hline
+{\em block\+\_\+t} & t \+: Bloc à ecrire dans le disque \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche1_8h_a6b56b95d2c9d2f79cbbb6dc60d6c7379}\label{Couche1_8h_a6b56b95d2c9d2f79cbbb6dc60d6c7379}} 
+\index{Couche1.h@{Couche1.h}!read\_block@{read\_block}}
+\index{read\_block@{read\_block}!Couche1.h@{Couche1.h}}
+\doxysubsubsection{\texorpdfstring{read\_block()}{read\_block()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} read\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Lis un bloc à la position pos sur le systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & pos \+: Position à laquelle lire un bloc dans le systeme \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: Bloc qui à été lu 
+\end{DoxyReturn}
 \mbox{\Hypertarget{Couche1_8h_a980c54b07b1b3ff324f94382b064dcc3}\label{Couche1_8h_a980c54b07b1b3ff324f94382b064dcc3}} 
 \index{Couche1.h@{Couche1.h}!init\_disk\_sos@{init\_disk\_sos}}
 \index{init\_disk\_sos@{init\_disk\_sos}!Couche1.h@{Couche1.h}}
 \doxysubsubsection{\texorpdfstring{init\_disk\_sos()}{init\_disk\_sos()}}
 {\footnotesize\ttfamily void init\+\_\+disk\+\_\+sos (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom\+\_\+repertoire\+\_\+disque }\end{DoxyParamCaption})}
 
+
+
+Création et initialisation de la variable disque. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & char$\ast$ nom\+\_\+repertoire\+\_\+disque \+: Nom du répertoire qui contient le disque \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}

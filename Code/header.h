@@ -10,6 +10,7 @@
 #include "sha256.h"
 #include "sha256_utils.h"
 
+
 // pour les droits : minuscule = pas le droit, majuscule = droit ok
 #define rw 0 // 00
 #define rW 1 // 01
@@ -93,5 +94,6 @@ typedef struct cmd_s{
     char ** tabArgs; // tableau des arguments
     int nbArgs; // nombre d'arguments
 } cmd_t;
+
 
 #endif // __OS_DEFINES__

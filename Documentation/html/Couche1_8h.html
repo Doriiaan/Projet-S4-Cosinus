@@ -84,23 +84,60 @@ $(document).ready(function(){initNavTree('Couche1_8h.html',''); initResizable();
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Couche1.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
+<p>Header de l'Implémentation de la couche 1.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="header_8h_source.html">header.h</a>&quot;</code><br />
+</div>
 <p><a href="Couche1_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a38e3c7bcea7447f58c599bf4fc2b1669"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#a38e3c7bcea7447f58c599bf4fc2b1669">SIZE_PATH_DISQUE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:a38e3c7bcea7447f58c599bf4fc2b1669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aef786896e2e46b0e6d4fe5ed3d7a3185"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#aef786896e2e46b0e6d4fe5ed3d7a3185">computenblock</a> (int nb_octet)</td></tr>
-<tr class="separator:aef786896e2e46b0e6d4fe5ed3d7a3185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ff60f8cc31ef7cfb22fd56b4ce3ea5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">computenblock</a> (int nb_octets)</td></tr>
+<tr class="memdesc:a31ff60f8cc31ef7cfb22fd56b4ce3ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoit le nombre de blocs nécessaire pour stocker nb_octets.  <a href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">More...</a><br /></td></tr>
+<tr class="separator:a31ff60f8cc31ef7cfb22fd56b4ce3ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452d98c55f22b50e7b47e694949631ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#a452d98c55f22b50e7b47e694949631ed">write_block</a> (int pos, <a class="el" href="header_8h.html#a7e541de459c18491e6d722b627881a1b">block_t</a> t)</td></tr>
+<tr class="memdesc:a452d98c55f22b50e7b47e694949631ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit un bloc à la position demande sur le disque.  <a href="Couche1_8h.html#a452d98c55f22b50e7b47e694949631ed">More...</a><br /></td></tr>
+<tr class="separator:a452d98c55f22b50e7b47e694949631ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b56b95d2c9d2f79cbbb6dc60d6c7379"><td class="memItemLeft" align="right" valign="top"><a class="el" href="header_8h.html#a7e541de459c18491e6d722b627881a1b">block_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#a6b56b95d2c9d2f79cbbb6dc60d6c7379">read_block</a> (int pos)</td></tr>
+<tr class="memdesc:a6b56b95d2c9d2f79cbbb6dc60d6c7379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lis un bloc à la position pos sur le systeme.  <a href="Couche1_8h.html#a6b56b95d2c9d2f79cbbb6dc60d6c7379">More...</a><br /></td></tr>
+<tr class="separator:a6b56b95d2c9d2f79cbbb6dc60d6c7379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a980c54b07b1b3ff324f94382b064dcc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3">init_disk_sos</a> (char *nom_repertoire_disque)</td></tr>
+<tr class="memdesc:a980c54b07b1b3ff324f94382b064dcc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création et initialisation de la variable disque.  <a href="Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3">More...</a><br /></td></tr>
 <tr class="separator:a980c54b07b1b3ff324f94382b064dcc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Header de l'Implémentation de la couche 1. </p>
+<dl class="section author"><dt>Author</dt><dd>Groupe Cosinus </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Avril 2022 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a38e3c7bcea7447f58c599bf4fc2b1669" name="a38e3c7bcea7447f58c599bf4fc2b1669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e3c7bcea7447f58c599bf4fc2b1669">&#9670;&nbsp;</a></span>SIZE_PATH_DISQUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SIZE_PATH_DISQUE&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aef786896e2e46b0e6d4fe5ed3d7a3185" name="aef786896e2e46b0e6d4fe5ed3d7a3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef786896e2e46b0e6d4fe5ed3d7a3185">&#9670;&nbsp;</a></span>computenblock()</h2>
+<a id="a31ff60f8cc31ef7cfb22fd56b4ce3ea5" name="a31ff60f8cc31ef7cfb22fd56b4ce3ea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">&#9670;&nbsp;</a></span>computenblock()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,11 +146,85 @@ Functions</h2></td></tr>
           <td class="memname">int computenblock </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nb_octet</em></td><td>)</td>
+          <td class="paramname"><em>nb_octets</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Renvoit le nombre de blocs nécessaire pour stocker nb_octets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>nb_octets : Nombre d'octets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : Nombre de blocs nécessaire pour stocker nb_octets </dd></dl>
+
+</div>
+</div>
+<a id="a452d98c55f22b50e7b47e694949631ed" name="a452d98c55f22b50e7b47e694949631ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452d98c55f22b50e7b47e694949631ed">&#9670;&nbsp;</a></span>write_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_block </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="header_8h.html#a7e541de459c18491e6d722b627881a1b">block_t</a>&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ecrit un bloc à la position demande sur le disque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>pos : Position à laquelle écrire le bloc </td></tr>
+    <tr><td class="paramname">block_t</td><td>t : Bloc à ecrire dans le disque </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing </dd></dl>
+
+</div>
+</div>
+<a id="a6b56b95d2c9d2f79cbbb6dc60d6c7379" name="a6b56b95d2c9d2f79cbbb6dc60d6c7379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b56b95d2c9d2f79cbbb6dc60d6c7379">&#9670;&nbsp;</a></span>read_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="header_8h.html#a7e541de459c18491e6d722b627881a1b">block_t</a> read_block </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lis un bloc à la position pos sur le systeme. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>pos : Position à laquelle lire un bloc dans le systeme </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: Bloc qui à été lu </dd></dl>
 
 </div>
 </div>
@@ -132,6 +243,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Création et initialisation de la variable disque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>char* nom_repertoire_disque : Nom du répertoire qui contient le disque </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing </dd></dl>
 
 </div>
 </div>
