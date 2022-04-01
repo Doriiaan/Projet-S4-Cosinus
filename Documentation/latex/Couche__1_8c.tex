@@ -1,0 +1,42 @@
+\hypertarget{Couche__1_8c}{}\doxysection{Couche\+\_\+1.\+c File Reference}
+\label{Couche__1_8c}\index{Couche\_1.c@{Couche\_1.c}}
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{Couche__1_8c_aef786896e2e46b0e6d4fe5ed3d7a3185}{computenblock}} (int nb\+\_\+octet)
+\item 
+void \mbox{\hyperlink{Couche__1_8c_a452d98c55f22b50e7b47e694949631ed}{write\+\_\+block}} (int pos, \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} t)
+\item 
+\mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} \mbox{\hyperlink{Couche__1_8c_ab2c8f2d0a6ceba68520955afee876ee0}{lire\+\_\+block}} (int pos)
+\item 
+void \mbox{\hyperlink{Couche__1_8c_a980c54b07b1b3ff324f94382b064dcc3}{init\+\_\+disk\+\_\+sos}} (char $\ast$nom\+\_\+repertoire\+\_\+disque)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Couche__1_8c_aef786896e2e46b0e6d4fe5ed3d7a3185}\label{Couche__1_8c_aef786896e2e46b0e6d4fe5ed3d7a3185}} 
+\index{Couche\_1.c@{Couche\_1.c}!computenblock@{computenblock}}
+\index{computenblock@{computenblock}!Couche\_1.c@{Couche\_1.c}}
+\doxysubsubsection{\texorpdfstring{computenblock()}{computenblock()}}
+{\footnotesize\ttfamily int computenblock (\begin{DoxyParamCaption}\item[{int}]{nb\+\_\+octet }\end{DoxyParamCaption})}
+
+Renvoit le nombre de blocs nécessaire au stockage de n octet input \+: n octets (int) ouput \+: n blocs (int) \mbox{\Hypertarget{Couche__1_8c_a452d98c55f22b50e7b47e694949631ed}\label{Couche__1_8c_a452d98c55f22b50e7b47e694949631ed}} 
+\index{Couche\_1.c@{Couche\_1.c}!write\_block@{write\_block}}
+\index{write\_block@{write\_block}!Couche\_1.c@{Couche\_1.c}}
+\doxysubsubsection{\texorpdfstring{write\_block()}{write\_block()}}
+{\footnotesize\ttfamily void write\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{pos,  }\item[{\mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}}}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{Couche__1_8c_ab2c8f2d0a6ceba68520955afee876ee0}\label{Couche__1_8c_ab2c8f2d0a6ceba68520955afee876ee0}} 
+\index{Couche\_1.c@{Couche\_1.c}!lire\_block@{lire\_block}}
+\index{lire\_block@{lire\_block}!Couche\_1.c@{Couche\_1.c}}
+\doxysubsubsection{\texorpdfstring{lire\_block()}{lire\_block()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}} lire\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{Couche__1_8c_a980c54b07b1b3ff324f94382b064dcc3}\label{Couche__1_8c_a980c54b07b1b3ff324f94382b064dcc3}} 
+\index{Couche\_1.c@{Couche\_1.c}!init\_disk\_sos@{init\_disk\_sos}}
+\index{init\_disk\_sos@{init\_disk\_sos}!Couche\_1.c@{Couche\_1.c}}
+\doxysubsubsection{\texorpdfstring{init\_disk\_sos()}{init\_disk\_sos()}}
+{\footnotesize\ttfamily void init\+\_\+disk\+\_\+sos (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom\+\_\+repertoire\+\_\+disque }\end{DoxyParamCaption})}
+
+Initialise la variable globale de type virtual\+\_\+disk\+\_\+t input \+: nom du repertoire contenant le disque 

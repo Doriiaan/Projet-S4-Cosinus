@@ -1,0 +1,257 @@
+\hypertarget{header_8h}{}\doxysection{header.\+h File Reference}
+\label{header_8h}\index{header.h@{header.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}sha256.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sha256\+\_\+utils.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structuser__s}{user\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structsession__s}{session\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structblock__s}{block\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structinode__s}{inode\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structsuper__block__s}{super\+\_\+block\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structvirtual__disk__s}{virtual\+\_\+disk\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structfile__s}{file\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{header_8h_a8eb1c6040b4a31adefa1ca147f961f69}{rw}}~0
+\item 
+\#define \mbox{\hyperlink{header_8h_aba41432e24cf51692acc062d9e21ea5e}{rW}}~1
+\item 
+\#define \mbox{\hyperlink{header_8h_a98b6a2661a04ebbc1b3f38da70306814}{Rw}}~2
+\item 
+\#define \mbox{\hyperlink{header_8h_afc4ded33ac0ca43defcce639e965748a}{RW}}~3
+\item 
+\#define \mbox{\hyperlink{header_8h_a831d805b09c0a53d82eda46406ff6639}{ROOT\+\_\+\+UID}}~0
+\item 
+\#define \mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}~32
+\item 
+\#define \mbox{\hyperlink{header_8h_a649ad5274d988d17a275a3cead056746}{MAX\+\_\+\+FILE\+\_\+\+SIZE}}~(2$\ast$1024)
+\item 
+\#define \mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\+\_\+\+TABLE\+\_\+\+SIZE}}~10
+\item 
+\#define \mbox{\hyperlink{header_8h_aa24597a54a085c6c2c33b64138f09eff}{MAX\+\_\+\+MSG}}~1024
+\item 
+\#define \mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}~24+2
+\item 
+\#define \mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\+\_\+\+USERS}}~5
+\item 
+\#define \mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}~4
+\item 
+\#define \mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}}~4
+\item 
+\#define \mbox{\hyperlink{header_8h_a1a1399be80da10bab823671e773453bb}{INODES\+\_\+\+START}}~\mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}}$\ast$\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+1
+\item 
+\#define \mbox{\hyperlink{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}{INODE\+\_\+\+SIZE}}~\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+6+(\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}
+\item 
+typedef unsigned char \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}}
+\item 
+typedef struct \mbox{\hyperlink{structuser__s}{user\+\_\+s}} \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structsession__s}{session\+\_\+s}} \mbox{\hyperlink{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}{session\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structblock__s}{block\+\_\+s}} \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structinode__s}{inode\+\_\+s}} \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\+\_\+t}}
+\item 
+typedef \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\+\_\+t}} \mbox{\hyperlink{header_8h_a5521b19dad3852291fc7d603382e6b99}{inode\+\_\+table\+\_\+t}}\mbox{[}\mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\+\_\+\+TABLE\+\_\+\+SIZE}}\mbox{]}
+\item 
+typedef \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\+\_\+t}} \mbox{\hyperlink{header_8h_a6e90d613338ad6d397498c5d854b4718}{users\+\_\+table\+\_\+t}}\mbox{[}\mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\+\_\+\+USERS}}\mbox{]}
+\item 
+typedef struct \mbox{\hyperlink{structsuper__block__s}{super\+\_\+block\+\_\+s}} \mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structvirtual__disk__s}{virtual\+\_\+disk\+\_\+s}} \mbox{\hyperlink{header_8h_aaf09485b84abb570966e29863675619f}{virtual\+\_\+disk\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structfile__s}{file\+\_\+s}} \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}} \mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{header_8h_a8eb1c6040b4a31adefa1ca147f961f69}\label{header_8h_a8eb1c6040b4a31adefa1ca147f961f69}} 
+\index{header.h@{header.h}!rw@{rw}}
+\index{rw@{rw}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{rw}{rw}}
+{\footnotesize\ttfamily \#define rw~0}
+
+\mbox{\Hypertarget{header_8h_aba41432e24cf51692acc062d9e21ea5e}\label{header_8h_aba41432e24cf51692acc062d9e21ea5e}} 
+\index{header.h@{header.h}!rW@{rW}}
+\index{rW@{rW}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{rW}{rW}}
+{\footnotesize\ttfamily \#define rW~1}
+
+\mbox{\Hypertarget{header_8h_a98b6a2661a04ebbc1b3f38da70306814}\label{header_8h_a98b6a2661a04ebbc1b3f38da70306814}} 
+\index{header.h@{header.h}!Rw@{Rw}}
+\index{Rw@{Rw}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{Rw}{Rw}}
+{\footnotesize\ttfamily \#define Rw~2}
+
+\mbox{\Hypertarget{header_8h_afc4ded33ac0ca43defcce639e965748a}\label{header_8h_afc4ded33ac0ca43defcce639e965748a}} 
+\index{header.h@{header.h}!RW@{RW}}
+\index{RW@{RW}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{RW}{RW}}
+{\footnotesize\ttfamily \#define RW~3}
+
+\mbox{\Hypertarget{header_8h_a831d805b09c0a53d82eda46406ff6639}\label{header_8h_a831d805b09c0a53d82eda46406ff6639}} 
+\index{header.h@{header.h}!ROOT\_UID@{ROOT\_UID}}
+\index{ROOT\_UID@{ROOT\_UID}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{ROOT\_UID}{ROOT\_UID}}
+{\footnotesize\ttfamily \#define ROOT\+\_\+\+UID~0}
+
+\mbox{\Hypertarget{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}\label{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}} 
+\index{header.h@{header.h}!FILENAME\_MAX\_SIZE@{FILENAME\_MAX\_SIZE}}
+\index{FILENAME\_MAX\_SIZE@{FILENAME\_MAX\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{FILENAME\_MAX\_SIZE}{FILENAME\_MAX\_SIZE}}
+{\footnotesize\ttfamily \#define FILENAME\+\_\+\+MAX\+\_\+\+SIZE~32}
+
+\mbox{\Hypertarget{header_8h_a649ad5274d988d17a275a3cead056746}\label{header_8h_a649ad5274d988d17a275a3cead056746}} 
+\index{header.h@{header.h}!MAX\_FILE\_SIZE@{MAX\_FILE\_SIZE}}
+\index{MAX\_FILE\_SIZE@{MAX\_FILE\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_FILE\_SIZE}{MAX\_FILE\_SIZE}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+FILE\+\_\+\+SIZE~(2$\ast$1024)}
+
+\mbox{\Hypertarget{header_8h_a6c041fac527c965e3db582c4c19c1ab4}\label{header_8h_a6c041fac527c965e3db582c4c19c1ab4}} 
+\index{header.h@{header.h}!INODE\_TABLE\_SIZE@{INODE\_TABLE\_SIZE}}
+\index{INODE\_TABLE\_SIZE@{INODE\_TABLE\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{INODE\_TABLE\_SIZE}{INODE\_TABLE\_SIZE}}
+{\footnotesize\ttfamily \#define INODE\+\_\+\+TABLE\+\_\+\+SIZE~10}
+
+\mbox{\Hypertarget{header_8h_aa24597a54a085c6c2c33b64138f09eff}\label{header_8h_aa24597a54a085c6c2c33b64138f09eff}} 
+\index{header.h@{header.h}!MAX\_MSG@{MAX\_MSG}}
+\index{MAX\_MSG@{MAX\_MSG}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_MSG}{MAX\_MSG}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+MSG~1024}
+
+\mbox{\Hypertarget{header_8h_a7b4282b06832a01cee279660fd4b829d}\label{header_8h_a7b4282b06832a01cee279660fd4b829d}} 
+\index{header.h@{header.h}!TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}}
+\index{TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{TIMESTAMP\_SIZE}{TIMESTAMP\_SIZE}}
+{\footnotesize\ttfamily \#define TIMESTAMP\+\_\+\+SIZE~24+2}
+
+\mbox{\Hypertarget{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}\label{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}} 
+\index{header.h@{header.h}!NB\_USERS@{NB\_USERS}}
+\index{NB\_USERS@{NB\_USERS}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{NB\_USERS}{NB\_USERS}}
+{\footnotesize\ttfamily \#define NB\+\_\+\+USERS~5}
+
+\mbox{\Hypertarget{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}\label{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}} 
+\index{header.h@{header.h}!BLOCK\_SIZE@{BLOCK\_SIZE}}
+\index{BLOCK\_SIZE@{BLOCK\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{BLOCK\_SIZE}{BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define BLOCK\+\_\+\+SIZE~4}
+
+\mbox{\Hypertarget{header_8h_a42178fcae46f09d3c91ca3da27188231}\label{header_8h_a42178fcae46f09d3c91ca3da27188231}} 
+\index{header.h@{header.h}!SUPER\_BLOCK\_SIZE@{SUPER\_BLOCK\_SIZE}}
+\index{SUPER\_BLOCK\_SIZE@{SUPER\_BLOCK\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{SUPER\_BLOCK\_SIZE}{SUPER\_BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define SUPER\+\_\+\+BLOCK\+\_\+\+SIZE~4}
+
+\mbox{\Hypertarget{header_8h_a1a1399be80da10bab823671e773453bb}\label{header_8h_a1a1399be80da10bab823671e773453bb}} 
+\index{header.h@{header.h}!INODES\_START@{INODES\_START}}
+\index{INODES\_START@{INODES\_START}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{INODES\_START}{INODES\_START}}
+{\footnotesize\ttfamily \#define INODES\+\_\+\+START~\mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}}$\ast$\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+1}
+
+\mbox{\Hypertarget{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}\label{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}} 
+\index{header.h@{header.h}!INODE\_SIZE@{INODE\_SIZE}}
+\index{INODE\_SIZE@{INODE\_SIZE}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{INODE\_SIZE}{INODE\_SIZE}}
+{\footnotesize\ttfamily \#define INODE\+\_\+\+SIZE~\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+6+(\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}\label{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}} 
+\index{header.h@{header.h}!uint@{uint}}
+\index{uint@{uint}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{uint}{uint}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}}
+
+\mbox{\Hypertarget{header_8h_a65f85814a8290f9797005d3b28e7e5fc}\label{header_8h_a65f85814a8290f9797005d3b28e7e5fc}} 
+\index{header.h@{header.h}!uchar@{uchar}}
+\index{uchar@{uchar}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{uchar}{uchar}}
+{\footnotesize\ttfamily typedef unsigned char \mbox{\hyperlink{header_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}}}
+
+\mbox{\Hypertarget{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}\label{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}} 
+\index{header.h@{header.h}!user\_t@{user\_t}}
+\index{user\_t@{user\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{user\_t}{user\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structuser__s}{user\+\_\+s}} \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}\label{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}} 
+\index{header.h@{header.h}!session\_t@{session\_t}}
+\index{session\_t@{session\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{session\_t}{session\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsession__s}{session\+\_\+s}} \mbox{\hyperlink{header_8h_a14e1600ef854bda97b0afbe148f4bfb3}{session\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a7e541de459c18491e6d722b627881a1b}\label{header_8h_a7e541de459c18491e6d722b627881a1b}} 
+\index{header.h@{header.h}!block\_t@{block\_t}}
+\index{block\_t@{block\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{block\_t}{block\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structblock__s}{block\+\_\+s}} \mbox{\hyperlink{header_8h_a7e541de459c18491e6d722b627881a1b}{block\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a4c60db67ebaf884145fec20e6f51065c}\label{header_8h_a4c60db67ebaf884145fec20e6f51065c}} 
+\index{header.h@{header.h}!inode\_t@{inode\_t}}
+\index{inode\_t@{inode\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{inode\_t}{inode\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structinode__s}{inode\+\_\+s}} \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a5521b19dad3852291fc7d603382e6b99}\label{header_8h_a5521b19dad3852291fc7d603382e6b99}} 
+\index{header.h@{header.h}!inode\_table\_t@{inode\_table\_t}}
+\index{inode\_table\_t@{inode\_table\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{inode\_table\_t}{inode\_table\_t}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{header_8h_a4c60db67ebaf884145fec20e6f51065c}{inode\+\_\+t}} inode\+\_\+table\+\_\+t\mbox{[}\mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\+\_\+\+TABLE\+\_\+\+SIZE}}\mbox{]}}
+
+\mbox{\Hypertarget{header_8h_a6e90d613338ad6d397498c5d854b4718}\label{header_8h_a6e90d613338ad6d397498c5d854b4718}} 
+\index{header.h@{header.h}!users\_table\_t@{users\_table\_t}}
+\index{users\_table\_t@{users\_table\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{users\_table\_t}{users\_table\_t}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{header_8h_aafaf9b42595b32c3a5ec11b913ba11a7}{user\+\_\+t}} users\+\_\+table\+\_\+t\mbox{[}\mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\+\_\+\+USERS}}\mbox{]}}
+
+\mbox{\Hypertarget{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}\label{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}} 
+\index{header.h@{header.h}!super\_block\_t@{super\_block\_t}}
+\index{super\_block\_t@{super\_block\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{super\_block\_t}{super\_block\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsuper__block__s}{super\+\_\+block\+\_\+s}} \mbox{\hyperlink{header_8h_aad306ea6e0c04b1f8c96d699c3369f3d}{super\+\_\+block\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_aaf09485b84abb570966e29863675619f}\label{header_8h_aaf09485b84abb570966e29863675619f}} 
+\index{header.h@{header.h}!virtual\_disk\_t@{virtual\_disk\_t}}
+\index{virtual\_disk\_t@{virtual\_disk\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{virtual\_disk\_t}{virtual\_disk\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structvirtual__disk__s}{virtual\+\_\+disk\+\_\+s}} \mbox{\hyperlink{header_8h_aaf09485b84abb570966e29863675619f}{virtual\+\_\+disk\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a8cb1afe4310b673375714153c80a0e15}\label{header_8h_a8cb1afe4310b673375714153c80a0e15}} 
+\index{header.h@{header.h}!file\_t@{file\_t}}
+\index{file\_t@{file\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{file\_t}{file\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structfile__s}{file\+\_\+s}} \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}
+
+\mbox{\Hypertarget{header_8h_a4251cb68940eef7193936044e4db954f}\label{header_8h_a4251cb68940eef7193936044e4db954f}} 
+\index{header.h@{header.h}!cmd\_t@{cmd\_t}}
+\index{cmd\_t@{cmd\_t}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{cmd\_t}{cmd\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}} \mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}}}
+

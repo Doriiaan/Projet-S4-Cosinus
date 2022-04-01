@@ -1,0 +1,74 @@
+\hypertarget{sha256_8h}{}\doxysection{sha256.\+h File Reference}
+\label{sha256_8h}\index{sha256.h@{sha256.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}{SHA256\+\_\+\+BLOCK\+\_\+\+SIZE}}~32
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char \mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}}
+\item 
+typedef unsigned int \mbox{\hyperlink{sha256_8h_ad2baa11c897721ff6f14b452b547f9bc}{WORD}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{sha256_8h_ade6fde6ef9ea137449d72891931c77ef}{sha256\+\_\+init}} (\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$ctx)
+\item 
+void \mbox{\hyperlink{sha256_8h_ac98a25de627f4cded12b7312dee1ffa0}{sha256\+\_\+update}} (\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$ctx, const \mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}} data\mbox{[}$\,$\mbox{]}, size\+\_\+t len)
+\item 
+void \mbox{\hyperlink{sha256_8h_a8f4b55bd1e49af6e4620bc9ba9549397}{sha256\+\_\+final}} (\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$ctx, \mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}} hash\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}\label{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}} 
+\index{sha256.h@{sha256.h}!SHA256\_BLOCK\_SIZE@{SHA256\_BLOCK\_SIZE}}
+\index{SHA256\_BLOCK\_SIZE@{SHA256\_BLOCK\_SIZE}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{SHA256\_BLOCK\_SIZE}{SHA256\_BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define SHA256\+\_\+\+BLOCK\+\_\+\+SIZE~32}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}\label{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}} 
+\index{sha256.h@{sha256.h}!BYTE@{BYTE}}
+\index{BYTE@{BYTE}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{BYTE}{BYTE}}
+{\footnotesize\ttfamily typedef unsigned char \mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}}}
+
+\mbox{\Hypertarget{sha256_8h_ad2baa11c897721ff6f14b452b547f9bc}\label{sha256_8h_ad2baa11c897721ff6f14b452b547f9bc}} 
+\index{sha256.h@{sha256.h}!WORD@{WORD}}
+\index{WORD@{WORD}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{WORD}{WORD}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{sha256_8h_ad2baa11c897721ff6f14b452b547f9bc}{WORD}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sha256_8h_ade6fde6ef9ea137449d72891931c77ef}\label{sha256_8h_ade6fde6ef9ea137449d72891931c77ef}} 
+\index{sha256.h@{sha256.h}!sha256\_init@{sha256\_init}}
+\index{sha256\_init@{sha256\_init}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{sha256\_init()}{sha256\_init()}}
+{\footnotesize\ttfamily void sha256\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sha256_8h_ac98a25de627f4cded12b7312dee1ffa0}\label{sha256_8h_ac98a25de627f4cded12b7312dee1ffa0}} 
+\index{sha256.h@{sha256.h}!sha256\_update@{sha256\_update}}
+\index{sha256\_update@{sha256\_update}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{sha256\_update()}{sha256\_update()}}
+{\footnotesize\ttfamily void sha256\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$}]{ctx,  }\item[{const \mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}}}]{data\mbox{[}$\,$\mbox{]},  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sha256_8h_a8f4b55bd1e49af6e4620bc9ba9549397}\label{sha256_8h_a8f4b55bd1e49af6e4620bc9ba9549397}} 
+\index{sha256.h@{sha256.h}!sha256\_final@{sha256\_final}}
+\index{sha256\_final@{sha256\_final}!sha256.h@{sha256.h}}
+\doxysubsubsection{\texorpdfstring{sha256\_final()}{sha256\_final()}}
+{\footnotesize\ttfamily void sha256\+\_\+final (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSHA256__CTX}{SHA256\+\_\+\+CTX}} $\ast$}]{ctx,  }\item[{\mbox{\hyperlink{sha256_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE}}}]{hash\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
