@@ -7,6 +7,7 @@
 */
 
 #include "Couche1.h"
+#include "Couche2.h"
 
 virtual_disk_t *virtual_disk_sos;
 
@@ -73,4 +74,5 @@ void init_disk_sos(char* nom_repertoire_disque){
     exit(1);
   }
   virtual_disk_sos->storage = disque;
+  read_inodes_table();
 }

@@ -13,17 +13,23 @@
 
 
 /**
-* @brief fonction pour écrire le super bloc déjà initilisé sur le disque
-* @param super_block_t *super_block : Pointeur sur le super block déjà initilisé
-* @return nothing
+* @brief fonction pour ecrire le superbloc sur le disque
+* @param void
+* @return void
+* @pre variable systeme déjà initlisé
 */
-void write_super_block(super_block_t *super_block);
+void write_super_block(void);
 
 
 /**
-* @brief Lis la valeur du super bloc et la rentre dans une variable déjà initilisé
-* @param super_block_t *super_block : Super block déjà initialisé
-* @return nothing
+* @brief Lis la valeur du super bloc et l'écrit sur le systeme
+* @param void
+* @return void
+* @pre variable systeme déjà initlisé
 */
-void read_super_block(super_block_t *super_block);
+void read_super_block(void);
+
+
+void read_inodes_table(void);
+
 #endif
