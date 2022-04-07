@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['init_5fdisk_5fsos_0',['init_disk_sos',['../Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3',1,'Couche1.h']]]
+  ['delete_5finode_0',['delete_inode',['../Couche2_8h.html#aa01e9738a35b9d04d475b6339d4f1de1',1,'Couche2.h']]]
 ];

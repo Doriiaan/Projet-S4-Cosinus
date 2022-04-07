@@ -30,7 +30,6 @@ $(EXEC): $(OBJ)
 
 .PHONY: clean mrproper
 
-
 clean:
 	@rm -rf *.o
 
@@ -40,3 +39,6 @@ mrproper: clean
 
 doc: $(DOC)
 	@doxygen ../Documentation/dconfig
+
+deliver: mrproper
+	cd ../../ ; zip -r Projet-S4-Cosinus.zip Projet-S4-Cosinus

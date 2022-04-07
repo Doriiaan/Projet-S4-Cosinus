@@ -75,4 +75,5 @@ void init_disk_sos(char* nom_repertoire_disque){
   }
   virtual_disk_sos->storage = disque;
   read_inodes_table();
+  read_super_block();
 }
