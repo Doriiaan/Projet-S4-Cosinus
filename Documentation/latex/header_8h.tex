@@ -48,7 +48,7 @@ struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}}
 \item 
 \#define \mbox{\hyperlink{header_8h_aa24597a54a085c6c2c33b64138f09eff}{MAX\+\_\+\+MSG}}~1024
 \item 
-\#define \mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}~24+2
+\#define \mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}~(24+2)
 \item 
 \#define \mbox{\hyperlink{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}{NB\+\_\+\+USERS}}~5
 \item 
@@ -58,7 +58,7 @@ struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}}
 \item 
 \#define \mbox{\hyperlink{header_8h_a1a1399be80da10bab823671e773453bb}{INODES\+\_\+\+START}}~\mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}}$\ast$\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+1
 \item 
-\#define \mbox{\hyperlink{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}{INODE\+\_\+\+SIZE}}~\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+6+(\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}
+\#define \mbox{\hyperlink{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}{INODE\+\_\+\+SIZE}}~(\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}})+6+(((\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}})$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -148,7 +148,7 @@ typedef struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}} \mbox{\hyperlink{head
 \index{header.h@{header.h}!TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}}
 \index{TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}!header.h@{header.h}}
 \doxysubsubsection{\texorpdfstring{TIMESTAMP\_SIZE}{TIMESTAMP\_SIZE}}
-{\footnotesize\ttfamily \#define TIMESTAMP\+\_\+\+SIZE~24+2}
+{\footnotesize\ttfamily \#define TIMESTAMP\+\_\+\+SIZE~(24+2)}
 
 \mbox{\Hypertarget{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}\label{header_8h_afabe27ea6c3ec1523d47a3aa767f2f5f}} 
 \index{header.h@{header.h}!NB\_USERS@{NB\_USERS}}
@@ -178,7 +178,7 @@ typedef struct \mbox{\hyperlink{structcmd__s}{cmd\+\_\+s}} \mbox{\hyperlink{head
 \index{header.h@{header.h}!INODE\_SIZE@{INODE\_SIZE}}
 \index{INODE\_SIZE@{INODE\_SIZE}!header.h@{header.h}}
 \doxysubsubsection{\texorpdfstring{INODE\_SIZE}{INODE\_SIZE}}
-{\footnotesize\ttfamily \#define INODE\+\_\+\+SIZE~\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}+6+(\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}}
+{\footnotesize\ttfamily \#define INODE\+\_\+\+SIZE~(\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}}/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}})+6+(((\mbox{\hyperlink{header_8h_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}})$\ast$2)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}})}
 
 
 

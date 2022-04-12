@@ -2,36 +2,43 @@
 \mbox{\hyperlink{Couche2_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef \_\_COUCHE2\_H\_\_}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#define \_\_COUCHE2\_H\_\_}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{header_8h}{header.h}}"{}}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche1_8h}{Couche1.h}}"{}}}
-\DoxyCodeLine{17 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifndef \_\_COUCHE2\_H\_\_}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define \_\_COUCHE2\_H\_\_}}
 \DoxyCodeLine{18 }
-\DoxyCodeLine{26 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_aef5590c8fdb9c56b9092ada3bc129c48}{write\_super\_block}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28 }
-\DoxyCodeLine{36 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_aeb3e413cdfb0cdca6f9cffb967f2b6dc}{read\_super\_block}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{38 }
-\DoxyCodeLine{47 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_ac285c8e8f0927379fd6c9e792f7e2ec6}{update\_first\_free\_byte\_super\_block}}(\mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \textcolor{keywordtype}{byte});}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49 }
-\DoxyCodeLine{56 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a54bbfa00e3346a9b012d88294f9d861e}{search\_free\_bytes}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58 }
-\DoxyCodeLine{66 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_a5215b4b3a7530fbae4c6bc1b1ac8a6d7}{read\_inodes\_table}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 }
-\DoxyCodeLine{76 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_a16d09cc8eb6863857a3ba9dbc0d131dd}{write\_inodes\_table}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78 }
-\DoxyCodeLine{86 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_aa01e9738a35b9d04d475b6339d4f1de1}{delete\_inode}}(\textcolor{keywordtype}{int} indice\_inode);}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88 }
-\DoxyCodeLine{95 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a575b86f424ea83720340a6359c10156b}{get\_unused\_inode}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{header_8h}{header.h}}"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche1_8h}{Couche1.h}}"{}}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 }
+\DoxyCodeLine{30 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a21010ac245c8076a7f441aa3c6bacbbe}{write\_super\_block}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 }
+\DoxyCodeLine{39 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a49dbd70d07c45b1c054c89fef22f335e}{read\_super\_block}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 }
+\DoxyCodeLine{50 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche2_8h_ac285c8e8f0927379fd6c9e792f7e2ec6}{update\_first\_free\_byte\_super\_block}}(\mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 }
+\DoxyCodeLine{59 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_aae9a6ce26b7c10156edff96e3ebdcb73}{read\_inodes\_table}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{69 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_aa951478f0d744ff866cfb33082956565}{write\_inodes\_table}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_ad6ab3436111cbda26210ac225f2d1575}{delete\_inode}}(\textcolor{keywordtype}{int} indice\_inode);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 }
+\DoxyCodeLine{88 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a575b86f424ea83720340a6359c10156b}{get\_unused\_inode}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 }
+\DoxyCodeLine{102 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a0ea9df8fc525c42304be01d61097130d}{init\_inode}}(\textcolor{keywordtype}{char} *name\_of\_file, \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} size, \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} first\_byte);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 }
+\DoxyCodeLine{111 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a28781830c329397445a59105d8fab819}{init\_first\_time\_super\_block}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 }
+\DoxyCodeLine{120 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche2_8h_a145cc8db54fa03986cf5425c3eb54208}{init\_first\_time\_inodes\_tables}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

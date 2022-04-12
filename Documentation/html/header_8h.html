@@ -140,7 +140,7 @@ Macros</h2></td></tr>
 <tr class="separator:a6c041fac527c965e3db582c4c19c1ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa24597a54a085c6c2c33b64138f09eff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#aa24597a54a085c6c2c33b64138f09eff">MAX_MSG</a>&#160;&#160;&#160;1024</td></tr>
 <tr class="separator:aa24597a54a085c6c2c33b64138f09eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b4282b06832a01cee279660fd4b829d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>&#160;&#160;&#160;24+2</td></tr>
+<tr class="memitem:a7b4282b06832a01cee279660fd4b829d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>&#160;&#160;&#160;(24+2)</td></tr>
 <tr class="separator:a7b4282b06832a01cee279660fd4b829d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afabe27ea6c3ec1523d47a3aa767f2f5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#afabe27ea6c3ec1523d47a3aa767f2f5f">NB_USERS</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:afabe27ea6c3ec1523d47a3aa767f2f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,7 +150,7 @@ Macros</h2></td></tr>
 <tr class="separator:a42178fcae46f09d3c91ca3da27188231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a1399be80da10bab823671e773453bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#a1a1399be80da10bab823671e773453bb">INODES_START</a>&#160;&#160;&#160;<a class="el" href="header_8h.html#a42178fcae46f09d3c91ca3da27188231">SUPER_BLOCK_SIZE</a>*<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>+1</td></tr>
 <tr class="separator:a1a1399be80da10bab823671e773453bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a3a3e2e3a4bd30b993bce5b19f3d73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#a34a3a3e2e3a4bd30b993bce5b19f3d73">INODE_SIZE</a>&#160;&#160;&#160;<a class="el" href="header_8h.html#a24c1405225e4ce27b24bcf4f32f4ff0e">FILENAME_MAX_SIZE</a>/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>+6+(<a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>*2)/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></td></tr>
+<tr class="memitem:a34a3a3e2e3a4bd30b993bce5b19f3d73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="header_8h.html#a34a3a3e2e3a4bd30b993bce5b19f3d73">INODE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="header_8h.html#a24c1405225e4ce27b24bcf4f32f4ff0e">FILENAME_MAX_SIZE</a>/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>)+6+(((<a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>)*2)/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>)</td></tr>
 <tr class="separator:a34a3a3e2e3a4bd30b993bce5b19f3d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -314,7 +314,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TIMESTAMP_SIZE&#160;&#160;&#160;24+2</td>
+          <td class="memname">#define TIMESTAMP_SIZE&#160;&#160;&#160;(24+2)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -384,7 +384,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define INODE_SIZE&#160;&#160;&#160;<a class="el" href="header_8h.html#a24c1405225e4ce27b24bcf4f32f4ff0e">FILENAME_MAX_SIZE</a>/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>+6+(<a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>*2)/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></td>
+          <td class="memname">#define INODE_SIZE&#160;&#160;&#160;(<a class="el" href="header_8h.html#a24c1405225e4ce27b24bcf4f32f4ff0e">FILENAME_MAX_SIZE</a>/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>)+6+(((<a class="el" href="header_8h.html#a7b4282b06832a01cee279660fd4b829d">TIMESTAMP_SIZE</a>)*2)/<a class="el" href="header_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">

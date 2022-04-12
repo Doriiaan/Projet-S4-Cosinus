@@ -1,0 +1,58 @@
+\hypertarget{Couche4_8h_source}{}\doxysection{Couche4.\+h}
+\mbox{\hyperlink{Couche4_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef \_\_COUCHE4\_H\_\_}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define \_\_COUCHE4\_H\_\_}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{header_8h}{header.h}}"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche1_8h}{Couche1.h}}"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche2_8h}{Couche2.h}}"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}Couche3.h"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{comment}{/*}}
+\DoxyCodeLine{19 \textcolor{comment}{* @brief Créé ou modifie un fichier en utilisant}}
+\DoxyCodeLine{20 \textcolor{comment}{* la table d'inodes}}
+\DoxyCodeLine{21 \textcolor{comment}{* @param String filename : Nom du fichier à écrire}}
+\DoxyCodeLine{22 \textcolor{comment}{* @param file\_t file : Fichier à écrire sur le système}}
+\DoxyCodeLine{23 \textcolor{comment}{* @return void}}
+\DoxyCodeLine{24 \textcolor{comment}{*/}}
+\DoxyCodeLine{25 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche4_8h_ae72509226ed8f3ef08c131e24404901f}{write\_file}}(String filename, \mbox{\hyperlink{structfile__s}{file\_t}} file);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{comment}{/*}}
+\DoxyCodeLine{29 \textcolor{comment}{* @brief Lit un fichier et enregistre son contenu}}
+\DoxyCodeLine{30 \textcolor{comment}{* @param String filename : Nom du fichier à lire}}
+\DoxyCodeLine{31 \textcolor{comment}{* @param file\_t file : Fichier qui enregistre les données du fichier lu}}
+\DoxyCodeLine{32 \textcolor{comment}{* @return int : 1 si le fichier a été lu, 0 s'il n'existe pas}}
+\DoxyCodeLine{33 \textcolor{comment}{*/}}
+\DoxyCodeLine{34 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche4_8h_aa2603da2dd61741787d773fc9c85a5f2}{read\_file}}(String filename, \mbox{\hyperlink{structfile__s}{file\_t}} file);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{comment}{/*}}
+\DoxyCodeLine{38 \textcolor{comment}{* @brief Supprime l'inode correspondant au fichier "{}filename"{}}}
+\DoxyCodeLine{39 \textcolor{comment}{* @param String filename : Nom du fichier à supprimer}}
+\DoxyCodeLine{40 \textcolor{comment}{* @return int : 1 si le fichier a été supprimé, 0 s'il n'existe pas}}
+\DoxyCodeLine{41 \textcolor{comment}{*/}}
+\DoxyCodeLine{42 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche4_8h_a225da2cc57a2abdc4407cb5d83ca60a4}{delete\_file}}(String filename);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{comment}{/*}}
+\DoxyCodeLine{46 \textcolor{comment}{* @brief Ecrit un fichier du host sur le système}}
+\DoxyCodeLine{47 \textcolor{comment}{* @param String filename : Nom du fichier à transférer}}
+\DoxyCodeLine{48 \textcolor{comment}{* @return void}}
+\DoxyCodeLine{49 \textcolor{comment}{*/}}
+\DoxyCodeLine{50 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche4_8h_a4dd619abd91f5704d012939f806150ba}{load\_file\_from\_host}}(String filename);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{comment}{/*}}
+\DoxyCodeLine{54 \textcolor{comment}{* @brief Ecrit un fichier du système sur l'ordinateur host}}
+\DoxyCodeLine{55 \textcolor{comment}{* @param String filename : Nom du fichier à transférer}}
+\DoxyCodeLine{56 \textcolor{comment}{* @return void}}
+\DoxyCodeLine{57 \textcolor{comment}{*/}}
+\DoxyCodeLine{58 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche4_8h_a828dce6a6da81cc0131e0629ae441d6d}{store\_file\_to\_host}}(String filename);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_\_COUCHE4\_H\_\_}}
+
+\end{DoxyCode}

@@ -25,13 +25,13 @@
 \DoxyCodeLine{22 \textcolor{preprocessor}{\#define MAX\_FILE\_SIZE (2*1024) }\textcolor{comment}{// taille max d'un fichier (uchar)}}
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#define INODE\_TABLE\_SIZE 10 }\textcolor{comment}{// taille fixe = nb max de fichiers dans le SE}}
 \DoxyCodeLine{24 \textcolor{preprocessor}{\#define MAX\_MSG 1024 }\textcolor{comment}{// uchar}}
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TIMESTAMP\_SIZE 24+2 }\textcolor{comment}{// avec \(\backslash\)0 et pour que ça tombe juste avec les blocs}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TIMESTAMP\_SIZE (24+2) }\textcolor{comment}{// avec \(\backslash\)0 et pour que ça tombe juste avec les blocs}}
 \DoxyCodeLine{26 \textcolor{preprocessor}{\#define NB\_USERS 5}}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{preprocessor}{\#define BLOCK\_SIZE 4 }\textcolor{comment}{// octets}}
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#define SUPER\_BLOCK\_SIZE 4 }\textcolor{comment}{// nb blocs}}
 \DoxyCodeLine{30 \textcolor{preprocessor}{\#define INODES\_START SUPER\_BLOCK\_SIZE*BLOCK\_SIZE+1 }\textcolor{comment}{// en octets}}
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#define INODE\_SIZE FILENAME\_MAX\_SIZE/BLOCK\_SIZE+6+(TIMESTAMP\_SIZE*2)/BLOCK\_SIZE}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define INODE\_SIZE (FILENAME\_MAX\_SIZE/BLOCK\_SIZE)+6+(((TIMESTAMP\_SIZE)*2)/BLOCK\_SIZE)}}
 \DoxyCodeLine{32 \textcolor{comment}{//= 27 en blocs = 8 blocs de filename+6 uint+timestamps}}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}; \textcolor{comment}{// même taille que int}}
