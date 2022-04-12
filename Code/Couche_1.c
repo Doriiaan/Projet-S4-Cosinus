@@ -20,7 +20,7 @@ virtual_disk_t *virtual_disk_sos;
 int computenblock(int nb_octets){
 
   int nb_blocs = (nb_octets / BLOCK_SIZE);
-  if(nb_octets%BLOCK_SIZE) nb_blocs++;
+  if(nb_octets%BLOCK_SIZE != 0) nb_blocs++;
   return nb_blocs;
 }
 

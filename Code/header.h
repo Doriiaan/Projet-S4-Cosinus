@@ -22,13 +22,13 @@
 #define MAX_FILE_SIZE (2*1024) // taille max d'un fichier (uchar)
 #define INODE_TABLE_SIZE 10 // taille fixe = nb max de fichiers dans le SE
 #define MAX_MSG 1024 // uchar
-#define TIMESTAMP_SIZE 24+2 // avec \0 et pour que ça tombe juste avec les blocs
+#define TIMESTAMP_SIZE (24+2) // avec \0 et pour que ça tombe juste avec les blocs
 #define NB_USERS 5
 
 #define BLOCK_SIZE 4 // octets
 #define SUPER_BLOCK_SIZE 4 // nb blocs
 #define INODES_START SUPER_BLOCK_SIZE*BLOCK_SIZE+1 // en octets
-#define INODE_SIZE FILENAME_MAX_SIZE/BLOCK_SIZE+6+(TIMESTAMP_SIZE*2)/BLOCK_SIZE
+#define INODE_SIZE (FILENAME_MAX_SIZE/BLOCK_SIZE)+6+(((TIMESTAMP_SIZE)*2)/BLOCK_SIZE)
 //= 27 en blocs = 8 blocs de filename+6 uint+timestamps
 
 typedef unsigned int uint; // même taille que int
