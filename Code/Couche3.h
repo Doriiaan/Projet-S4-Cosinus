@@ -19,14 +19,11 @@ int write_users_table(void);
 
 int read_users_table(void);
 
-int add_user(char[FILENAME_MAX_SIZE] login, char *password);
+int add_user(char[FILENAME_MAX_SIZE] login, char[SHA256_BLOCK_SIZE*2 + 1] password);
 
 int del_user(int userid);
 
 int init_user_table(void);
-
-//réfléchir à celle là, voir si faut pas la faire couche 5
-//char[SHA256_BLOCK_SIZE*2 + 1] hash_password(char *password);
 
 
 #endif
