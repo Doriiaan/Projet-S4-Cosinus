@@ -1,7 +1,7 @@
 /**
 * @file Couche4.c
 * @author Groupe Cosinus
-* @brief Implémentation de la couche 1
+* @brief Implémentation de la couche 4
 * @date Avril 2022
 *
 */
@@ -42,13 +42,10 @@ int write_file(char* filename, file_t file){
 		}
 		
 	int index = find_file(filename);
-	
 	int free_byte = virtual_disque_sos->super_block.first_free_byte;
 	int nb_blocks = computenblock(file.size);
 	block_t block;
 	int i = 0; int j; int k;
-	
-	
 	
 	/* cas: le fichier n'existe pas
 		on créé un nouvel inode */
@@ -62,20 +59,16 @@ int write_file(char* filename, file_t file){
 				block.data[j+k] = file.data[j+k];
 			}
 			write_block(free_byte + k, block);
-			
 			i++;
-			
 		}
 		
 		/* initialise l'inode correspondant au fichier */
 		init_inode(filename, file.size, free_byte);
-		
 		return 0;
 	}
 	
 	/* cas: le fichier existe déjà */
 	else{
-		
 		int old_file_blocks = computenblock(virtual_disque_sos->inodes[index].size);
 		int new_file_blocks = computenblock(file.size);
 		
@@ -86,13 +79,11 @@ int write_file(char* filename, file_t file){
 			virtual_disque_sos->inodes[index].size = file.size;
 			return 0;
 		}
-		
 		/* si fichier existant est plus petit que file,
 			on le supprime et on créé un nouvel inode */
 		else{
 			
 			delete_inode[index];
-			
 			/* ecriture du fichier sur le disque */
 			while(i < nb_blocks){
 				k = i*4;
@@ -101,10 +92,8 @@ int write_file(char* filename, file_t file){
 					block.data[j+k] = file.data[j+k];
 				}
 				write_block(free_byte + k, block);
-				
 				i++;
 			}
-		
 			/* initialise l'inode correspondant au fichier */
 			init_inode(filename, file.size, free_byte);
 			
