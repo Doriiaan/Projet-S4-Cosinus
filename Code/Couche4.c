@@ -39,33 +39,37 @@ int[] find_file(char* filename){
 * @param file_t file : Fichier à écrire sur le système
 * @return int : 1 en cas d'erreur, 0 sinon
 */
+/// il faut penser à faire la date et les droits du fichier mais en vrai, faut aussi modifier la couche 2, 
+///ça va ensemble donc je verrais ça plus tard, pour l'instant c'est nickel
 int write_file(char* filename, file_t file){
-	int infos[2] = find_file(filename);
+	///si tu modifie le int[2] en int, tu pourras faire if((pos=find_file(filename)) != -1){...}else{...} 
+	///mais après tu gère ça comme tu préfère
+	int infos[2] = find_file(filename); 
 	int existe = infos[0];
 	int i_index = infos[1];
 	
-	int rd = read_super_block();
+	int rd = read_super_block(); ///traitre directement l'erreur dans un if, sinon tu n'auras pas la bonne valeur de free_bytes
 	
 	int free_byte = virtual_disque_sos->super_block.first_free_byte;
 	int nb_blocks = computenblock(file.size);
-	block_t block = malloc(sizeof(block_t));
+	block_t block = malloc(sizeof(block_t)); ///je ne pense pas qu'il y ai besoin de malloc, une variable normale suffit, write_bloc prend en param une variable normale
 	int i = 0; int j;
 	
 	/* cas: le fichier n'existe pas
 		on créé un nouvel inode */
 	if(!existe){
-		if(rd){
+		if(rd){ ///pas besoin si tu as fait le if avant
 			printf("Erreur lecture du super block\n");
 			return 1;
 		}
 		
 		/* ecriture du fichier sur le disque */
-		while(i < nb_blocks){
+		while(i < nb_blocks){ 
 			for(j = 0; j < 4; j++){
-				block.data[j + (i*4)] = file.data[j + (i*4)];
+				block.data[j + (i*4)] = file.data[j + (i*4)]; ///block.data[j] = file.data[j+i] si tu fais i=i*4 plus bas (pas de i dans data[j])
 			}
 			write_block(free_byte + (i*4), block);
-			i++;
+			i++; ///i = i*4 te permet d'être plus clair
 		}
 		
 		/* initialise l'inode correspondant au fichier */
@@ -79,7 +83,9 @@ int write_file(char* filename, file_t file){
 		
 		/* si le fichier existant est plus grand que file,
 			on modifie ses informations */
-		if(file.size <= inodes[i_index].size){
+		///remplace inodes par virtual_disque_sos->inodes et regarde avec les nb_block plutôt que size 
+		///parce que si file prend 3 octets et l'autre que 2, ça fait 1 bloc chacun donc ça passe, parce qu'on écrit des blocs
+		if(file.size <= inodes[i_index].size){      
 			inodes[i_index].filename = filename;
 			inodes[i_index].size = file.size;
 			return 0;
@@ -88,7 +94,7 @@ int write_file(char* filename, file_t file){
 		/* si fichier existant est plus petit que file,
 			on le supprime et on créé un nouvel inode */
 		else{
-			if(rd){
+			if(rd){ ///pas besoin si tu met un if en haut
 				printf("Erreur lecture du super block\n");
 				return 1;
 			}
