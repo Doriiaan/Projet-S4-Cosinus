@@ -16,45 +16,54 @@
 
 
 /*
-* @brief Créé ou modifie un fichier en utilisant
-* la table d'inodes
-* @param String filename : Nom du fichier à écrire
+* @brief Cherche un fichier dans la table d'unodes
+* @param char* filename : Nom du fichier à écrire
+* @return int[] : un tableau contenant des informations sur le fichier
+* @note tab[0] = 1 si le fichier 'filename' existe, et 0 sinon.
+*		tab[1] = l'indice du fichier trouvé dans la table d'inodes, -1 par défaut
+*/
+int[] find_file(char* filename);
+
+
+/*
+* @brief Créé ou modifie un fichier en utilisant la table d'inodes
+* @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
 * @return void
 */
-void write_file(String filename, file_t file);
+void write_file(char* filename, file_t file);
 
 
 /*
 * @brief Lit un fichier et enregistre son contenu
-* @param String filename : Nom du fichier à lire
+* @param char* filename : Nom du fichier à lire
 * @param file_t file : Fichier qui enregistre les données du fichier lu
 * @return int : 1 si le fichier a été lu, 0 s'il n'existe pas
 */
-int read_file(String filename, file_t file);
+int read_file(char* filename, file_t file);
 
 
 /*
 * @brief Supprime l'inode correspondant au fichier "filename"
-* @param String filename : Nom du fichier à supprimer
+* @param char* filename : Nom du fichier à supprimer
 * @return int : 1 si le fichier a été supprimé, 0 s'il n'existe pas
 */
-int delete_file(String filename);
+int delete_file(char* filename);
 
 
 /*
 * @brief Ecrit un fichier du host sur le système
-* @param String filename : Nom du fichier à transférer
+* @param char* filename : Nom du fichier à transférer
 * @return void
 */
-void load_file_from_host(String filename);
+void load_file_from_host(char* filename);
 
 
 /*
 * @brief Ecrit un fichier du système sur l'ordinateur host
-* @param String filename : Nom du fichier à transférer
+* @param char* filename : Nom du fichier à transférer
 * @return void
 */
-void store_file_to_host(String filename);
+void store_file_to_host(char* filename);
 
 #endif // __COUCHE4_H__
