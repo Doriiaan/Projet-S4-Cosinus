@@ -46,6 +46,11 @@ int write_file(char* filename, file_t file){
 	
 	int rd = read_super_block();
 	
+	int free_byte = virtual_disque_sos->super_block.first_free_byte;
+	int nb_blocks = computenblock(file.size);
+	block_t block = malloc(sizeof(block_t));
+	int i = 0; int j;
+	
 	/* cas: le fichier n'existe pas
 		on créé un nouvel inode */
 	if(!existe){
@@ -54,22 +59,13 @@ int write_file(char* filename, file_t file){
 			return 1;
 		}
 		
-		/* trouve le premier octet libre sur le disque */
-		int free_byte = virtual_disque_sos->super_block.first_free_byte;
-		
 		/* ecriture du fichier sur le disque */
-		int nb_blocks = computenblock(file.size);
-		block_t block = malloc(sizeof(block_t));
-		int i = 0; int j;
-		
 		while(i < nb_blocks){
-			for(j = i; j < i + 4; j++){
-				block.data[j] = file.data[j];
+			for(j = 0; j < 4; j++){
+				block.data[j + (i*4)] = file.data[j + (i*4)];
 			}
+			write_block(free_byte + (i*4), block);
 			i++;
-		}
-		for(int i = 0; i < nb_blocks; i++){
-			
 		}
 		
 		/* initialise l'inode correspondant au fichier */
@@ -90,8 +86,18 @@ int write_file(char* filename, file_t file){
 			on le supprime et on créé un nouvel inode */
 		else{
 			delete_inode[i_index];
-			init_inode(filename, file.size, super_block.first_free_byte);
-			/* il faut ensuite ecrire le fichier à la suite des autres */
+			
+			/* ecriture du fichier sur le disque */
+			while(i < nb_blocks){
+				for(j = 0; j < 4; j++){
+					block.data[j + (i*4)] = file.data[j + (i*4)];
+				}
+				write_block(free_byte + (i*4), block);
+				i++;
+			}
+		
+			/* initialise l'inode correspondant au fichier */
+			init_inode(filename, file.size, free_byte);
 		}
 	}
 }
