@@ -220,8 +220,8 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
 int init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_files = 0;
   virtual_disk_sos->super_block.number_of_users = 1; //root
-  virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE)); //root
-  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
+  virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE) + USER_SIZE*NB_USERS ); //root
+  virtual_disk_sos->super_block.first_free_byte = (USER_SIZE*NB_USERS + SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
   if(write_super_block()) return 1;
   return 0;
 }

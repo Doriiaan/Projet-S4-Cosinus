@@ -1,10 +1,12 @@
 #include "header.h"
 #include "Couche1.h"
 #include "Couche2.h"
+#include "Couche3.h"
 
 extern virtual_disk_t *virtual_disk_sos;
 
 int main() {
+
   init_disk_sos("../Dossier_Disque/Disque");
   init_first_time_super_block();
   init_first_time_inodes_tables();
