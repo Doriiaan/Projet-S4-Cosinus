@@ -70,6 +70,8 @@ int write_file(char* filename, file_t file){
 		
 		/* initialise l'inode correspondant au fichier */
 		init_inode(filename, file.size, free_byte);
+		
+		return 0;
 	}
 	
 	/* cas: le fichier existe déjà */
@@ -80,11 +82,17 @@ int write_file(char* filename, file_t file){
 		if(file.size <= inodes[i_index].size){
 			inodes[i_index].filename = filename;
 			inodes[i_index].size = file.size;
+			return 0;
 		}
 		
 		/* si fichier existant est plus petit que file,
 			on le supprime et on créé un nouvel inode */
 		else{
+			if(rd){
+				printf("Erreur lecture du super block\n");
+				return 1;
+			}
+			
 			delete_inode[i_index];
 			
 			/* ecriture du fichier sur le disque */
@@ -98,6 +106,7 @@ int write_file(char* filename, file_t file){
 		
 			/* initialise l'inode correspondant au fichier */
 			init_inode(filename, file.size, free_byte);
+			return 0;
 		}
 	}
 }
