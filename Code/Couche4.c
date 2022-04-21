@@ -14,7 +14,7 @@
 * @param char* filename : Nom du fichier à écrire
 * @return int : L'indice du fichier trouvé dans la table d'inodes, -1 par défaut
 */
-int[] find_file(char* filename){
+int find_file(char* filename){
 	int indice = -1;
 	/* cherche dans inodes[] si le fichier existe déjà */
 	for(int i = 0; i < taille; i++){
