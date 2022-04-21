@@ -18,18 +18,16 @@
 /*
 * @brief Cherche un fichier dans la table d'unodes
 * @param char* filename : Nom du fichier à écrire
-* @return int[] : un tableau contenant des informations sur le fichier
-* @note tab[0] = 1 si le fichier 'filename' existe, et 0 sinon.
-*		tab[1] = l'indice du fichier trouvé dans la table d'inodes, -1 par défaut
+* @return int : L'indice du fichier trouvé dans la table d'inodes, -1 par défaut
 */
-int[] find_file(char* filename);
+int find_file(char* filename);
 
 
 /*
 * @brief Créé ou modifie un fichier en utilisant la table d'inodes
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
-* @return void
+* @return int : 1 en cas d'erreur, 0 sinon
 */
 void write_file(char* filename, file_t file);
 
@@ -46,7 +44,7 @@ int read_file(char* filename, file_t file);
 /*
 * @brief Supprime l'inode correspondant au fichier "filename"
 * @param char* filename : Nom du fichier à supprimer
-* @return int : 1 si le fichier a été supprimé, 0 s'il n'existe pas
+* @return int : 1 si le fichier a été supprimé, 0 s'il n'existe pas, et -1 en cas d'erreur
 */
 int delete_file(char* filename);
 
@@ -65,5 +63,6 @@ void load_file_from_host(char* filename);
 * @return void
 */
 void store_file_to_host(char* filename);
+
 
 #endif // __COUCHE4_H__
