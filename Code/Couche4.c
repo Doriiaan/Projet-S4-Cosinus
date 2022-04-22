@@ -16,7 +16,7 @@
 */
 int find_file(char* filename){
 	int indice = -1;
-	/* cherche dans inodes[] si le fichier existe déjà */
+	/* cherche dans virtual_disque_sos->inodes[] si le fichier 'filename' existe */
 	for(int i = 0; i < taille; i++){
 		if(!strcmp(filename, virtual_disque_sos->inodes[i].filename)){
 			indice = i;
@@ -31,13 +31,13 @@ int find_file(char* filename){
 * @brief Créé ou modifie un fichier en utilisant la table d'inodes
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
-* @return int : 1 en cas d'erreur, 0 sinon
+* @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
 */
 int write_file(char* filename, file_t file){
 	
 	if(read_super_block()){
 			printf("Erreur lecture du super block\n");
-			return 1;
+			return 0;
 		}
 		
 	int index = find_file(filename);
@@ -60,9 +60,8 @@ int write_file(char* filename, file_t file){
 			i++;
 		}
 		
-		/* initialise l'inode correspondant au fichier */
+		/* initialisation l'inode correspondant au fichier */
 		init_inode(filename, file.size, free_byte);
-		return 0;
 	}
 	/* cas: le fichier existe déjà */
 	else{
@@ -74,7 +73,6 @@ int write_file(char* filename, file_t file){
 		if(new_file_blocks <= old_file_blocks){
 			virtual_disque_sos->inodes[index].filename = filename;
 			virtual_disque_sos->inodes[index].size = file.size;
-			return 0;
 		}
 		/* si fichier existant est plus petit que file,
 			on le supprime et on créé un nouvel inode */
@@ -90,12 +88,11 @@ int write_file(char* filename, file_t file){
 				write_block(free_byte + k, block);
 				i++;
 			}
-			/* initialise l'inode correspondant au fichier */
+			/* initialisation l'inode correspondant au fichier */
 			init_inode(filename, file.size, free_byte);
-			
-			return 0;
 		}
 	}
+	return 1;
 }
 
 
@@ -110,6 +107,7 @@ int read_file(char* filename, file_t file){
 	
 	/* cas: le fichier n'existe pas */
 	if(index == -1){
+		printf("Le fichier '%s' n'existe pas\n", filename);
 		return 0;
 	}
 	/* cas: le fichier existe */
@@ -140,9 +138,11 @@ int delete_file(char* filename){
 				return 1;
 				
 			case 1:
+				printf("Erreur suppression du fichier\n");
 				return -1;
 				
 			default:
+				printf("Le fichier '%s' n'existe pas\n", filename);
 				return 0;
 		}
 	}
@@ -152,22 +152,50 @@ int delete_file(char* filename){
 /*
 * @brief Ecrit un fichier du host sur le système
 * @param char* filename : Nom du fichier à transférer
-* @return void
+* @return int : 1 si le fichier a été chargé, 0 en cas d'erreur
 */
-void load_file_from_host(char* filename){
-
-
-
+int load_file_from_host(char* filename){
+	FILE* host_file = fopen(filename, "r");
+    char ch;
+	file_t new_file = malloc(sizeof(file_t));
+ 
+	/* vérification de l'ouverture du fichier */
+    if(host_file == NULL){
+        printf("Erreur ouverture du fichier\n");
+		return 0;
+    }
+	
+	int i = 0;
+	/* sauvegarde du fichier host dans le variable 'new_file' caractère par caractère */
+	while(ch != EOF){
+		ch = fgetc(host_file);
+		new_file.data[i] = ch;
+		
+		i++;
+		
+		if(i > MAX_FILE_SIZE){
+			printf("Erreur chargement du fichier. Le fichier '%s' est trop grand\n", filename);
+		}
+	}
+		
+	fclose(host_file);
+	
+	/* écriture le fichier sur le système */
+	return write_file(filename, new_file);
 }
 
 
 /*
 * @brief Ecrit un fichier du système sur l'ordinateur host
 * @param char* filename : Nom du fichier à transférer
-* @return void
+* @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
-void store_file_to_host(char* filename){
-
-
-
+int store_file_to_host(char* filename){
+	FILE* new_file = fopen(filename, "w");
+	
+	/* vérification de la création du fichier */
+	if(new_file == NULL){
+		printf("Erreur création du fichier\n");
+		return 0;
+	}
 }
