@@ -198,4 +198,7 @@ int store_file_to_host(char* filename){
 		printf("Erreur création du fichier\n");
 		return 0;
 	}
+	
+	
+	return 1;
 }
