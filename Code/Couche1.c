@@ -28,29 +28,42 @@ int computenblock(int nb_octets){
 /**
 * @brief Ecrit un bloc à la position demande sur le disque
 * @param int pos : Position à laquelle écrire le bloc
-* @param block_t t : Bloc à ecrire dans le disque
-* @return nothing
+* @param block_t t : Bloc à écrire dans le disque
+* @return 0 si tout c'est bien passé, 1 sinon
 */
-void write_block(int pos , block_t t){
+int write_block(int pos , block_t t){
 
-  // on se place au debut avec un decalage de pos
-	fseek(virtual_disk_sos->storage , pos , SEEK_SET);	// on se place au debut avec un decalage de pos
-	fwrite( t.data, BLOCK_SIZE, 1, virtual_disk_sos->storage );
+  if(fseek(virtual_disk_sos->storage, pos, SEEK_SET) != 0){
+    printf("Erreur déplacement curseur sur disque\n");
+    return 1;
+  }
+
+  if(fwrite(t.data, BLOCK_SIZE, 1, virtual_disk_sos->storage) != 1){
+    printf("Erreur écriture sur disque\n");
+    return 1;
+  }
+  return 0;
 }
 
 
 /**
 * @brief Lis un bloc à la position pos sur le systeme
 * @param int pos : Position à laquelle lire un bloc dans le systeme
+* @param block_t *t : Variable qui stocke le bloc lu
 * @return : Bloc qui à été lu
 */
-block_t read_block(int pos ){
+int read_block(int pos, block_t *t){
 
-	block_t t;
-  // on se place au debut avec un decalage de pos
-	fseek(virtual_disk_sos->storage , pos , SEEK_SET);
-	fread(t.data , BLOCK_SIZE , 1 , virtual_disk_sos->storage);
-	return t;
+  if(fseek(virtual_disk_sos->storage, pos, SEEK_SET) != 0){
+    printf("Erreur déplacement curseur sur disque\n");
+    return 1;
+  }
+
+	if(fread(t->data, BLOCK_SIZE, 1, virtual_disk_sos->storage) != 1){
+    printf("Erreur lecture sur disque\n");
+    return 1;
+  }
+	return 0;
 }
 
 
