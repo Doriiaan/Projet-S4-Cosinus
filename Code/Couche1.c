@@ -8,8 +8,11 @@
 
 #include "Couche1.h"
 #include "Couche2.h"
+#include "Couche3.h"
 
 virtual_disk_t *virtual_disk_sos;
+
+extern session_t *session;
 
 
 /**
@@ -34,12 +37,10 @@ int computenblock(int nb_octets){
 int write_block(int pos , block_t t){
 
   if(fseek(virtual_disk_sos->storage, pos, SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
 
   if(fwrite(t.data, BLOCK_SIZE, 1, virtual_disk_sos->storage) != 1){
-    printf("Erreur écriture sur disque\n");
     return 1;
   }
   return 0;
@@ -55,12 +56,10 @@ int write_block(int pos , block_t t){
 int read_block(int pos, block_t *t){
 
   if(fseek(virtual_disk_sos->storage, pos, SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
 
 	if(fread(t->data, BLOCK_SIZE, 1, virtual_disk_sos->storage) != 1){
-    printf("Erreur lecture sur disque\n");
     return 1;
   }
 	return 0;
@@ -70,11 +69,12 @@ int read_block(int pos, block_t *t){
 /**
 * @brief Création et initialisation de la variable disque
 * @param : char* nom_repertoire_disque : Nom du répertoire qui contient le disque
-* @return nothing
+* @return 0 si tout c'est bien passé, 1 sinon
 */
-void init_disk_sos(char* nom_repertoire_disque){
+int init_disk_sos(char* nom_repertoire_disque){
 
-  virtual_disk_sos = malloc(sizeof(virtual_disk_t));
+  if((virtual_disk_sos = malloc(sizeof(virtual_disk_t))) == NULL)
+    return 1;
 
   //creation chemin disque
   char path_disque[SIZE_PATH_DISQUE];
@@ -83,10 +83,44 @@ void init_disk_sos(char* nom_repertoire_disque){
 
   FILE *disque;
   if(!(disque = fopen(path_disque, "r+"))){
-    printf("Erreur ouverture disque\n");
-    exit(1);
+    return 1;
   }
   virtual_disk_sos->storage = disque;
-  read_inodes_table();
-  read_super_block();
+  if(read_super_block())
+    return 1;
+  if(read_inodes_table())
+    return 1;
+  if(read_users_table())
+    return 1;
+
+
+  if((session = malloc(sizeof(session_t))) == NULL) // init variable globale session
+    return 1;
+  session->userid = -1;
+
+  return 0;
+}
+
+
+/**
+* @brief Ferme le sytème correctement et enregistre les données système sur le disque
+* @param void
+* @return int : 0 si tout c'est bien passé, 1 sinon
+* @pre variable système déjà initialisé
+* @note A n'utiliser qu'en cas de fermeture système
+*/
+int save_disk_sos(void){
+
+  if(write_super_block() || write_inodes_table() || write_users_table()){
+    return 1;
+  }
+
+
+  if(fclose(virtual_disk_sos->storage) == EOF){
+    return 1;
+  }
+
+  free(session);
+  free(virtual_disk_sos);
+  return 0;
 }

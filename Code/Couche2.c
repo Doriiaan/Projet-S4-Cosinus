@@ -27,11 +27,9 @@ extern virtual_disk_t *virtual_disk_sos;
 int write_super_block(void){
 
   if(fseek(virtual_disk_sos->storage, 0, SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
 	if(fwrite(&(virtual_disk_sos->super_block), BLOCK_SIZE, SUPER_BLOCK_SIZE, virtual_disk_sos->storage) != SUPER_BLOCK_SIZE){
-    printf("Erreur écriture sur disque\n");
     return 1;
   }
   return 0;
@@ -47,12 +45,10 @@ int write_super_block(void){
 int read_super_block(void){
 
   if(fseek(virtual_disk_sos->storage, 0, SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
 
 	if(fread(&(virtual_disk_sos->super_block), BLOCK_SIZE, SUPER_BLOCK_SIZE, virtual_disk_sos->storage) != SUPER_BLOCK_SIZE){
-    printf("Erreur lecture sur disque\n");
     return 1;
   }
   return 0;
@@ -82,12 +78,10 @@ void update_first_free_byte_super_block(uint byte){
 int read_inodes_table(void){
 
   if(fseek(virtual_disk_sos->storage, INODES_START, SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
 
-  if(fread(&(virtual_disk_sos->inodes), (INODE_SIZE), INODE_TABLE_SIZE, virtual_disk_sos->storage) != INODE_TABLE_SIZE){
-    printf("Erreur lecture sur disque\n");
+  if(fread(&(virtual_disk_sos->inodes), BLOCK_SIZE, (INODE_SIZE)*INODE_TABLE_SIZE, virtual_disk_sos->storage) != (INODE_SIZE)*INODE_TABLE_SIZE){
     return 1;
   }
   return 0;
@@ -104,11 +98,10 @@ int read_inodes_table(void){
 int write_inodes_table(void){
 
   if(fseek(virtual_disk_sos->storage , INODES_START , SEEK_SET) != 0){
-    printf("Erreur déplacement curseur sur disque\n");
     return 1;
   }
-  if(fwrite(&(virtual_disk_sos->inodes), (INODE_SIZE), INODE_TABLE_SIZE, virtual_disk_sos->storage) != INODE_TABLE_SIZE){
-    printf("Erreur écriture sur disque\n");
+
+  if(fwrite(&(virtual_disk_sos->inodes), BLOCK_SIZE, (INODE_SIZE)*INODE_TABLE_SIZE, virtual_disk_sos->storage) != (INODE_SIZE)*INODE_TABLE_SIZE){
     return 1;
   }
   return 0;
@@ -119,13 +112,14 @@ int write_inodes_table(void){
 * @brief Supprime une inode de la table d'inode et met à jour le super bloc
 * @param int indice_inode : indice de l'inode à supprimer
 * @return int : 0 si tout s'est bien passé, 1 s'il y a eu une erreur, 2 si l'inode est déjà libre
-* @pre variable systeme déjà initialisé
+* @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
 * @note La fonction gère si un indice qui correspond à aucun fichier est donné en paramètre
 */
-int delete_inode(int indice_inode){
+int delete_inode(char *name_of_file){
+  assert(strlen(name_of_file) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
 
-
-  if(virtual_disk_sos->inodes[indice_inode].first_byte == 0){
+  int indice_inode;
+  if((indice_inode=search_file_inode(name_of_file)) == -1){
     return 2;
   }
   else{
@@ -150,10 +144,7 @@ int delete_inode(int indice_inode){
     }
     virtual_disk_sos->inodes[i].first_byte = 0; // -> rend l'inode disponible
 
-    // mettre a jour disque
 
-    if(write_inodes_table()) return 1;
-    if(write_super_block()) return 1;
     return 0;
   }
 }
@@ -176,21 +167,23 @@ int get_unused_inode(void){
 
 
 /**
-* @brief Ecrit un nouvel inode à la suite des autres sur la table d'inode et sur le disque
+* @brief Ecrit un nouvel inode à la suite des autres sur la table d'inode
 * @param char[FILENAME_MAX_SIZE] inclut \'0' name_of_file : nom du fichier
 * @param uint size  : taille du fichier
 * @param uint first_byte : premier octet du fichier sur le disque
 * @return int : 0 si tout s'est bien passé, 1 sinon (ex : taille max table inode attteinte)
 * @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
-* @note Met à jour le la table d'inode et le super bloc sur le disque notament
+* @note Met à jour le la table d'inode et le super bloc
 *       first_free_byte, nblock et number_of_files.
-*       S'il n'y a plus d'inode libre, erreur 1.
 */
 int init_inode(char *name_of_file, uint size, uint first_byte){
   assert(strlen(name_of_file) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
+
+  if(search_file_inode(name_of_file) != -1)
+    return 1;
+
   int indice_new;
   if((indice_new = get_unused_inode()) == -1 ){
-    printf("Impossibilité de créer un nouvel inode, taille max atteinte\n");
     return 1;
   }
   inode_t new;
@@ -205,39 +198,55 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
   virtual_disk_sos->super_block.nb_blocks_used += new.nblock;
   virtual_disk_sos->super_block.number_of_files++;
 
-  if(write_super_block()) return 1;
-  if(write_inodes_table()) return 1;
   return 0;
 }
 
 
 /**
-* @brief Cette fonction initialise le super bloc pour la première fois (initialisation disque ou tests)
-* @param void
-* @return int : 0 si tout s'est bien passé, 1 sinon
-* @pre variable systeme déjà initialisé
+* @brief Retourne l'indice de l'inode qui pointe vers un fichier de nom name_of_file
+* @param char name_of_file[MAX_FILE_SIZE] : nom du fichier à chercher
+* @return int : indice de l'inode ou -1 s'il n'existe pas
+* @pre variable systeme déjà initialisé && len(name_of_file) <= FILENAME_MAX_SIZE
 */
-int init_first_time_super_block(void){
-  virtual_disk_sos->super_block.number_of_files = 0;
-  virtual_disk_sos->super_block.number_of_users = 1; //root
-  virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE) + USER_SIZE*NB_USERS ); //root
-  virtual_disk_sos->super_block.first_free_byte = (USER_SIZE*NB_USERS + SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
-  if(write_super_block()) return 1;
-  return 0;
+int search_file_inode(char *name_of_file){
+  assert(strlen(name_of_file) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
+
+  int indice = -1;
+  for (int i = 0; i < INODE_TABLE_SIZE; i++) {
+    if(virtual_disk_sos->inodes[i].first_byte != 0 && strcmp(name_of_file, virtual_disk_sos->inodes[i].filename) == 0){
+      indice =  i;
+    }
+  }
+  return indice;
 }
 
 
 /**
-* @brief Cette fonction initialise la table d'inodes pour la première fois (initialisation disque ou tests)
+* @brief Cette fonction initialise le super bloc pour la première fois
 * @param void
 * @return void
 * @pre variable systeme déjà initialisé
 */
-int init_first_time_inodes_tables(void){
+void init_first_time_super_block(void){
+  virtual_disk_sos->super_block.number_of_files = 0;
+  virtual_disk_sos->super_block.number_of_users = 1; //root
+  virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE) + USER_SIZE*NB_USERS ); //root
+  virtual_disk_sos->super_block.first_free_byte = (USER_SIZE*NB_USERS + SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
+
+}
+
+
+/**
+* @brief Cette fonction initialise la table d'inodes pour la première fois
+* @param void
+* @return void
+* @pre variable systeme déjà initialisé
+*/
+void init_first_time_inodes_tables(void){
 
   for (int i = 0; i < INODE_TABLE_SIZE; i++) {
     virtual_disk_sos->inodes[i].first_byte = 0;
+    virtual_disk_sos->inodes[i].size = 0;
+    strcpy(virtual_disk_sos->inodes[i].filename, "");
   }
-  if(write_inodes_table()) return 1;
-  return 0;
 }

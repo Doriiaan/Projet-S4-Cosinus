@@ -5,9 +5,10 @@ var Couche2_8h =
     [ "update_first_free_byte_super_block", "Couche2_8h.html#ac285c8e8f0927379fd6c9e792f7e2ec6", null ],
     [ "read_inodes_table", "Couche2_8h.html#aae9a6ce26b7c10156edff96e3ebdcb73", null ],
     [ "write_inodes_table", "Couche2_8h.html#aa951478f0d744ff866cfb33082956565", null ],
-    [ "delete_inode", "Couche2_8h.html#ad6ab3436111cbda26210ac225f2d1575", null ],
+    [ "delete_inode", "Couche2_8h.html#ab5fa8058839137ed296e9dab3c88e59d", null ],
     [ "get_unused_inode", "Couche2_8h.html#a575b86f424ea83720340a6359c10156b", null ],
     [ "init_inode", "Couche2_8h.html#a0ea9df8fc525c42304be01d61097130d", null ],
-    [ "init_first_time_super_block", "Couche2_8h.html#a28781830c329397445a59105d8fab819", null ],
-    [ "init_first_time_inodes_tables", "Couche2_8h.html#a145cc8db54fa03986cf5425c3eb54208", null ]
+    [ "search_file_inode", "Couche2_8h.html#a9db4755bc8815e6e1aeda575f14e3861", null ],
+    [ "init_first_time_super_block", "Couche2_8h.html#a7a3853116cbb25b4772cd1df8d692ea0", null ],
+    [ "init_first_time_inodes_tables", "Couche2_8h.html#a1d932e1735f77ec156cc2556e93cfac3", null ]
 ];

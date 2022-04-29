@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('Couche2_8h.html',''); initResizable();
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="header_8h_source.html">header.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Couche1_8h_source.html">Couche1.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Couche3_8h_source.html">Couche3.h</a>&quot;</code><br />
 </div>
 <p><a href="Couche2_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -113,21 +114,24 @@ Functions</h2></td></tr>
 <tr class="memitem:aa951478f0d744ff866cfb33082956565"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#aa951478f0d744ff866cfb33082956565">write_inodes_table</a> (void)</td></tr>
 <tr class="memdesc:aa951478f0d744ff866cfb33082956565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit la table d'inodes de la variable systeme sur le disque.  <a href="Couche2_8h.html#aa951478f0d744ff866cfb33082956565">More...</a><br /></td></tr>
 <tr class="separator:aa951478f0d744ff866cfb33082956565"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6ab3436111cbda26210ac225f2d1575"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#ad6ab3436111cbda26210ac225f2d1575">delete_inode</a> (int indice_inode)</td></tr>
-<tr class="memdesc:ad6ab3436111cbda26210ac225f2d1575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime une inode de la table d'inode et met à jour le super bloc.  <a href="Couche2_8h.html#ad6ab3436111cbda26210ac225f2d1575">More...</a><br /></td></tr>
-<tr class="separator:ad6ab3436111cbda26210ac225f2d1575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5fa8058839137ed296e9dab3c88e59d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#ab5fa8058839137ed296e9dab3c88e59d">delete_inode</a> (char *name_of_file)</td></tr>
+<tr class="memdesc:ab5fa8058839137ed296e9dab3c88e59d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime une inode de la table d'inode et met à jour le super bloc.  <a href="Couche2_8h.html#ab5fa8058839137ed296e9dab3c88e59d">More...</a><br /></td></tr>
+<tr class="separator:ab5fa8058839137ed296e9dab3c88e59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a575b86f424ea83720340a6359c10156b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a575b86f424ea83720340a6359c10156b">get_unused_inode</a> (void)</td></tr>
 <tr class="memdesc:a575b86f424ea83720340a6359c10156b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'indice dans la table d'inode du premier inode libre.  <a href="Couche2_8h.html#a575b86f424ea83720340a6359c10156b">More...</a><br /></td></tr>
 <tr class="separator:a575b86f424ea83720340a6359c10156b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ea9df8fc525c42304be01d61097130d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a0ea9df8fc525c42304be01d61097130d">init_inode</a> (char *name_of_file, <a class="el" href="header_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size, <a class="el" href="header_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> first_byte)</td></tr>
-<tr class="memdesc:a0ea9df8fc525c42304be01d61097130d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit un nouvel inode à la suite des autres sur la table d'inode et sur le disque.  <a href="Couche2_8h.html#a0ea9df8fc525c42304be01d61097130d">More...</a><br /></td></tr>
+<tr class="memdesc:a0ea9df8fc525c42304be01d61097130d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit un nouvel inode à la suite des autres sur la table d'inode.  <a href="Couche2_8h.html#a0ea9df8fc525c42304be01d61097130d">More...</a><br /></td></tr>
 <tr class="separator:a0ea9df8fc525c42304be01d61097130d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28781830c329397445a59105d8fab819"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a28781830c329397445a59105d8fab819">init_first_time_super_block</a> (void)</td></tr>
-<tr class="memdesc:a28781830c329397445a59105d8fab819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction initialise le super bloc pour la première fois (initialisation disque ou tests)  <a href="Couche2_8h.html#a28781830c329397445a59105d8fab819">More...</a><br /></td></tr>
-<tr class="separator:a28781830c329397445a59105d8fab819"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a145cc8db54fa03986cf5425c3eb54208"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a145cc8db54fa03986cf5425c3eb54208">init_first_time_inodes_tables</a> (void)</td></tr>
-<tr class="memdesc:a145cc8db54fa03986cf5425c3eb54208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction initialise la table d'inodes pour la première fois (initialisation disque ou tests)  <a href="Couche2_8h.html#a145cc8db54fa03986cf5425c3eb54208">More...</a><br /></td></tr>
-<tr class="separator:a145cc8db54fa03986cf5425c3eb54208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db4755bc8815e6e1aeda575f14e3861"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a9db4755bc8815e6e1aeda575f14e3861">search_file_inode</a> (char *name_of_file)</td></tr>
+<tr class="memdesc:a9db4755bc8815e6e1aeda575f14e3861"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'indice de l'inode qui pointe vers un fichier de nom name_of_file.  <a href="Couche2_8h.html#a9db4755bc8815e6e1aeda575f14e3861">More...</a><br /></td></tr>
+<tr class="separator:a9db4755bc8815e6e1aeda575f14e3861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3853116cbb25b4772cd1df8d692ea0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a7a3853116cbb25b4772cd1df8d692ea0">init_first_time_super_block</a> (void)</td></tr>
+<tr class="memdesc:a7a3853116cbb25b4772cd1df8d692ea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction initialise le super bloc pour la première fois.  <a href="Couche2_8h.html#a7a3853116cbb25b4772cd1df8d692ea0">More...</a><br /></td></tr>
+<tr class="separator:a7a3853116cbb25b4772cd1df8d692ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d932e1735f77ec156cc2556e93cfac3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Couche2_8h.html#a1d932e1735f77ec156cc2556e93cfac3">init_first_time_inodes_tables</a> (void)</td></tr>
+<tr class="memdesc:a1d932e1735f77ec156cc2556e93cfac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction initialise la table d'inodes pour la première fois.  <a href="Couche2_8h.html#a1d932e1735f77ec156cc2556e93cfac3">More...</a><br /></td></tr>
+<tr class="separator:a1d932e1735f77ec156cc2556e93cfac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Header de liImplémentation de la couche 2. </p>
@@ -277,8 +281,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad6ab3436111cbda26210ac225f2d1575" name="ad6ab3436111cbda26210ac225f2d1575"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6ab3436111cbda26210ac225f2d1575">&#9670;&nbsp;</a></span>delete_inode()</h2>
+<a id="ab5fa8058839137ed296e9dab3c88e59d" name="ab5fa8058839137ed296e9dab3c88e59d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5fa8058839137ed296e9dab3c88e59d">&#9670;&nbsp;</a></span>delete_inode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,8 +290,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int delete_inode </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>indice_inode</em></td><td>)</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name_of_file</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -301,7 +305,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int : 0 si tout s'est bien passé, 1 s'il y a eu une erreur, 2 si l'inode est déjà libre </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>variable systeme déjà initialisé </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>variable systeme déjà initialisé &amp;&amp; len(name_of_file) &lt; FILENAME_MAX_SIZE </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>La fonction gère si un indice qui correspond à aucun fichier est donné en paramètre </dd></dl>
 
 </div>
@@ -366,7 +370,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ecrit un nouvel inode à la suite des autres sur la table d'inode et sur le disque. </p>
+<p>Ecrit un nouvel inode à la suite des autres sur la table d'inode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">char[FILENAME_MAX_SIZE]</td><td>inclut \'0' name_of_file : nom du fichier </td></tr>
@@ -377,18 +381,46 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int : 0 si tout s'est bien passé, 1 sinon (ex : taille max table inode attteinte) </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>variable systeme déjà initialisé &amp;&amp; len(name_of_file) &lt; FILENAME_MAX_SIZE </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Met à jour le la table d'inode et le super bloc sur le disque notament first_free_byte, nblock et number_of_files. S'il n'y a plus d'inode libre, erreur 1. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Met à jour le la table d'inode et le super bloc first_free_byte, nblock et number_of_files. </dd></dl>
 
 </div>
 </div>
-<a id="a28781830c329397445a59105d8fab819" name="a28781830c329397445a59105d8fab819"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28781830c329397445a59105d8fab819">&#9670;&nbsp;</a></span>init_first_time_super_block()</h2>
+<a id="a9db4755bc8815e6e1aeda575f14e3861" name="a9db4755bc8815e6e1aeda575f14e3861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db4755bc8815e6e1aeda575f14e3861">&#9670;&nbsp;</a></span>search_file_inode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int init_first_time_super_block </td>
+          <td class="memname">int search_file_inode </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name_of_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne l'indice de l'inode qui pointe vers un fichier de nom name_of_file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>name_of_file[MAX_FILE_SIZE] : nom du fichier à chercher </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : indice de l'inode ou -1 s'il n'existe pas </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>variable systeme déjà initialisé &amp;&amp; len(name_of_file) &lt;= FILENAME_MAX_SIZE </dd></dl>
+
+</div>
+</div>
+<a id="a7a3853116cbb25b4772cd1df8d692ea0" name="a7a3853116cbb25b4772cd1df8d692ea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a3853116cbb25b4772cd1df8d692ea0">&#9670;&nbsp;</a></span>init_first_time_super_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_first_time_super_block </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -397,26 +429,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cette fonction initialise le super bloc pour la première fois (initialisation disque ou tests) </p>
+<p>Cette fonction initialise le super bloc pour la première fois. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int : 0 si tout s'est bien passé, 1 sinon </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>variable systeme déjà initialisé </dd></dl>
 
 </div>
 </div>
-<a id="a145cc8db54fa03986cf5425c3eb54208" name="a145cc8db54fa03986cf5425c3eb54208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a145cc8db54fa03986cf5425c3eb54208">&#9670;&nbsp;</a></span>init_first_time_inodes_tables()</h2>
+<a id="a1d932e1735f77ec156cc2556e93cfac3" name="a1d932e1735f77ec156cc2556e93cfac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d932e1735f77ec156cc2556e93cfac3">&#9670;&nbsp;</a></span>init_first_time_inodes_tables()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int init_first_time_inodes_tables </td>
+          <td class="memname">void init_first_time_inodes_tables </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -425,7 +457,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cette fonction initialise la table d'inodes pour la première fois (initialisation disque ou tests) </p>
+<p>Cette fonction initialise la table d'inodes pour la première fois. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>

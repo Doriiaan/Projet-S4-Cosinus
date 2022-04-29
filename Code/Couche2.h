@@ -21,7 +21,6 @@
 #include "Couche3.h"
 
 
-
 /**
 * @brief Ecrit le super bloc de la variable systeme sur le disque
 * @param void
@@ -74,10 +73,10 @@ int write_inodes_table(void);
 * @brief Supprime une inode de la table d'inode et met à jour le super bloc
 * @param int indice_inode : indice de l'inode à supprimer
 * @return int : 0 si tout s'est bien passé, 1 s'il y a eu une erreur, 2 si l'inode est déjà libre
-* @pre variable systeme déjà initialisé
+* @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
 * @note La fonction gère si un indice qui correspond à aucun fichier est donné en paramètre
 */
-int delete_inode(int indice_inode);
+int delete_inode(char *name_of_file);
 
 
 /**
@@ -90,34 +89,42 @@ int get_unused_inode(void);
 
 
 /**
-* @brief Ecrit un nouvel inode à la suite des autres sur la table d'inode et sur le disque
+* @brief Ecrit un nouvel inode à la suite des autres sur la table d'inode
 * @param char[FILENAME_MAX_SIZE] inclut \'0' name_of_file : nom du fichier
 * @param uint size  : taille du fichier
 * @param uint first_byte : premier octet du fichier sur le disque
 * @return int : 0 si tout s'est bien passé, 1 sinon (ex : taille max table inode attteinte)
 * @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
-* @note Met à jour le la table d'inode et le super bloc sur le disque notament
+* @note Met à jour le la table d'inode et le super bloc
 *       first_free_byte, nblock et number_of_files.
-*       S'il n'y a plus d'inode libre, erreur 1.
 */
 int init_inode(char *name_of_file, uint size, uint first_byte);
 
 
 /**
-* @brief Cette fonction initialise le super bloc pour la première fois (initialisation disque ou tests)
-* @param void
-* @return int : 0 si tout s'est bien passé, 1 sinon
-* @pre variable systeme déjà initialisé
+* @brief Retourne l'indice de l'inode qui pointe vers un fichier de nom name_of_file
+* @param char name_of_file[MAX_FILE_SIZE] : nom du fichier à chercher
+* @return int : indice de l'inode ou -1 s'il n'existe pas
+* @pre variable systeme déjà initialisé && len(name_of_file) <= FILENAME_MAX_SIZE
 */
-int init_first_time_super_block(void);
+int search_file_inode(char *name_of_file);
 
 
 /**
-* @brief Cette fonction initialise la table d'inodes pour la première fois (initialisation disque ou tests)
+* @brief Cette fonction initialise le super bloc pour la première fois
 * @param void
 * @return void
 * @pre variable systeme déjà initialisé
 */
-int init_first_time_inodes_tables(void);
+void init_first_time_super_block(void);
+
+
+/**
+* @brief Cette fonction initialise la table d'inodes pour la première fois
+* @param void
+* @return void
+* @pre variable systeme déjà initialisé
+*/
+void init_first_time_inodes_tables(void);
 
 #endif

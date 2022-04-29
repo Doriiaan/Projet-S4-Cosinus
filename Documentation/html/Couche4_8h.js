@@ -1,8 +1,9 @@
 var Couche4_8h =
 [
-    [ "write_file", "Couche4_8h.html#ae72509226ed8f3ef08c131e24404901f", null ],
-    [ "read_file", "Couche4_8h.html#aa2603da2dd61741787d773fc9c85a5f2", null ],
-    [ "delete_file", "Couche4_8h.html#a225da2cc57a2abdc4407cb5d83ca60a4", null ],
-    [ "load_file_from_host", "Couche4_8h.html#a4dd619abd91f5704d012939f806150ba", null ],
-    [ "store_file_to_host", "Couche4_8h.html#a828dce6a6da81cc0131e0629ae441d6d", null ]
+    [ "find_file", "Couche4_8h.html#a38f1b7192cac0ee4adac0b84ac4a075c", null ],
+    [ "write_file", "Couche4_8h.html#a5ebd4528e2e79fed4f412db6d3b72add", null ],
+    [ "read_file", "Couche4_8h.html#a7c8725d7450f1a1c4d29f1c728f7c657", null ],
+    [ "delete_file", "Couche4_8h.html#af317d1866241c85f868b546657dd2d26", null ],
+    [ "load_file_from_host", "Couche4_8h.html#ab122dd7eed0ef4863f97a8703b02e5b4", null ],
+    [ "store_file_to_host", "Couche4_8h.html#a5a909c8377bff7302faa6ff209bbcc9e", null ]
 ];

@@ -93,23 +93,29 @@ $(document).ready(function(){initNavTree('Couche1_8h_source.html',''); initResiz
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="header_8h.html">header.h</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a38e3c7bcea7447f58c599bf4fc2b1669">   14</a></span><span class="preprocessor">#define SIZE_PATH_DISQUE 100</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">   20</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">computenblock</a>(<span class="keywordtype">int</span> nb_octets);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a452d98c55f22b50e7b47e694949631ed">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="Couche1_8h.html#a452d98c55f22b50e7b47e694949631ed">write_block</a>(<span class="keywordtype">int</span> pos , <a class="code hl_struct" href="structblock__s.html">block_t</a> t);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a6b56b95d2c9d2f79cbbb6dc60d6c7379">   37</a></span><a class="code hl_struct" href="structblock__s.html">block_t</a> <a class="code hl_function" href="Couche1_8h.html#a6b56b95d2c9d2f79cbbb6dc60d6c7379">read_block</a>(<span class="keywordtype">int</span> pos );</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3">   45</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3">init_disk_sos</a>(<span class="keywordtype">char</span>* nom_repertoire_disque);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">   22</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">computenblock</a>(<span class="keywordtype">int</span> nb_octets);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="Couche1_8h.html#af6cfca575e50d5633e39cda513f5e60f">   31</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#af6cfca575e50d5633e39cda513f5e60f">write_block</a>(<span class="keywordtype">int</span> pos , <a class="code hl_struct" href="structblock__s.html">block_t</a> t);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a0dad7d18b2c9cb6d1f46864ade71260e">   40</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#a0dad7d18b2c9cb6d1f46864ade71260e">read_block</a>(<span class="keywordtype">int</span> pos, <a class="code hl_struct" href="structblock__s.html">block_t</a> *t);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a3d52ef9d262fa22fa1c661f4ff74abac">   48</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#a3d52ef9d262fa22fa1c661f4ff74abac">init_disk_sos</a>(<span class="keywordtype">char</span>* nom_repertoire_disque);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="Couche1_8h.html#a8aa45b3f77f334520164ffa6ef606c3e">   58</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Couche1_8h.html#a8aa45b3f77f334520164ffa6ef606c3e">save_disk_sos</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aCouche1_8h_html_a0dad7d18b2c9cb6d1f46864ade71260e"><div class="ttname"><a href="Couche1_8h.html#a0dad7d18b2c9cb6d1f46864ade71260e">read_block</a></div><div class="ttdeci">int read_block(int pos, block_t *t)</div><div class="ttdoc">Lis un bloc à la position pos sur le systeme.</div></div>
 <div class="ttc" id="aCouche1_8h_html_a31ff60f8cc31ef7cfb22fd56b4ce3ea5"><div class="ttname"><a href="Couche1_8h.html#a31ff60f8cc31ef7cfb22fd56b4ce3ea5">computenblock</a></div><div class="ttdeci">int computenblock(int nb_octets)</div><div class="ttdoc">Renvoit le nombre de blocs nécessaire pour stocker nb_octets.</div></div>
-<div class="ttc" id="aCouche1_8h_html_a452d98c55f22b50e7b47e694949631ed"><div class="ttname"><a href="Couche1_8h.html#a452d98c55f22b50e7b47e694949631ed">write_block</a></div><div class="ttdeci">void write_block(int pos, block_t t)</div><div class="ttdoc">Ecrit un bloc à la position demande sur le disque.</div></div>
-<div class="ttc" id="aCouche1_8h_html_a6b56b95d2c9d2f79cbbb6dc60d6c7379"><div class="ttname"><a href="Couche1_8h.html#a6b56b95d2c9d2f79cbbb6dc60d6c7379">read_block</a></div><div class="ttdeci">block_t read_block(int pos)</div><div class="ttdoc">Lis un bloc à la position pos sur le systeme.</div></div>
-<div class="ttc" id="aCouche1_8h_html_a980c54b07b1b3ff324f94382b064dcc3"><div class="ttname"><a href="Couche1_8h.html#a980c54b07b1b3ff324f94382b064dcc3">init_disk_sos</a></div><div class="ttdeci">void init_disk_sos(char *nom_repertoire_disque)</div><div class="ttdoc">Création et initialisation de la variable disque.</div></div>
+<div class="ttc" id="aCouche1_8h_html_a3d52ef9d262fa22fa1c661f4ff74abac"><div class="ttname"><a href="Couche1_8h.html#a3d52ef9d262fa22fa1c661f4ff74abac">init_disk_sos</a></div><div class="ttdeci">int init_disk_sos(char *nom_repertoire_disque)</div><div class="ttdoc">Création et initialisation de la variable disque.</div></div>
+<div class="ttc" id="aCouche1_8h_html_a8aa45b3f77f334520164ffa6ef606c3e"><div class="ttname"><a href="Couche1_8h.html#a8aa45b3f77f334520164ffa6ef606c3e">save_disk_sos</a></div><div class="ttdeci">int save_disk_sos(void)</div><div class="ttdoc">Ferme le sytème correctement et enregistre les données système sur le disque.</div></div>
+<div class="ttc" id="aCouche1_8h_html_af6cfca575e50d5633e39cda513f5e60f"><div class="ttname"><a href="Couche1_8h.html#af6cfca575e50d5633e39cda513f5e60f">write_block</a></div><div class="ttdeci">int write_block(int pos, block_t t)</div><div class="ttdoc">Ecrit un bloc à la position demande sur le disque.</div></div>
 <div class="ttc" id="aheader_8h_html"><div class="ttname"><a href="header_8h.html">header.h</a></div></div>
 <div class="ttc" id="astructblock__s_html"><div class="ttname"><a href="structblock__s.html">block_s</a></div><div class="ttdef"><b>Definition:</b> header.h:49</div></div>
 </div><!-- fragment --></div><!-- contents -->

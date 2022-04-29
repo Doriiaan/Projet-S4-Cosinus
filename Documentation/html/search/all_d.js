@@ -1,22 +1,14 @@
 var searchData=
 [
-  ['session_5fs_0',['session_s',['../structsession__s.html',1,'']]],
-  ['session_5ft_1',['session_t',['../header_8h.html#a14e1600ef854bda97b0afbe148f4bfb3',1,'header.h']]],
-  ['sha256_2eh_2',['sha256.h',['../sha256_8h.html',1,'']]],
-  ['sha256_5fblock_5fsize_3',['SHA256_BLOCK_SIZE',['../sha256_8h.html#a9c1fe69ad43d4ca74b84303a0ed64f2f',1,'sha256.h']]],
-  ['sha256_5fctx_4',['SHA256_CTX',['../structSHA256__CTX.html',1,'']]],
-  ['sha256_5ffinal_5',['sha256_final',['../sha256_8h.html#a8f4b55bd1e49af6e4620bc9ba9549397',1,'sha256.h']]],
-  ['sha256_5finit_6',['sha256_init',['../sha256_8h.html#ade6fde6ef9ea137449d72891931c77ef',1,'sha256.h']]],
-  ['sha256_5fupdate_7',['sha256_update',['../sha256_8h.html#ac98a25de627f4cded12b7312dee1ffa0',1,'sha256.h']]],
-  ['sha256_5futils_2eh_8',['sha256_utils.h',['../sha256__utils_8h.html',1,'']]],
-  ['sha256ofstring_9',['sha256ofString',['../sha256__utils_8h.html#a33dd112a873be1b42a9310f3cc42ba6f',1,'sha256_utils.h']]],
-  ['size_10',['size',['../structinode__s.html#a669d6ae0a6e66a3bd14fe0e5260f7736',1,'inode_s::size()'],['../structfile__s.html#a29a3bdf87cd12283810c3f4d7fc4490c',1,'file_s::size()']]],
-  ['size_5fpath_5fdisque_11',['SIZE_PATH_DISQUE',['../Couche1_8h.html#a38e3c7bcea7447f58c599bf4fc2b1669',1,'Couche1.h']]],
-  ['state_12',['state',['../structSHA256__CTX.html#a09c4eef8a0dc02bc9860e2a02c3f2638',1,'SHA256_CTX']]],
-  ['storage_13',['storage',['../structvirtual__disk__s.html#a3855c1f0de66c3a15c8ca84c4be211bc',1,'virtual_disk_s']]],
-  ['store_5ffile_5fto_5fhost_14',['store_file_to_host',['../Couche4_8h.html#a828dce6a6da81cc0131e0629ae441d6d',1,'Couche4.h']]],
-  ['super_5fblock_15',['super_block',['../structvirtual__disk__s.html#ae1d3b0a82b67f7219c7c8e4d36f4dfa8',1,'virtual_disk_s']]],
-  ['super_5fblock_5fs_16',['super_block_s',['../structsuper__block__s.html',1,'']]],
-  ['super_5fblock_5fsize_17',['SUPER_BLOCK_SIZE',['../header_8h.html#a42178fcae46f09d3c91ca3da27188231',1,'header.h']]],
-  ['super_5fblock_5ft_18',['super_block_t',['../header_8h.html#aad306ea6e0c04b1f8c96d699c3369f3d',1,'header.h']]]
+  ['read_5fblock_0',['read_block',['../Couche1_8h.html#a0dad7d18b2c9cb6d1f46864ade71260e',1,'Couche1.h']]],
+  ['read_5ffile_1',['read_file',['../Couche4_8h.html#a7c8725d7450f1a1c4d29f1c728f7c657',1,'Couche4.h']]],
+  ['read_5finodes_5ftable_2',['read_inodes_table',['../Couche2_8h.html#aae9a6ce26b7c10156edff96e3ebdcb73',1,'Couche2.h']]],
+  ['read_5fsuper_5fblock_3',['read_super_block',['../Couche2_8h.html#a49dbd70d07c45b1c054c89fef22f335e',1,'Couche2.h']]],
+  ['read_5fusers_5ftable_4',['read_users_table',['../Couche3_8h.html#ac50e75d26c2b9bf1bcfe5b6a669ed040',1,'Couche3.h']]],
+  ['root_5',['ROOT',['../Couche3_8h.html#a77988da40e9a35da51ea0e8943ebbd4a',1,'Couche3.h']]],
+  ['root_5fuid_6',['ROOT_UID',['../header_8h.html#a831d805b09c0a53d82eda46406ff6639',1,'header.h']]],
+  ['rw_7',['RW',['../header_8h.html#afc4ded33ac0ca43defcce639e965748a',1,'header.h']]],
+  ['rw_8',['Rw',['../header_8h.html#a98b6a2661a04ebbc1b3f38da70306814',1,'header.h']]],
+  ['rw_9',['rW',['../header_8h.html#aba41432e24cf51692acc062d9e21ea5e',1,'header.h']]],
+  ['rw_10',['rw',['../header_8h.html#a8eb1c6040b4a31adefa1ca147f961f69',1,'header.h']]]
 ];

@@ -43,9 +43,19 @@ int read_block(int pos, block_t *t);
 /**
 * @brief Création et initialisation de la variable disque
 * @param : char* nom_repertoire_disque : Nom du répertoire qui contient le disque
-* @return nothing
+* @return 0 si tout c'est bien passé, 1 sinon
 */
-void init_disk_sos(char* nom_repertoire_disque);
+int init_disk_sos(char* nom_repertoire_disque);
+
+
+/**
+* @brief Ferme le sytème correctement et enregistre les données système sur le disque
+* @param void
+* @return int : 0 si tout c'est bien passé, 1 sinon
+* @pre variable système déjà initialisé
+* @note A n'utiliser qu'en cas de fermeture système
+*/
+int save_disk_sos(void);
 
 
 #endif

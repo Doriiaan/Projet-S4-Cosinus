@@ -12,15 +12,17 @@ Header de l\textquotesingle{}Implémentation de la couche 4.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{Couche4_8h_ae72509226ed8f3ef08c131e24404901f}{write\+\_\+file}} (String filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
+int \mbox{\hyperlink{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}{find\+\_\+file}} (char $\ast$filename)
 \item 
-int \mbox{\hyperlink{Couche4_8h_aa2603da2dd61741787d773fc9c85a5f2}{read\+\_\+file}} (String filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
+void \mbox{\hyperlink{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}{write\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
 \item 
-int \mbox{\hyperlink{Couche4_8h_a225da2cc57a2abdc4407cb5d83ca60a4}{delete\+\_\+file}} (String filename)
+int \mbox{\hyperlink{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}{read\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
 \item 
-void \mbox{\hyperlink{Couche4_8h_a4dd619abd91f5704d012939f806150ba}{load\+\_\+file\+\_\+from\+\_\+host}} (String filename)
+int \mbox{\hyperlink{Couche4_8h_af317d1866241c85f868b546657dd2d26}{delete\+\_\+file}} (char $\ast$filename)
 \item 
-void \mbox{\hyperlink{Couche4_8h_a828dce6a6da81cc0131e0629ae441d6d}{store\+\_\+file\+\_\+to\+\_\+host}} (String filename)
+int \mbox{\hyperlink{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}{load\+\_\+file\+\_\+from\+\_\+host}} (char $\ast$filename)
+\item 
+int \mbox{\hyperlink{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}{store\+\_\+file\+\_\+to\+\_\+host}} (char $\ast$filename)
 \end{DoxyCompactItemize}
 
 
@@ -36,33 +38,39 @@ Avril 2022
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{Couche4_8h_ae72509226ed8f3ef08c131e24404901f}\label{Couche4_8h_ae72509226ed8f3ef08c131e24404901f}} 
+\mbox{\Hypertarget{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}\label{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}} 
+\index{Couche4.h@{Couche4.h}!find\_file@{find\_file}}
+\index{find\_file@{find\_file}!Couche4.h@{Couche4.h}}
+\doxysubsubsection{\texorpdfstring{find\_file()}{find\_file()}}
+{\footnotesize\ttfamily int find\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}\label{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}} 
 \index{Couche4.h@{Couche4.h}!write\_file@{write\_file}}
 \index{write\_file@{write\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{write\_file()}{write\_file()}}
-{\footnotesize\ttfamily void write\+\_\+file (\begin{DoxyParamCaption}\item[{String}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void write\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_aa2603da2dd61741787d773fc9c85a5f2}\label{Couche4_8h_aa2603da2dd61741787d773fc9c85a5f2}} 
+\mbox{\Hypertarget{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}\label{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}} 
 \index{Couche4.h@{Couche4.h}!read\_file@{read\_file}}
 \index{read\_file@{read\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{read\_file()}{read\_file()}}
-{\footnotesize\ttfamily int read\+\_\+file (\begin{DoxyParamCaption}\item[{String}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int read\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_a225da2cc57a2abdc4407cb5d83ca60a4}\label{Couche4_8h_a225da2cc57a2abdc4407cb5d83ca60a4}} 
+\mbox{\Hypertarget{Couche4_8h_af317d1866241c85f868b546657dd2d26}\label{Couche4_8h_af317d1866241c85f868b546657dd2d26}} 
 \index{Couche4.h@{Couche4.h}!delete\_file@{delete\_file}}
 \index{delete\_file@{delete\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{delete\_file()}{delete\_file()}}
-{\footnotesize\ttfamily int delete\+\_\+file (\begin{DoxyParamCaption}\item[{String}]{filename }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int delete\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_a4dd619abd91f5704d012939f806150ba}\label{Couche4_8h_a4dd619abd91f5704d012939f806150ba}} 
+\mbox{\Hypertarget{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}\label{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}} 
 \index{Couche4.h@{Couche4.h}!load\_file\_from\_host@{load\_file\_from\_host}}
 \index{load\_file\_from\_host@{load\_file\_from\_host}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{load\_file\_from\_host()}{load\_file\_from\_host()}}
-{\footnotesize\ttfamily void load\+\_\+file\+\_\+from\+\_\+host (\begin{DoxyParamCaption}\item[{String}]{filename }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int load\+\_\+file\+\_\+from\+\_\+host (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_a828dce6a6da81cc0131e0629ae441d6d}\label{Couche4_8h_a828dce6a6da81cc0131e0629ae441d6d}} 
+\mbox{\Hypertarget{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}\label{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}} 
 \index{Couche4.h@{Couche4.h}!store\_file\_to\_host@{store\_file\_to\_host}}
 \index{store\_file\_to\_host@{store\_file\_to\_host}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{store\_file\_to\_host()}{store\_file\_to\_host()}}
-{\footnotesize\ttfamily void store\+\_\+file\+\_\+to\+\_\+host (\begin{DoxyParamCaption}\item[{String}]{filename }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int store\+\_\+file\+\_\+to\+\_\+host (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 

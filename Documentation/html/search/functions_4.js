@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['load_5ffile_5ffrom_5fhost_0',['load_file_from_host',['../Couche4_8h.html#a4dd619abd91f5704d012939f806150ba',1,'Couche4.h']]]
+  ['get_5fsession_0',['get_session',['../Couche3_8h.html#a10efc172fe6040930259a1c47f70241b',1,'Couche3.h']]],
+  ['get_5funused_5finode_1',['get_unused_inode',['../Couche2_8h.html#a575b86f424ea83720340a6359c10156b',1,'Couche2.h']]],
+  ['get_5funused_5fuser_2',['get_unused_user',['../Couche3_8h.html#a4a7dfdd501efee019bd1ad8a5a67734f',1,'Couche3.h']]]
 ];
