@@ -157,18 +157,7 @@ int delete_user(char *login){
 */
 void init_first_time_user_table(void){
 
-  user_t root;
-  char password[SHA256_BLOCK_SIZE*2 + 1];
-
-  sha256ofString((BYTE *)"root", password);
-
-  strcpy(root.login, "root");
-  strcpy(root.passwd, password);
-
-  virtual_disk_sos->users_table[ROOT_UID] = root;
-  virtual_disk_sos->super_block.number_of_users = 1;
-
-  for (int i = 1; i < NB_USERS; i++) {
+  for (int i = 0; i < NB_USERS; i++) {
     strcpy(virtual_disk_sos->users_table[i].login, "\0");
   }
 }

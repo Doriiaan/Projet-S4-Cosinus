@@ -6,11 +6,11 @@
 extern virtual_disk_t *virtual_disk_sos;
 
 #define FIRST_TIME 1
-#define TEST_ADD_INODE 1
-#define TEST_DELETE_INODE 1
-#define TEST_ADD_USER 1
-#define TEST_DELETE_USER 1
-#define TEST_SESSION 1
+#define TEST_ADD_INODE 0
+#define TEST_DELETE_INODE 0
+#define TEST_ADD_USER 0
+#define TEST_DELETE_USER 0
+#define TEST_SESSION 0
 
 int main() {
 
