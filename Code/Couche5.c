@@ -42,3 +42,43 @@ void ls(){
     
   }
 }
+
+  int main(void){
+  char str[100];
+  cmd_t tab;
+  char *commande[10]; // tableau de pointeur qui va contenir les commandes
+  tab.nbArgs = 0;
+  const char * separators = " \n \t " " ";
+
+    // On cherche à récupérer, un à un, tous les mots (token) de la phrase
+    // et on commence par le premier.
+  
+  printf("Saisissez une commande : ");
+  gets(str);
+  int j = 0;
+  char * strToken = strtok ( str, separators );
+    while ( strToken != NULL ) {
+        printf ( "%s\n", strToken );
+        commande[j] = strToken;
+        j++;
+        tab.nbArgs++;
+        strToken = strtok ( NULL, separators );
+    }// on prend chaque argument et on les compte
+
+    if(strcmp(commande[0] , "ls")==0 && tab.nbArgs==1){
+      ls();
+    }
+
+    if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs==2){
+      ls_l();
+    }
+    else{
+      printf("Erreur commande");
+    }
+    printf("Le nombre total de mots dans cette chaine est = %d\n", tab.nbArgs);
+
+
+
+  return 0;
+
+}
