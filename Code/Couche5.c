@@ -24,6 +24,14 @@ int cat(char* nom_fichier){
   return 1;
 }
 
+int rm(char* nom_fichier){
+  if(find_file(nom_fichier)==-1){
+    return 0;
+  }
+  delete_file(nom_fichier);
+  return 1;
+}  
+  
 void ls_l(){
   for (int i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
     printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
