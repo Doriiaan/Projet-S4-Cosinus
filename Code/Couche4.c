@@ -8,6 +8,8 @@
 
 #include "Couche4.h"
 
+extern virtual_disk_t *virtual_disk_sos;
+
 
 /*
 * @brief Cherche un fichier dans la table d'unodes
@@ -15,15 +17,16 @@
 * @return int : L'indice du fichier trouvé dans la table d'inodes, -1 par défaut
 */
 int find_file(char* filename){
-	int indice = -1;
-	/* cherche dans virtual_disque_sos->inodes[] si le fichier 'filename' existe */
-	for(int i = 0; i < taille; i++){
+	int index = -1;
+	
+	/* cherche dans virtual_disque_sos->inodes[] si le fichier 'filename' est présent */
+	for(int i = 0; i < INODE_TABLE_SIZE; i++){
 		if(!strcmp(filename, virtual_disque_sos->inodes[i].filename)){
-			indice = i;
-			return indice;
+			index = i;
+			return index;
 	}
 
-	return indice;
+	return index;
 }
 
 
@@ -59,8 +62,7 @@ int write_file(char* filename, file_t file){
 			write_block(free_byte + k, block);
 			i++;
 		}
-
-		/* initialisation l'inode correspondant au fichier */
+		/* initialisation de l'inode correspondant au fichier */
 		init_inode(filename, file.size, free_byte);
 	}
 	/* cas: le fichier existe déjà */
@@ -77,7 +79,7 @@ int write_file(char* filename, file_t file){
 		/* si fichier existant est plus petit que file,
 			on le supprime et on créé un nouvel inode */
 		else{
-			delete_inode[index];
+			delete_inode(filename);
 			/* ecriture du fichier sur le disque */
 			while(i < nb_blocks){
 				k = i*BLOCK_SIZE;
@@ -102,7 +104,7 @@ int write_file(char* filename, file_t file){
 * @param file_t file : Fichier qui enregistre les données du fichier lu
 * @return int : 1 si le fichier a été lu, 0 s'il n'existe pas
 */
-int read_file(char* filename, file_t file){
+int read_file(char* filename, file_t* file){
 	int index = find_file(filename);
 
 	/* cas: le fichier n'existe pas */
@@ -112,7 +114,7 @@ int read_file(char* filename, file_t file){
 	}
 	/* cas: le fichier existe */
 	else{
-		file.data = virtual_disque_sos->inodes[index].data;
+		file->data = virtual_disque_sos->inodes[index].data;
 		return 1;
 	}
 }
@@ -132,8 +134,8 @@ int delete_file(char* filename){
 	}
 	/* cas: le fichier existe */
 	else{
-		/* delete_inode(i) retourne 0 si tout s'est bien passé, 1 s'il y a eu une erreur, et 2 si l'inode est déjà libre */
-		switch(delete_inode(index)){
+		/* delete_inode(nom_fichier) retourne 0 si tout s'est bien passé, 1 s'il y a eu une erreur, et 2 si l'inode est déjà libre */
+		switch(delete_inode(filename)){
 			case 0:
 				return 1;
 
@@ -191,14 +193,5 @@ int load_file_from_host(char* filename){
 * @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
 int store_file_to_host(char* filename){
-	FILE* new_file = fopen(filename, "w");
-
-	/* vérification de la création du fichier */
-	if(new_file == NULL){
-		printf("Erreur création du fichier\n");
-		return 0;
-	}
-
-
 	return 1;
 }
