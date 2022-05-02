@@ -27,9 +27,9 @@ int find_file(char* filename);
 * @brief Créé ou modifie un fichier en utilisant la table d'inodes
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
-* @return int : 0 en cas d'erreur, 1 sinon
+* @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
 */
-void write_file(char* filename, file_t file);
+int write_file(char* filename, file_t file);
 
 
 /*
@@ -38,7 +38,7 @@ void write_file(char* filename, file_t file);
 * @param file_t file : Fichier qui enregistre les données du fichier lu
 * @return int : 1 si le fichier a été lu, 0 s'il n'existe pas
 */
-int read_file(char* filename, file_t *file);
+int read_file(char* filename, file_t* file);
 
 
 /*
