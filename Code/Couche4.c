@@ -14,7 +14,7 @@ extern virtual_disk_t *virtual_disk_sos;
 /*
 * @brief Cherche un fichier dans la table d'unodes
 * @param char* filename : Nom du fichier à écrire
-* @return int : L'indice du fichier trouvé dans la table d'inodes, -1 par défaut
+* @return int : L'indice du fichier 'filename' dans la table d'inodes, -1 par défaut
 */
 int find_file(char* filename){
 	int index = -1;
@@ -25,7 +25,6 @@ int find_file(char* filename){
 			index = i;
 			return index;
 	}
-
 	return index;
 }
 
@@ -37,63 +36,54 @@ int find_file(char* filename){
 * @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
 */
 int write_file(char* filename, file_t file){
-
+	/* écriture du super_block sur la variable système */
 	if(read_super_block()){
 			printf("Erreur lecture du super block\n");
 			return 0;
 		}
-
+	
+	/* variables nécessaires */
 	int index = find_file(filename);
-	int free_byte = virtual_disque_sos->super_block.first_free_byte;
+	int byte = virtual_disque_sos->super_block.first_free_byte;
+	int old_file_blocks = computenblock(virtual_disque_sos->inodes[index].size);
+	int new_file_blocks = computenblock(file.size);
 	int nb_blocks = computenblock(file.size);
 	block_t block;
 	int i = 0; int j; int k;
-
-	/* cas: le fichier n'existe pas
-		on créé un nouvel inode */
-	if(index == -1){
-		/* ecriture du fichier sur le disque */
-		while(i < nb_blocks){
-			k = i*BLOCK_SIZE;
-
-			for(j = 0; j < BLOCK_SIZE; j++){
-				block.data[j+k] = file.data[j+k];
-			}
-			write_block(free_byte + k, block);
-			i++;
-		}
-		/* initialisation de l'inode correspondant au fichier */
-		init_inode(filename, file.size, free_byte);
-	}
-	/* cas: le fichier existe déjà */
-	else{
-		int old_file_blocks = computenblock(virtual_disque_sos->inodes[index].size);
-		int new_file_blocks = computenblock(file.size);
-
-		/* si le fichier existant est plus grand que file,
-			on modifie ses informations */
-		if(new_file_blocks <= old_file_blocks){
-			virtual_disque_sos->inodes[index].filename = filename;
-			virtual_disque_sos->inodes[index].size = file.size;
-		}
-		/* si fichier existant est plus petit que file,
-			on le supprime et on créé un nouvel inode */
-		else{
+	
+	/* détermine où écrire les informations sur le disque */
+	if(index != -1){
+		if(new_file_blocks > old_file_blocks){
 			delete_inode(filename);
-			/* ecriture du fichier sur le disque */
-			while(i < nb_blocks){
-				k = i*BLOCK_SIZE;
-
-				for(j = 0; j < BLOCK_SIZE; j++){
-					block.data[j+k] = file.data[j+k];
-				}
-				write_block(free_byte + k, block);
-				i++;
-			}
-			/* initialisation l'inode correspondant au fichier */
-			init_inode(filename, file.size, free_byte);
+		}
+		else{
+			byte = virtual_disque_sos->inodes[index].first_byte
 		}
 	}
+	
+	/* écriture des informations sur le disque à l'endroit déterminé */
+	while(i < nb_blocks){
+		k = i*BLOCK_SIZE;
+
+		for(j = 0; j < BLOCK_SIZE; j++){
+			block.data[j] = file.data[j+k];
+		}
+		
+		write_block(byte + k, block);
+		i++;
+	}
+	
+	/* on initialise un nouvel inode si on n'a pas d'inode existant qui correspond au fichier */
+	if(index == -1 || new_file_blocks <= old_file_blocks){
+		init_inode(filename, file.size, byte);
+	}
+	
+	/* s'il y a déjà un inode correspondant, on modifie ses informations */
+	else{
+		virtual_disque_sos->inodes[index].filename = filename;
+		virtual_disque_sos->inodes[index].size = file.size;
+	}
+	
 	return 1;
 }
 
@@ -193,5 +183,14 @@ int load_file_from_host(char* filename){
 * @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
 int store_file_to_host(char* filename){
+	FILE* new_file = fopen(filename, "w");
+
+	/* vérification de la création du fichier */
+	if(new_file == NULL){
+		printf("Erreur création du fichier\n");
+		return 0;
+	}
+
+
 	return 1;
 }
