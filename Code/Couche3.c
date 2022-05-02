@@ -21,20 +21,7 @@ session_t *session;
 */
 int write_users_table(void){
 
-  file_t passwd;
 
-  strcpy((char*)passwd.data, "");
-  for (int i = 0; i < NB_USERS; i++) {
-    if(strcmp(virtual_disk_sos->users_table[i].login, "\0") != 0){
-      strcat((char*)passwd.data, virtual_disk_sos->users_table[i].login);
-      strcat((char*)passwd.data, "\n");
-      strcat((char*)passwd.data, virtual_disk_sos->users_table[i].passwd);
-      strcat((char*)passwd.data, "\n\n");
-    }
-  }
-  //on l'initialise avec sa taille max, comme ça il bouge jamais de place
-  passwd.size = (FILENAME_MAX_SIZE + (SHA256_BLOCK_SIZE*2 + 1) + 3)*NB_USERS;
-  write_file("passwd", passwd);
   return 0;
 }
 
@@ -47,24 +34,6 @@ int write_users_table(void){
 */
 int read_users_table(void){
 
-  file_t passwd;
-  read_file("passwd", &passwd);
-
-  int i_data = 0;
-  for (uint i_user = 0; i_user < virtual_disk_sos->super_block.number_of_users; i_user++) {
-
-    int i_user_data;
-    for (i_user_data=0; i_user_data < FILENAME_MAX_SIZE; i_user_data++) {
-      virtual_disk_sos->users_table[i_user].login[i_user_data] = passwd.data[i_data];
-      i_data++;
-    }
-    i_data++;
-    for (i_user_data = 0; i_user_data < + (SHA256_BLOCK_SIZE*2 + 1); i_user_data++) {
-      virtual_disk_sos->users_table[i_user].passwd[i_user_data] = passwd.data[i_data];
-      i_data++;
-    }
-    i_data +=2;
-  }
   return 0;
 }
 
