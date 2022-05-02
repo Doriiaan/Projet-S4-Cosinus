@@ -193,8 +193,11 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
   new.nblock = computenblock(size);
   virtual_disk_sos->inodes[indice_new] = new;
 
-  uint first_free_byte_sb = (first_byte + size) + (4 - (first_byte + size)%4); //positione au debut du prochain bloc
-  update_first_free_byte_super_block(first_free_byte_sb);
+  if(first_byte == virtual_disk_sos->super_block.first_free_byte){
+    uint first_free_byte_sb = (first_byte + size) + (4 - (first_byte + size)%4); //positione au debut du prochain bloc
+    update_first_free_byte_super_block(first_free_byte_sb);
+  }
+
   virtual_disk_sos->super_block.nb_blocks_used += new.nblock;
   virtual_disk_sos->super_block.number_of_files++;
 

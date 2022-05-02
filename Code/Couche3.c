@@ -21,6 +21,25 @@ session_t *session;
 */
 int write_users_table(void){
 
+  file_t file;
+  file.size = 0;
+  uchar chaine_user_passwd[FILENAME_MAX_SIZE + (SHA256_BLOCK_SIZE*2 + 1) + 2];
+
+  for (int i = 0; i < NB_USERS; i++) {
+
+    if(strcmp(virtual_disk_sos->users_table[i].login, "\0") != 0){
+      strcpy((char *)chaine_user_passwd, virtual_disk_sos->users_table[i].login);
+      strcat((char *)chaine_user_passwd, ":");
+      strcat((char *)chaine_user_passwd, virtual_disk_sos->users_table[i].passwd);
+      strcat((char *)chaine_user_passwd, "\n");
+      strcat((char *)file.data, (char *)chaine_user_passwd);
+      file.size += (FILENAME_MAX_SIZE + (SHA256_BLOCK_SIZE*2 + 1) + 2);
+    }
+  }
+
+  file.data[file.size] = EOF;
+  file.size ++;
+  write_file("passwd", file);
 
   return 0;
 }
@@ -33,6 +52,32 @@ int write_users_table(void){
 * @pre variable systeme déjà initialisé
 */
 int read_users_table(void){
+
+  file_t file;
+  read_file("passwd", &file);
+
+  int i = 0;
+  int i_user = 0;
+  int i_data_user = 0;
+  while(file.data[i] != (uchar)EOF){
+
+    i_data_user = 0;
+    while(file.data[i] != ':'){
+      virtual_disk_sos->users_table[i_user].login[i_data_user] = file.data[i];
+      i_data_user++;
+      i++;
+    }
+
+    i++;
+    i_data_user = 0;
+    while (file.data[i] != '\n'){
+      virtual_disk_sos->users_table[i_user].passwd[i_data_user] = file.data[i];
+      i_data_user++;
+      i++;
+    }
+    i++;
+    i_user++;
+  }
 
   return 0;
 }
