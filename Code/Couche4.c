@@ -104,6 +104,7 @@ int read_file(char* filename, file_t* file){
 		block_t* block;
 		
 		int i = 0; int j; int k;
+		/* recopie les données écrits sur le système dans file */
 		while(i < nb_blocks){
 			k = i*BLOCK_SIZE;
 			read_block(first_byte + k, block);
@@ -193,5 +194,22 @@ int load_file_from_host(char* filename){
 * @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
 int store_file_to_host(char* filename){
+	FILE* new_file = fopen(filename, "w");
+
+	/* vérification de la création du fichier */
+	if(new_file == NULL){
+		printf("Erreur création du fichier\n");
+		return 0;
+	}
+	
+	file_t* system_file;
+	read_file("filename", system_file);
+	char data[MAX_FILE_SIZE];
+	
+	/* stockage du fichier sur le host caractère par caractère */
+	for(int i = 0; i < system_file->size; i++){
+		data[i] = system_file->data[i];
+	}
+
 	return 1;
 }
