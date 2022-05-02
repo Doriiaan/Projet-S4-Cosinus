@@ -36,12 +36,6 @@ int find_file(char* filename){
 * @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
 */
 int write_file(char* filename, file_t file){
-	/* écriture du super_block sur la variable système */
-	if(read_super_block()){
-			printf("Erreur lecture du super block\n");
-			return 0;
-		}
-	
 	/* variables nécessaires */
 	int index = find_file(filename);
 	int byte = virtual_disque_sos->super_block.first_free_byte;
@@ -183,14 +177,5 @@ int load_file_from_host(char* filename){
 * @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
 int store_file_to_host(char* filename){
-	FILE* new_file = fopen(filename, "w");
-
-	/* vérification de la création du fichier */
-	if(new_file == NULL){
-		printf("Erreur création du fichier\n");
-		return 0;
-	}
-
-
 	return 1;
 }
