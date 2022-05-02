@@ -183,14 +183,5 @@ int load_file_from_host(char* filename){
 * @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
 */
 int store_file_to_host(char* filename){
-	FILE* new_file = fopen(filename, "w");
-
-	/* vérification de la création du fichier */
-	if(new_file == NULL){
-		printf("Erreur création du fichier\n");
-		return 0;
-	}
-
-
 	return 1;
 }
