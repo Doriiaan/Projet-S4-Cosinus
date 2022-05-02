@@ -38,7 +38,7 @@ void write_file(char* filename, file_t file);
 * @param file_t file : Fichier qui enregistre les données du fichier lu
 * @return int : 1 si le fichier a été lu, 0 s'il n'existe pas
 */
-int read_file(char* filename, file_t file);
+int read_file(char* filename, file_t *file);
 
 
 /*

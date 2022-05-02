@@ -11,11 +11,7 @@
 
 #include "header.h"
 #include "Couche1.h"
-
-#define USERS_START ((SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1) // en octets
-#define USER_SIZE ((FILENAME_MAX_SIZE + SHA256_BLOCK_SIZE*2 + 1)/BLOCK_SIZE + 1)// login + hash + 1 pour le \0 dans le hash = 25
-#define ROOT UID 0
-
+#include "Couche4.h"
 
 /**
 * @brief Ecrit la table d'utilisateurs de la variable systeme sur le disque
