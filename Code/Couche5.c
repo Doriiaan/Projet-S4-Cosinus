@@ -1,8 +1,19 @@
-#include "Couche5.h"
 #include "header.h"
+#include "Couche1.h"
+#include "Couche2.h"
+#include "Couche3.h"
+
+#include "Couche5.h"
+
 extern virtual_disk_t *virtual_disk_sos;
 
-int interprete = 1;
+#define FIRST_TIME 1
+#define TEST_ADD_INODE 1
+#define TEST_DELETE_INODE 0
+#define TEST_ADD_USER 1
+#define TEST_DELETE_USER 0
+#define TEST_SESSION 0
+
 void listusers(){
   if(virtual_disk_sos->super_block.number_of_users == 0){
     printf("0 utilisateurs");
@@ -12,32 +23,10 @@ void listusers(){
     printf("%s\n"  ,virtual_disk_sos->users_table[i].login);
   }
 }
-/*
-int cat(char* nom_fichier){
-  if(find_file(nom_fichier)==-1){
-    return 0;
-  }
-  block_t *t;
-  int indice = find_file(nom_fichier);
-  int bit = virtual_disk_sos->inodes[indice].first_byte;
-  int taille = virtual_disk_sos->inodes[indice].size;
-  int nb_bloc = computenblock(taille);
-  for(int i = 0 ; i<nb_bloc ; i++){
-    read_block(bit , t);
-    printf("%s" , t->data);
-    bit+=BLOCK_SIZE;
-  }
-  return 1;
-}
-*/
-/*int rm(char* nom_fichier){
-  if(find_file(nom_fichier)==-1){
-    return 0;
-  }
-  delete_file(nom_fichier);
-  return 1;
-}  
-  */
+
+int interprete = 1;
+
+
 void ls_l(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
     printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
@@ -56,32 +45,88 @@ int cr(char* nom_fichier){
   return 1;
 }
 
-void ls(){
-  for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
-    printf("%s | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size);
-    fflush(stdout);
-    
-  }
+int rm(char* nom_fichier){
+  delete_inode(nom_fichier);
+  return 1;
 }
 
+
+int connexion(){
+  char password[15];
+  char login[15];
+  int erreur = 0;
+  char hash[100];
+  int utilisateur = 1;
+  int mot_de_passe = 1;
+  int connexion = 1;
+  int id;
+  while(connexion){
+    while(utilisateur){
+      printf("Veuillez saisir un nom d'utilisateur : \n");
+      gets(login);
+      id = search_login(login);
+      if(id==-1){
+        printf("Nom d'utilisateur incorrect\n");
+      }
+      else{
+        printf("Nom d'utilisateur correct\n");
+        utilisateur = 0;
+      }
+    }
+    if(!utilisateur){
+      while(mot_de_passe && erreur!=3){
+        printf("Saisissez le mot de passe : ");
+        gets(password);
+        sha256ofString((BYTE *) password, hash);
+        if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
+          printf("Mot de passe correct\n");
+          mot_de_passe = 0;
+        }
+        else{
+          printf("Mot de passe incorrect\n ");
+          erreur++;
+          if(erreur==3){
+            printf("Nombre d'essai max atteint , fermeture système");
+            return 0;
+          }  
+        }
+      }
+    }
+    if(!utilisateur && !mot_de_passe){
+      printf("Connexion valide : \n");
+      printf("Lancement de l'interprete de commande ...\n");
+      
+        connexion=0;
+        return 1;
+      
+    }
+  }
+  return 0;
+}
+
+
+
 void interprete_commande(){
-  //je recupere les arguments grace au separateur espace.
   char str[100];
   cmd_t tab;
   char *commande[10] = {" " }; // tableau de pointeur qui va contenir les commandes
   tab.nbArgs = 0;
   const char * separators = " \n \t " " ";
-  printf("Saisissez une commande :\n ");
-  fgets(str , FILENAME_MAX_SIZE , stdin);
-  int j = 0;
-  char concat[10];
-  char * strToken = strtok ( str, separators );
-  while ( strToken != NULL ) {
-    printf ( "%s\n", strToken );
-    commande[j] = strToken;
-    j++;
-    tab.nbArgs++;
-    strToken = strtok ( NULL, separators );
+
+    // On cherche à récupérer, un à un, tous les mots (token) de la phrase
+    // et on commence par le premier.
+  if(connexion()==1){
+    while(interprete){
+    printf("Saisissez une commande :\n ");
+    fgets(str , 32 , stdin);
+    int j = 0;
+    char concat[10];
+    char * strToken = strtok ( str, separators );
+    while ( strToken != NULL ) {
+      commande[j] = strToken;
+      j++;
+      tab.nbArgs++;
+      strToken = strtok ( NULL, separators );
     }// on prend chaque argument et on les compte
 
     if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs==2){
@@ -118,61 +163,13 @@ void interprete_commande(){
      ls_l();
 
    }
+    tab.nbArgs = 0;
+
  }
+ }
+}
 
- int main(void){ //procedure de connexion 
-
-   char password[15];
-   char login[15];
-   int erreur = 0;
-   char hash[100];
-   int utilisateur = 1;
-   int mot_de_passe = 1;
-   int connexion = 1;
-   int id;
-   while(connexion){ // tant qu'on arrete pas le prog
-    while(utilisateur){ // tant que la saisie utilisateur est fausse
-      printf("Veuillez saisir un nom d'utilisateur : \n");
-      fgets(login , 20 , stdin);
-      id = search_login(login);
-      if(id==-1){
-        printf("Nom d'utilisateur incorrect\n");
-      }
-      else{
-        printf("Nom d'utilisateur correct\n");
-        utilisateur = 0;
-      }
-    }
-    if(!utilisateur){ //si l'utilisateur est correct
-      while(mot_de_passe && erreur!=3){ // tant que le mdp est faux ou 3 tentatives
-        printf("Saisissez le mot de passe : ");
-        fgets(password , 20 , stdin);
-        sha256ofString((BYTE *) password, hash);
-        if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
-          printf("Mot de passe correct\n");
-          mot_de_passe = 0;
-        }
-        else{
-          printf("Mot de passe incorrect\n ");
-          erreur++;
-          if(erreur==3){
-            printf("Nombre d'essai max atteint , fermeture système");
-          }  
-        }
-      }
-    }
-    if(!utilisateur && !mot_de_passe){ // si mdp ok et utilisateur ok on demarre l'interprete
-      printf("Connexion valide : \n");
-      printf("Lancement de l'interprete de commande ...\n");
-      while(interprete){
-        interprete_commande();
-      }
-      if(interprete==0){ // si on quitte l'interprete on ferme le programme
-        connexion=0;
-      }
-    }
-  }
-
+int main(void){
+  interprete_commande();
   return 0;
-
 }
