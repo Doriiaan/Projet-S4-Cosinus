@@ -97,27 +97,32 @@ int read_file(char* filename, file_t* file){
 		printf("Le fichier '%s' n'existe pas\n", filename);
 		return 0;
 	}
-	/* cas: le fichier existe */
-	else{
-		int first_byte = virtual_disk_sos->inodes[index].first_byte;
-		int nb_blocks = virtual_disk_sos->inodes[index].nblock;
-		block_t* block;
-		
-		int i = 0; int j; int k;
-		/* recopie les données écrits sur le système dans file */
-		while(i < nb_blocks){
-			k = i*BLOCK_SIZE;
-			read_block(first_byte + k, block);
-
-			for(j = 0; j < BLOCK_SIZE; j++){
-				file->data[j+k] = block->data[j];
-			}
-			
-			i++;
-		}
 	
+	if(file->size == 0){
 		return 1;
 	}
+	
+	/* cas: le fichier existe */
+	int first_byte = virtual_disk_sos->inodes[index].first_byte;
+	int nb_blocks = virtual_disk_sos->inodes[index].nblock;
+	block_t* block;
+	
+	int i = 0; int j; int k;
+	/* recopie les données écrits sur le système dans file */
+	while(i < nb_blocks){
+		k = i*BLOCK_SIZE;
+		read_block(first_byte + k, block);
+		
+		for(j = 0; j < BLOCK_SIZE; j++){
+			file->data[j+k] = block->data[j];
+		}
+		
+		i++;
+	}
+	
+	read_block(0, block);
+	
+	return 1;
 }
 
 
@@ -167,6 +172,11 @@ int load_file_from_host(char* filename){
         printf("Erreur ouverture du fichier\n");
 		return 0;
     }
+	
+	int size = ftell(host_file);
+	if(size == 0){
+		return write_file(filename, new_file);
+	}
 
 	int i = 0;
 	/* sauvegarde du fichier host dans le variable 'new_file' caractère par caractère */
@@ -180,7 +190,8 @@ int load_file_from_host(char* filename){
 			printf("Erreur chargement du fichier. Le fichier '%s' est trop grand\n", filename);
 		}
 	}
-
+	
+	ch = "a";
 	fclose(host_file);
 
 	/* écriture le fichier sur le système */
