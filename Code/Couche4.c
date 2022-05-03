@@ -37,7 +37,6 @@ int find_file(char* filename){
 * @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
 */
 int write_file(char* filename, file_t file){
-	/* variables nécessaires */
 	int index = find_file(filename);
 	int byte = virtual_disk_sos->super_block.first_free_byte;
 	int old_file_blocks = computenblock(virtual_disk_sos->inodes[index].size);
@@ -138,7 +137,7 @@ int delete_file(char* filename){
 	}
 	/* cas: le fichier existe */
 	else{
-		/* delete_inode(nom_fichier) retourne 0 si tout s'est bien passé, 1 s'il y a eu une erreur, et 2 si l'inode est déjà libre */
+		/* delete_inode(filename) retourne 0 si tout s'est bien passé, 1 s'il y a eu une erreur, et 2 si l'inode est déjà libre */
 		switch(delete_inode(filename)){
 			case 0:
 				return 1;
@@ -162,7 +161,7 @@ int delete_file(char* filename){
 */
 int load_file_from_host(char* filename){
 	FILE* host_file = fopen(filename, "r");
-    char ch;
+    char ch = '';
 	file_t new_file;
 
 	/* vérification de l'ouverture du fichier */
@@ -212,7 +211,7 @@ int store_file_to_host(char* filename){
 	
 	file_t* system_file = malloc(sizeof(file_t));
 	read_file("filename", system_file);
-	char data[MAX_FILE_SIZE];
+	uchar data[MAX_FILE_SIZE];
 	
 	if(system_file->size == 0){
 		return 1;
