@@ -93,7 +93,7 @@ int get_unused_inode(void);
 * @param char[FILENAME_MAX_SIZE] inclut \'0' name_of_file : nom du fichier
 * @param uint size  : taille du fichier
 * @param uint first_byte : premier octet du fichier sur le disque
-* @return int : 0 si tout s'est bien passé, 1 sinon (ex : taille max table inode attteinte)
+* @return int : indice du nouvel inode, 1 si erreurs (ex : taille max table inode attteinte)
 * @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
 * @note Met à jour le la table d'inode et le super bloc
 *       first_free_byte, nblock et number_of_files.

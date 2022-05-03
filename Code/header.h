@@ -9,6 +9,7 @@
 #include <time.h>
 #include "sha256.h"
 #include "sha256_utils.h"
+#include "time_stamp.h"
 
 
 // pour les droits : minuscule = pas le droit, majuscule = droit ok

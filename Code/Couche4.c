@@ -7,80 +7,99 @@
 */
 
 #include "Couche4.h"
+#include "time_stamp.h"
 
 extern virtual_disk_t *virtual_disk_sos;
 
 
 /*
-* @brief Cherche un fichier dans la table d'unodes
-* @param char* filename : Nom du fichier à écrire
-* @return int : L'indice du fichier 'filename' dans la table d'inodes, -1 par défaut
+* @brief Fonction interne, non visible par l'utilisateur, écrit un fichier sur le disque
+* @param file_t file : fichier à écrire
+* @param uint first_byte : emplacement de fichier sur le disque
+* @return int : 0 si tout c'est bien passé, 1 sinon
 */
-int find_file(char* filename){
-	int index = -1;
-	
-	/* cherche dans virtual_disk_sos->inodes[] si le fichier 'filename' est présent */
-	for(int i = 0; i < INODE_TABLE_SIZE; i++){
-		if(!strcmp(filename, virtual_disk_sos->inodes[i].filename)){
-			index = i;
-			return index;
+int write_file_on_disk(file_t file, uint first_byte){
+
+	int i_data = 0;
+	block_t data_block;
+	int size = (int) file.size;
+	int nb_block = 0;
+
+	while(i_data < size){
+
+		for (int i_data_block = 0; i_data_block < 4; i_data_block++){
+			if(i_data < size) //si on a pas dépassé la taille de file
+				data_block.data[i_data_block] = file.data[i_data];
+			else
+				data_block.data[i_data_block] = (uchar)'\0';
+			i_data++;
 		}
+
+		if(write_block(first_byte+nb_block*BLOCK_SIZE, data_block))
+			return 1;
+		nb_block++;
 	}
-	return index;
+	return 0;
 }
 
 
 /*
-* @brief Créé ou modifie un fichier en utilisant la table d'inodes
+* @brief Créer ou modifier un fichier
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
 * @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
+* @pre variable systeme et session initialisé
+* @note ne pas créer de fichier si aucune session n'est ouverte
 */
 int write_file(char* filename, file_t file){
-	/* variables nécessaires */
-	int index = find_file(filename);
-	int byte = virtual_disk_sos->super_block.first_free_byte;
-	int old_file_blocks = computenblock(virtual_disk_sos->inodes[index].size);
-	int new_file_blocks = computenblock(file.size);
-	int nb_blocks = computenblock(file.size);
-	block_t block;
-	int i = 0; int j; int k;
-	
-	/* détermine où écrire les informations sur le disque */
+
+	int index;
+	int nb_blocks;
+	char time[TIMESTAMP_SIZE];
+
+	index = search_file_inode(filename); // indice de l'inode ou -1 s'il existe pas
+	nb_blocks = computenblock(file.size);
+
+	strcpy(time, timestamp());
+
+
+	//si le fichier existe
 	if(index != -1){
-		if(new_file_blocks <= old_file_blocks){
-			byte = virtual_disk_sos->inodes[index].first_byte;
-		}
-		else{
+
+		//si le fichier à une taille supérieure à l'ancien
+		if(file.size > virtual_disk_sos->inodes[index].size){
 			delete_inode(filename);
 		}
-	}
-	
-	/* écriture des informations sur le disque à l'endroit déterminé */
-	while(i < nb_blocks){
-		k = i*BLOCK_SIZE;
-
-		for(j = 0; j < BLOCK_SIZE; j++){
-			block.data[j] = file.data[j+k];
+		//si le fichier à une taille inférieure ou égale à l'ancien
+		else{
+			virtual_disk_sos->inodes[index].size = file.size;
+			virtual_disk_sos->inodes[index].nblock = nb_blocks;
+			strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
+				return 0;
+			if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte))
+				return 0;
+			return 1; //on s'arrête là pour ne pas créer un nouveaux fichier
 		}
-		
-		write_block(byte + k, block);
-		i++;
 	}
-	
-	/* on initialise un nouvel inode si on n'a pas d'inode existant qui correspond au fichier */
-	if(index == -1 || new_file_blocks <= old_file_blocks){
-		init_inode(filename, file.size, byte);
-	}
-	
-	/* s'il y a déjà un inode correspondant, on modifie ses informations */
-	else{
-		strcpy(virtual_disk_sos->inodes[index].filename, filename);
-		virtual_disk_sos->inodes[index].size = file.size;	
-	}
-	
+
+	//création du nouveaux fichier
+
+	if((index=init_inode(filename, file.size, virtual_disk_sos->super_block.first_free_byte)) == -1)
+		return 0;
+	virtual_disk_sos->inodes[index].uid = (uint)get_session();
+	virtual_disk_sos->inodes[index].uright = RW;
+	virtual_disk_sos->inodes[index].oright = rw;
+	strcpy(virtual_disk_sos->inodes[index].ctimestamp, time);
+	strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
+
+	if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte))
+		return 0;
+
 	return 1;
 }
+
+
+
 
 
 /*
@@ -90,36 +109,36 @@ int write_file(char* filename, file_t file){
 * @return int : 1 si le fichier a été lu, 0 s'il n'existe pas
 */
 int read_file(char* filename, file_t* file){
-	int index = find_file(filename);
+	int index = search_file_inode(filename);
 
 	/* cas: le fichier n'existe pas */
 	if(index == -1){
 		printf("Le fichier '%s' n'existe pas\n", filename);
 		return 0;
 	}
-	
+
 	if(file->size == 0){
 		return 1;
 	}
-	
+
 	/* cas: le fichier existe */
 	int first_byte = virtual_disk_sos->inodes[index].first_byte;
 	int nb_blocks = virtual_disk_sos->inodes[index].nblock;
 	block_t* block = malloc(sizeof(block_t));
-	
+
 	int i = 0; int j; int k;
 	/* recopie les données écrits sur le système dans file */
 	while(i < nb_blocks){
 		k = i*BLOCK_SIZE;
 		read_block(first_byte + k, block);
-		
+
 		for(j = 0; j < BLOCK_SIZE; j++){
 			file->data[j+k] = block->data[j];
 		}
-		
+
 		i++;
 	}
-	
+
 	return 1;
 }
 
@@ -130,7 +149,7 @@ int read_file(char* filename, file_t* file){
 * @return int : 1 si le fichier a été supprimé, 0 s'il n'existe pas, et -1 en cas d'erreur
 */
 int delete_file(char* filename){
-	int index = find_file(filename);
+	int index = search_file_inode(filename);
 
 	/* cas: le fichier n'existe pas */
 	if(index == -1){
@@ -162,7 +181,7 @@ int delete_file(char* filename){
 */
 int load_file_from_host(char* filename){
 	FILE* host_file = fopen(filename, "r");
-    char ch;
+  char ch;
 	file_t new_file;
 
 	/* vérification de l'ouverture du fichier */
@@ -170,7 +189,7 @@ int load_file_from_host(char* filename){
         printf("Erreur ouverture du fichier\n");
 		return 0;
     }
-	
+
 	int size = ftell(host_file);
 	if(size == 0){
 		return write_file(filename, new_file);
@@ -178,8 +197,10 @@ int load_file_from_host(char* filename){
 
 	int i = 0;
 	/* sauvegarde du fichier host dans le variable 'new_file' caractère par caractère */
+	ch = fgetc(host_file);
 	while(ch != EOF){
-		ch = fgetc(host_file);
+
+
 		new_file.data[i] = ch;
 
 		i++;
@@ -187,8 +208,9 @@ int load_file_from_host(char* filename){
 		if(i > MAX_FILE_SIZE){
 			printf("Erreur chargement du fichier. Le fichier '%s' est trop grand\n", filename);
 		}
+		ch = fgetc(host_file);
 	}
-	
+
 	fclose(host_file);
 
 	/* écriture le fichier sur le système */
@@ -209,20 +231,20 @@ int store_file_to_host(char* filename){
 		printf("Erreur création du fichier\n");
 		return 0;
 	}
-	
+
 	file_t* system_file = malloc(sizeof(file_t));
 	read_file("filename", system_file);
 	char data[MAX_FILE_SIZE];
-	
+
 	if(system_file->size == 0){
 		return 1;
 	}
-	
+
 	/* stockage du fichier sur le host caractère par caractère */
 	for(uint i = 0; i < system_file->size; i++){
 		data[i] = system_file->data[i];
 	}
-	
+
 	fprintf(new_file, data);
 
 	return 1;

@@ -90,8 +90,7 @@ int init_disk_sos(char* nom_repertoire_disque){
     return 1;
   if(read_inodes_table())
     return 1;
-  if(read_users_table())
-    return 1;
+
 
 
   if((session = malloc(sizeof(session_t))) == NULL) // init variable globale session
@@ -111,7 +110,7 @@ int init_disk_sos(char* nom_repertoire_disque){
 */
 int save_disk_sos(void){
 
-  if(write_super_block() || write_inodes_table() || write_users_table()){
+  if(write_super_block() || write_inodes_table()){
     return 1;
   }
 

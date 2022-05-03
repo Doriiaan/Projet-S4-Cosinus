@@ -102,7 +102,7 @@ void del_session(void);
 /**
 * @brief Retourne l'id d'utilisateur de la session en cours
 * @param void
-* @return int : id de l'utilisateur
+* @return int : id de l'utilisateur ou -1
 * @pre variable session déjà initialisé
 */
 int get_session(void);

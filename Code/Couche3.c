@@ -22,23 +22,23 @@ session_t *session;
 int write_users_table(void){
 
   file_t file;
+  strcpy((char *)file.data, "");
   file.size = 0;
-  uchar chaine_user_passwd[FILENAME_MAX_SIZE + (SHA256_BLOCK_SIZE*2 + 1) + 2];
 
   for (int i = 0; i < NB_USERS; i++) {
 
     if(strcmp(virtual_disk_sos->users_table[i].login, "\0") != 0){
-      strcpy((char *)chaine_user_passwd, virtual_disk_sos->users_table[i].login);
-      strcat((char *)chaine_user_passwd, ":");
-      strcat((char *)chaine_user_passwd, virtual_disk_sos->users_table[i].passwd);
-      strcat((char *)chaine_user_passwd, "\n");
-      strcat((char *)file.data, (char *)chaine_user_passwd);
-      file.size += (FILENAME_MAX_SIZE + (SHA256_BLOCK_SIZE*2 + 1) + 2);
+      strcat((char *)file.data, virtual_disk_sos->users_table[i].login);
+      strcat((char *)file.data, ":");
+      strcat((char *)file.data, virtual_disk_sos->users_table[i].passwd);
+      strcat((char *)file.data, "\n");
+      file.size += (strlen(virtual_disk_sos->users_table[i].login) + (SHA256_BLOCK_SIZE*2 + 1) + 2);
     }
   }
 
-  file.data[file.size] = EOF;
+  file.data[file.size] = (uchar)EOF;
   file.size ++;
+
   write_file("passwd", file);
 
   return 0;
@@ -235,7 +235,7 @@ void del_session(void){
 /**
 * @brief Retourne l'id d'utilisateur de la session en cours
 * @param void
-* @return int : id de l'utilisateur
+* @return int : id de l'utilisateur ou -1
 * @pre variable session déjà initialisé
 */
 int get_session(void){

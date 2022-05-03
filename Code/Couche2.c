@@ -171,7 +171,7 @@ int get_unused_inode(void){
 * @param char[FILENAME_MAX_SIZE] inclut \'0' name_of_file : nom du fichier
 * @param uint size  : taille du fichier
 * @param uint first_byte : premier octet du fichier sur le disque
-* @return int : 0 si tout s'est bien passé, 1 sinon (ex : taille max table inode attteinte)
+* @return int : indice du nouvel inode, 1 si erreurs (ex : taille max table inode attteinte)
 * @pre variable systeme déjà initialisé && len(name_of_file) < FILENAME_MAX_SIZE
 * @note Met à jour le la table d'inode et le super bloc
 *       first_free_byte, nblock et number_of_files.
@@ -180,11 +180,11 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
   assert(strlen(name_of_file) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
 
   if(search_file_inode(name_of_file) != -1)
-    return 1;
+    return -1;
 
   int indice_new;
   if((indice_new = get_unused_inode()) == -1 ){
-    return 1;
+    return -1;
   }
   inode_t new;
   strcpy(new.filename, name_of_file);
@@ -194,14 +194,14 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
   virtual_disk_sos->inodes[indice_new] = new;
 
   if(first_byte == virtual_disk_sos->super_block.first_free_byte){
-    uint first_free_byte_sb = (first_byte + size) + (4 - (first_byte + size)%4); //positione au debut du prochain bloc
+    uint first_free_byte_sb = (first_byte + size) + (4 - (first_byte + size + 1)%4); //positione au debut du prochain bloc (+1 car comme,ce à zero)
     update_first_free_byte_super_block(first_free_byte_sb);
   }
 
   virtual_disk_sos->super_block.nb_blocks_used += new.nblock;
   virtual_disk_sos->super_block.number_of_files++;
 
-  return 0;
+  return indice_new;
 }
 
 
@@ -235,7 +235,7 @@ void init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_users = 0; //root
   virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE));
   virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
-
+  write_super_block();
 }
 
 
@@ -252,4 +252,5 @@ void init_first_time_inodes_tables(void){
     virtual_disk_sos->inodes[i].size = 0;
     strcpy(virtual_disk_sos->inodes[i].filename, "");
   }
+  write_inodes_table();
 }

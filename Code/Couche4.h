@@ -16,14 +16,6 @@
 
 
 /*
-* @brief Cherche un fichier dans la table d'unodes
-* @param char* filename : Nom du fichier à écrire
-* @return int : L'indice du fichier trouvé dans la table d'inodes, -1 par défaut
-*/
-int find_file(char* filename);
-
-
-/*
 * @brief Créé ou modifie un fichier en utilisant la table d'inodes
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
