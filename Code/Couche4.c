@@ -105,7 +105,7 @@ int read_file(char* filename, file_t* file){
 	/* cas: le fichier existe */
 	int first_byte = virtual_disk_sos->inodes[index].first_byte;
 	int nb_blocks = virtual_disk_sos->inodes[index].nblock;
-	block_t* block;
+	block_t* block = malloc(sizeof(block_t));
 	
 	int i = 0; int j; int k;
 	/* recopie les données écrits sur le système dans file */
@@ -119,8 +119,6 @@ int read_file(char* filename, file_t* file){
 		
 		i++;
 	}
-	
-	read_block(0, block);
 	
 	return 1;
 }
@@ -191,7 +189,6 @@ int load_file_from_host(char* filename){
 		}
 	}
 	
-	printf("%c", ch);
 	fclose(host_file);
 
 	/* écriture le fichier sur le système */
@@ -213,14 +210,20 @@ int store_file_to_host(char* filename){
 		return 0;
 	}
 	
-	file_t* system_file;
+	file_t* system_file = malloc(sizeof(file_t));
 	read_file("filename", system_file);
 	char data[MAX_FILE_SIZE];
 	
+	if(system_file->size == 0){
+		return 1;
+	}
+	
 	/* stockage du fichier sur le host caractère par caractère */
-	for(int i = 0; i < system_file->size; i++){
+	for(uint i = 0; i < system_file->size; i++){
 		data[i] = system_file->data[i];
 	}
+	
+	fprintf(new_file, data);
 
 	return 1;
 }
