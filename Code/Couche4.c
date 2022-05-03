@@ -11,6 +11,91 @@
 
 extern virtual_disk_t *virtual_disk_sos;
 
+/**
+* @brief Fonction interne, non visible par l'utilisateur, écrit un fichier sur le disque
+* @param file_t file : fichier à écrire
+* @param uint first_byte : emplacement de fichier sur le disque
+* @return int : 0 si tout c'est bien passé, 1 sinon
+*/
+int write_file_on_disk(file_t file, uint first_byte){
+
+	int i_data = 0;
+	block_t data_block;
+	int size = (int) file.size;
+	int nb_block = 0;
+
+	while(i_data < size){
+
+		for (int i_data_block = 0; i_data_block < 4; i_data_block++){
+			if(i_data < size) //si on a pas dépassé la taille de file
+				data_block.data[i_data_block] = file.data[i_data];
+			else
+				data_block.data[i_data_block] = (uchar)'\0';
+			i_data++;
+		}
+
+		if(write_block(first_byte+nb_block*BLOCK_SIZE, data_block))
+			return 1;
+		nb_block++;
+	}
+
+	return 0;
+}
+
+
+/**
+* @brief Créer ou modifier un fichier
+* @param char* filename : Nom du fichier à écrire
+* @param file_t file : Fichier à écrire sur le système
+* @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
+* @pre variable systeme et session initialisé
+* @note ne pas créer de fichier si aucune session n'est ouverte
+*/
+int write_file(char* filename, file_t file){
+
+	int index;
+	int nb_blocks;
+	char time[TIMESTAMP_SIZE];
+
+	index = search_file_inode(filename); // indice de l'inode ou -1 s'il existe pas
+	nb_blocks = computenblock(file.size);
+
+	strcpy(time, timestamp());
+
+	//si le fichier existe
+	if(index != -1){
+		//si le fichier à une taille supérieure à l'ancien
+		if(file.size > virtual_disk_sos->inodes[index].size){
+			delete_inode(filename);
+		}
+		//si le fichier à une taille inférieure ou égale à l'ancien
+		else{
+			virtual_disk_sos->inodes[index].size = file.size;
+			virtual_disk_sos->inodes[index].nblock = nb_blocks;
+			strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
+				return 0;
+			if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte))
+				return 0;
+			return 1; //on s'arrête là pour ne pas créer un nouveaux fichier
+		}
+	}
+
+	//création du nouveaux fichier
+
+	if((index=init_inode(filename, file.size, virtual_disk_sos->super_block.first_free_byte)) == -1)
+		return 0;
+	virtual_disk_sos->inodes[index].uid = (uint)get_session();
+	virtual_disk_sos->inodes[index].uright = RW;
+	virtual_disk_sos->inodes[index].oright = rw;
+	strcpy(virtual_disk_sos->inodes[index].ctimestamp, time);
+	strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
+
+	if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte))
+		return 0;
+
+	return 1;
+	}
+
 
 
 
