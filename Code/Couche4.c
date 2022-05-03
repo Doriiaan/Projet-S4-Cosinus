@@ -191,7 +191,7 @@ int load_file_from_host(char* filename){
 		}
 	}
 	
-	ch = "a";
+	printf("%c", ch);
 	fclose(host_file);
 
 	/* écriture le fichier sur le système */
