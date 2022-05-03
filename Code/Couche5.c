@@ -72,7 +72,7 @@ void interprete_commande(){
   tab.nbArgs = 0;
   const char * separators = " \n \t " " ";
   printf("Saisissez une commande :\n ");
-  gets(str);
+  fgets(str , FILENAME_MAX_SIZE , stdin);
   int j = 0;
   char concat[10];
   char * strToken = strtok ( str, separators );
@@ -133,7 +133,7 @@ void interprete_commande(){
    while(connexion){ // tant qu'on arrete pas le prog
     while(utilisateur){ // tant que la saisie utilisateur est fausse
       printf("Veuillez saisir un nom d'utilisateur : \n");
-      gets(login);
+      fgets(login , 20 , stdin);
       id = search_login(login);
       if(id==-1){
         printf("Nom d'utilisateur incorrect\n");
@@ -146,7 +146,7 @@ void interprete_commande(){
     if(!utilisateur){ //si l'utilisateur est correct
       while(mot_de_passe && erreur!=3){ // tant que le mdp est faux ou 3 tentatives
         printf("Saisissez le mot de passe : ");
-        gets(password);
+        fgets(password , 20 , stdin);
         sha256ofString((BYTE *) password, hash);
         if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
           printf("Mot de passe correct\n");
