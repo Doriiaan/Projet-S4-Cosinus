@@ -35,14 +35,14 @@ int write_file_on_disk(file_t file, uint first_byte){
 			else{
 				data_block.data[i_data_block] = (uchar)'\0';
 			}
-			
+
 			i_data++;
 		}
 
 		if(write_block(first_byte+nb_block*BLOCK_SIZE, data_block)){
 			return 1;
 		}
-		
+
 		nb_block++;
 	}
 
@@ -75,18 +75,21 @@ int write_file(char* filename, file_t file){
 		}
 		/* si le nouveau fichier à une taille inférieure ou égale à l'ancien */
 		else{
+			uint first_byte = virtual_disk_sos->inodes[index].first_byte;
 			virtual_disk_sos->inodes[index].size = file.size;
 			virtual_disk_sos->inodes[index].nblock = nb_blocks;
 			strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
-			
-			if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte)){
+			if(index == (int)virtual_disk_sos->super_block.number_of_files-1)
+				update_first_free_byte_super_block((first_byte + file.size) + (4 - (first_byte + file.size)%4) -1); //positionne au debut du prochain bloc
+
+			if(write_file_on_disk(file, first_byte)){
 				return 0;
 			}
-			
+
 			return 1; /* on s'arrête là pour ne pas créer un nouveaux fichier */
 		}
 	}
-	
+
 	/* création du nouveaux fichier */
 	if((index=init_inode(filename, file.size, virtual_disk_sos->super_block.first_free_byte)) == -1){
 		return 0;
@@ -123,7 +126,7 @@ int read_file(char* filename, file_t* file){
 	if(index == -1){
 		return 0;
 	}
-	
+
 	/* si le fichier 'filename' est vide */
 	if(virtual_disk_sos->inodes[index].size == 0){
 		/* on s'arrête car il n'y a rien à recopier */
@@ -193,13 +196,13 @@ int load_file_from_host(char* filename){
     if(host_file == NULL){
 		return 0;
     }
-	
+
 	/* si le fichier est vide */
 	if(size == 0){
 		/* on peut l'écrire directement car il est vide */
 		return write_file(filename, new_file);
 	}
-	
+
 	/* si la taille du fichier dépasse la limite */
 	if(size > MAX_FILE_SIZE){
 		/* on s'arrête car l'écriture du fichier sera impossible */
@@ -236,7 +239,7 @@ int store_file_to_host(char* filename){
 	if(new_file == NULL){
 		return 0;
 	}
-	
+
 	/* si le fichier est vide */
 	if(system_file->size == 0){
 		/* on s'arrête car il n'y a rien à recopier */
