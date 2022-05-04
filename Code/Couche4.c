@@ -80,7 +80,7 @@ int write_file(char* filename, file_t file){
 			virtual_disk_sos->inodes[index].nblock = nb_blocks;
 			strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
 			if(index == (int)virtual_disk_sos->super_block.number_of_files-1)
-				update_first_free_byte_super_block((first_byte + file.size) + (4 - (first_byte + file.size)%4) -1); //positionne au debut du prochain bloc
+				update_first_free_byte_super_block(first_byte + file.size); //positionne au debut du prochain bloc
 
 			if(write_file_on_disk(file, first_byte)){
 				return 0;

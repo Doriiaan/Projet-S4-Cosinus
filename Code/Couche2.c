@@ -61,10 +61,14 @@ int read_super_block(void){
 * @param uint byte : octet à mettre à jour
 * @return void
 * @pre variable systeme déjà initialisé
-* @note Aucun test de vérification d'espace disque n'est effectué
+* @note Aucun test de vérification d'espace disque n'est effectué, ajoute le first_free_byte
+* au debut d'un nouveau bloc
 */
 void update_first_free_byte_super_block(uint byte){
 
+  if((byte)%4 != 0){
+    byte += (4 - (byte)%4);
+  }
   virtual_disk_sos->super_block.first_free_byte = byte;
 }
 
@@ -194,8 +198,7 @@ int init_inode(char *name_of_file, uint size, uint first_byte){
   virtual_disk_sos->inodes[indice_new] = new;
 
   if((first_byte == virtual_disk_sos->super_block.first_free_byte)){
-    uint first_free_byte_sb = (first_byte + size) + (4 - (first_byte + size )%4) - 1; //positione au debut du prochain bloc (+1 car comme,ce à zero)
-    update_first_free_byte_super_block(first_free_byte_sb);
+    update_first_free_byte_super_block(first_byte + size);
   }
 
   virtual_disk_sos->super_block.nb_blocks_used += new.nblock;
