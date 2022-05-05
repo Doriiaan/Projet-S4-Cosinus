@@ -8,8 +8,8 @@ extern virtual_disk_t *virtual_disk_sos;
 //#define FIRST_TIME
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
-#define TEST_WRITE_FILE
-#define TEST_READ_FILE
+//#define TEST_WRITE_FILE
+//#define TEST_READ_FILE
 
 int main() {
   if(init_disk_sos("../Dossier_Disque/Disque"))
@@ -20,7 +20,6 @@ int main() {
     init_first_time_inodes_tables();
     init_first_time_user_table();
     add_user("root", "root");
-    add_user("dorian", "dods");
   #endif
 
 

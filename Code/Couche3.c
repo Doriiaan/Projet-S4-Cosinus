@@ -23,7 +23,7 @@ int write_users_table(void){
 
   file_t file;
   file.size = 0;
-  char c[1]; c[0] = '\n'; //obligatoire si je ne veux pas de problème de segmentation (pas propre)
+
 
   for (int i = 0; i < NB_USERS; i++) {
     if(strcmp(virtual_disk_sos->users_table[i].login, "\0") != 0){
@@ -33,7 +33,7 @@ int write_users_table(void){
         strcat((char *)file.data, virtual_disk_sos->users_table[i].login);
       strcat((char *)file.data, ":");
       strcat((char *)file.data, virtual_disk_sos->users_table[i].passwd);
-      strcat((char *)file.data, c);
+      strcat((char *)file.data, "\n");
       file.size += (strlen(virtual_disk_sos->users_table[i].login) + (SHA256_BLOCK_SIZE*2) + 2) ;
     }
   }
