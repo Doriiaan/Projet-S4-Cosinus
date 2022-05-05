@@ -19,6 +19,7 @@ extern virtual_disk_t *virtual_disk_sos;
 * @return int : 0 si tout c'est bien passé, 1 sinon
 **/
 int write_file_on_disk(file_t file, uint first_byte){
+
 	/* variables nécessaires */
 	int size = (int) file.size;
 	block_t data_block;
@@ -28,12 +29,13 @@ int write_file_on_disk(file_t file, uint first_byte){
 	while(i_data < size){
 		for (int i_data_block = 0; i_data_block < 4; i_data_block++){
 			/* on recopie les données de file dans le data_block */
+
 			if(i_data < size){
 				data_block.data[i_data_block] = file.data[i_data];
 			}
 			/* si on a pas dépassé la taille de file */
 			else{
-				data_block.data[i_data_block] = (uchar)'\0';
+				data_block.data[i_data_block] = '\0';
 			}
 
 			i_data++;
@@ -60,6 +62,7 @@ int write_file_on_disk(file_t file, uint first_byte){
 **/
 int write_file(char* filename, file_t file){
 	/* variables nécessaires */
+
 	int index;
 	int nb_blocks;
 	char time[TIMESTAMP_SIZE];
@@ -91,7 +94,9 @@ int write_file(char* filename, file_t file){
 	}
 
 	/* création du nouveaux fichier */
+
 	if((index=init_inode(filename, file.size, virtual_disk_sos->super_block.first_free_byte)) == -1){
+
 		return 0;
 	}
 	virtual_disk_sos->inodes[index].uid = (uint)get_session();
@@ -99,6 +104,7 @@ int write_file(char* filename, file_t file){
 	virtual_disk_sos->inodes[index].oright = rw;
 	strcpy(virtual_disk_sos->inodes[index].ctimestamp, time);
 	strcpy(virtual_disk_sos->inodes[index].mtimestamp, time);
+
 
 	if(write_file_on_disk(file, virtual_disk_sos->inodes[index].first_byte)){
 		return 0;
@@ -117,34 +123,28 @@ int write_file(char* filename, file_t file){
 int read_file(char* filename, file_t* file){
 	/* variables nécessaires */
 	int index = search_file_inode(filename);
-	int first_byte = virtual_disk_sos->inodes[index].first_byte;
-	int nb_blocks = virtual_disk_sos->inodes[index].nblock;
-	block_t* block = malloc(sizeof(block_t));
-	int i = 0; int j; int k;
-
 	/* si le fichier n'existe pas */
 	if(index == -1){
 		return 0;
 	}
+	int first_byte = virtual_disk_sos->inodes[index].first_byte;
+	int nb_blocks = virtual_disk_sos->inodes[index].nblock;
+	block_t block;
+	int i = 0; int j; int k;
 
-	/* si le fichier 'filename' est vide */
-	if(virtual_disk_sos->inodes[index].size == 0){
-		/* on s'arrête car il n'y a rien à recopier */
-		return 1;
-	}
 
 	/* on recopie les données écrits sur le système dans file */
 	while(i < nb_blocks){
 		k = i*BLOCK_SIZE;
-		read_block(first_byte + k, block);
+		read_block(first_byte + k, &block);
 
 		for(j = 0; j < BLOCK_SIZE; j++){
-			file->data[j+k] = block->data[j];
+			file->data[j+k] = block.data[j];
 		}
 
 		i++;
 	}
-
+	file->size = virtual_disk_sos->inodes[index].size;
 	return 1;
 }
 

@@ -22,22 +22,21 @@ session_t *session;
 int write_users_table(void){
 
   file_t file;
-  strcpy((char *)file.data, "");
   file.size = 0;
+  char c[1]; c[0] = '\n'; //obligatoire si je ne veux pas de problème de segmentation (pas propre)
 
   for (int i = 0; i < NB_USERS; i++) {
-
     if(strcmp(virtual_disk_sos->users_table[i].login, "\0") != 0){
-      strcat((char *)file.data, virtual_disk_sos->users_table[i].login);
+      if(i == 0)
+        strcpy((char *)file.data, virtual_disk_sos->users_table[i].login);
+      else
+        strcat((char *)file.data, virtual_disk_sos->users_table[i].login);
       strcat((char *)file.data, ":");
       strcat((char *)file.data, virtual_disk_sos->users_table[i].passwd);
-      strcat((char *)file.data, "\n");
-      file.size += (strlen(virtual_disk_sos->users_table[i].login) + (SHA256_BLOCK_SIZE*2 + 1) + 2);
+      strcat((char *)file.data, c);
+      file.size += (strlen(virtual_disk_sos->users_table[i].login) + (SHA256_BLOCK_SIZE*2) + 2) ;
     }
   }
-
-  file.data[file.size] = (uchar)EOF;
-  file.size ++;
 
   write_file("passwd", file);
 
@@ -54,29 +53,38 @@ int write_users_table(void){
 int read_users_table(void){
 
   file_t file;
-  read_file("passwd", &file);
+  if(read_file("passwd", &file) == 0){
+    return 0;
+  }
 
+  int nb_users = 0;
   int i = 0;
-  int i_user = 0;
-  int i_data_user = 0;
-  while(file.data[i] != (uchar)EOF){
+  int i_champs;
 
-    i_data_user = 0;
+  while(i < (int)file.size){
+
+    i_champs = 0;
     while(file.data[i] != ':'){
-      virtual_disk_sos->users_table[i_user].login[i_data_user] = file.data[i];
-      i_data_user++;
+      virtual_disk_sos->users_table[nb_users].login[i_champs] = file.data[i];
+      i_champs++;
       i++;
     }
+    i++;
+    i_champs = 0;
+    while(i_champs < 64){
+      virtual_disk_sos->users_table[nb_users].passwd[i_champs] = file.data[i];
+      i_champs++;
+      i++;
+    }
+    i++;
 
-    i++;
-    i_data_user = 0;
-    while (file.data[i] != '\n'){
-      virtual_disk_sos->users_table[i_user].passwd[i_data_user] = file.data[i];
-      i_data_user++;
-      i++;
+    nb_users++;
+  }
+
+  if(nb_users < NB_USERS){
+    for (int i = nb_users; i < NB_USERS; i++) {
+      strcpy(virtual_disk_sos->users_table[nb_users].login, "\0");
     }
-    i++;
-    i_user++;
   }
 
   return 0;
@@ -133,7 +141,6 @@ int search_login(char *login){
 */
 int add_user(char *login, char *password_clair){
   assert(strlen(login) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
-
   if(search_login(login) != -1){
     return -1;
   }

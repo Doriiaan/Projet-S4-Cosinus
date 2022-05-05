@@ -121,7 +121,6 @@ int write_inodes_table(void){
 */
 int delete_inode(char *name_of_file){
   assert(strlen(name_of_file) < FILENAME_MAX_SIZE); //strlen compte pas le '\0'
-
   int indice_inode;
   if((indice_inode=search_file_inode(name_of_file)) == -1){
     return 2;
@@ -136,7 +135,7 @@ int delete_inode(char *name_of_file){
       alors l'octet qui suit l'inode est le first_free_byte ou c'est la derniere inode,
       donc on decale le first_free_byte au first_byte de l'inode qu'on va supprimer
     */
-    if(indice_inode + 1 == INODE_TABLE_SIZE || virtual_disk_sos->inodes[indice_inode+1].first_byte == 0){
+    if(indice_inode == INODE_TABLE_SIZE-1 || virtual_disk_sos->inodes[indice_inode+1].first_byte == 0){
          update_first_free_byte_super_block(virtual_disk_sos->inodes[indice_inode].first_byte);
        }
 
@@ -237,7 +236,7 @@ void init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_files = 0;
   virtual_disk_sos->super_block.number_of_users = 0; //root
   virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE));
-  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1;
+  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1 + 3; //debut block
   write_super_block();
 }
 

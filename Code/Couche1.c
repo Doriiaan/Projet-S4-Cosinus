@@ -82,7 +82,7 @@ int init_disk_sos(char* nom_repertoire_disque){
   strcat(path_disque, "/d0");
 
   FILE *disque;
-  if(!(disque = fopen(path_disque, "r+"))){
+  if((disque = fopen(path_disque, "r+")) == NULL){
     return 1;
   }
   virtual_disk_sos->storage = disque;

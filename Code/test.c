@@ -5,21 +5,22 @@
 
 extern virtual_disk_t *virtual_disk_sos;
 
-#define FIRST_TIME
+//#define FIRST_TIME
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
 #define TEST_WRITE_FILE
 #define TEST_READ_FILE
 
 int main() {
-
-  init_disk_sos("../Dossier_Disque/Disque");
-
+  if(init_disk_sos("../Dossier_Disque/Disque"))
+    return 1;
 
   #ifdef FIRST_TIME
     init_first_time_super_block();
     init_first_time_inodes_tables();
     init_first_time_user_table();
+    add_user("root", "root");
+    add_user("dorian", "dods");
   #endif
 
 
@@ -29,6 +30,11 @@ int main() {
   printf("Table inodes :\n");
   for (int i = 0; i < INODE_TABLE_SIZE; i++) {
     printf("nom fichier = %30s | taille fichier = %6d | first_byte = %10d\n", virtual_disk_sos->inodes[i].filename, virtual_disk_sos->inodes[i].size, virtual_disk_sos->inodes[i].first_byte);
+  }
+
+  printf("\nTable users :\n");
+  for (int i = 0; i < NB_USERS; i++) {
+    printf("user id = %3d | login = %32s | password = %s\n", i, virtual_disk_sos->users_table[i].login,virtual_disk_sos->users_table[i].passwd);
   }
 
 
@@ -74,21 +80,20 @@ int main() {
 
   #ifdef TEST_WRITE_FILE
 
-    add_user("root", "root");
     new_session("root");
 
     file_t file;
-    for (int i = 0; i < MAX_FILE_SIZE-1; i++) {
-      if((i%30) == 0)
+    for (int i = 0; i < MAX_FILE_SIZE; i++) {
+      if(i%35 == 0 && i != 0)
         file.data[i] = '\n';
       else
         file.data[i] = 'a';
     }
-    file.data[MAX_FILE_SIZE-1] = (uchar)EOF;
+
     file.size = MAX_FILE_SIZE;
     write_file("test",file);
 
-    printf("Superbloc :\n");
+    printf("\nSuperbloc :\n");
     printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
 
     printf("Table inodes :\n");
@@ -96,9 +101,9 @@ int main() {
       printf("nom fichier = %30s | taille fichier = %6d | first_byte = %10d\n", virtual_disk_sos->inodes[i].filename, virtual_disk_sos->inodes[i].size, virtual_disk_sos->inodes[i].first_byte);
     }
 
-    printf("\nTable user :\n");
+    printf("\nTable users :\n");
     for (int i = 0; i < NB_USERS; i++) {
-      printf("userid = %8d | login = %32s | passeword = %s\n", i, virtual_disk_sos->users_table[i].login, virtual_disk_sos->users_table[i].passwd);
+      printf("user id = %3d | login = %32s | password = %s\n", i, virtual_disk_sos->users_table[i].login,virtual_disk_sos->users_table[i].passwd);
     }
 
   #endif
@@ -112,9 +117,9 @@ int main() {
 
   #endif
 
+
   if(save_disk_sos())
     return 1;
-
 
   printf("\nSAVE\n");
   return 0;

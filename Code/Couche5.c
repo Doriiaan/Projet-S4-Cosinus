@@ -29,11 +29,11 @@ int interprete = 1;
 
 void ls_l(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
-    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
-      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp , 
+    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid ,
+      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
       virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
     fflush(stdout);
-    
+
   }
 } // je referais l'affichage plus tard
 
@@ -88,17 +88,17 @@ int connexion(){
           if(erreur==3){
             printf("Nombre d'essai max atteint , fermeture système");
             return 0;
-          }  
+          }
         }
       }
     }
     if(!utilisateur && !mot_de_passe){
       printf("Connexion valide : \n");
       printf("Lancement de l'interprete de commande ...\n");
-      
+
         connexion=0;
         return 1;
-      
+
     }
   }
   return 0;
@@ -135,14 +135,14 @@ void interprete_commande(){
     else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs>2){
       printf("Trop d'argument pour la commande %s " , commande[0]);
     }
-    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0){ 
+    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0){
       printf("Argument inconnu pour la commande ls voulez-vous dire -l ? " );
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs == 1){
       listusers();
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs > 1){
       printf("trop d'argument pour la commande listusers\n");
     }
@@ -157,7 +157,7 @@ void interprete_commande(){
      strcat(commande[1] , " ");
      strcpy( concat , commande[1]);
      strcat(concat , commande[2]);
-  // Concaténer Str2 dans Str1   
+  // Concaténer Str2 dans Str1
 
      printf("Fichier %s supprimé avec succès\n" ,concat);
      ls_l();
