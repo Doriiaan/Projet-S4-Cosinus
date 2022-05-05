@@ -8,9 +8,9 @@
 extern virtual_disk_t *virtual_disk_sos;
 
 #define FIRST_TIME 1
-#define TEST_ADD_INODE 1
+#define TEST_ADD_INODE 0
 #define TEST_DELETE_INODE 0
-#define TEST_ADD_USER 1
+#define TEST_ADD_USER 0
 #define TEST_DELETE_USER 0
 #define TEST_SESSION 0
 
@@ -33,11 +33,11 @@ void listusers(){
 
 void ls_l(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
-    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
-      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp , 
+    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid ,
+      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
       virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
     fflush(stdout);
-    
+
   }
 } // je referais l'affichage plus tard
 
@@ -57,7 +57,7 @@ int adduser(){
   }
   char login[20];
   char password[20];
- 
+
     printf("Saisissez un login\n");
     fgets(login , 20 , stdin);
     printf("Saisissez un mot de passe :\n" );
@@ -65,7 +65,7 @@ int adduser(){
     add_user(login , password);
     printf("Creation de l utilisateur %s reussi\n" , virtual_disk_sos->users_table[pos].login);
     return 1;
-  
+
 }
 
 int rmuser(char * nom_login){
@@ -89,18 +89,18 @@ int rmuser(char * nom_login){
 int edit(char* nom_fichier){
   file_t file;
   printf("Entrez vos donnees\n");
-     
+
     fgets((char*)file.data, MAX_FILE_SIZE , stdin);
       char ch = getch();
       if ( kbhit() && ch=='@' ) {
                 return 0;
             }
-  
+
     file.data[MAX_FILE_SIZE-1] = (uchar)EOF;
     file.size = MAX_FILE_SIZE;
     write_file(nom_fichier,file);
     return 1;
-  
+
   }
 
 void ls(){
@@ -175,7 +175,7 @@ int connexion(){
           if(erreur==3){
             printf("Nombre d'essai max atteint , fermeture système");
             return 0;
-          }  
+          }
         }
       }
     }
@@ -183,10 +183,10 @@ int connexion(){
       printf("Connexion valide : \n");
       printf("Lancement de l'interprete de commande ...\n");
       printf("Tapez -help a tout moment pour connaitre les commandes utilisables\n");
-      
+
         connexion=0;
         return 1;
-      
+
     }
   }
   return 0;
@@ -222,14 +222,14 @@ void interprete_commande(){
     else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs>2){
       printf("Trop d'argument pour la commande %s " , commande[0]);
     }
-    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0){ 
+    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0){
       printf("Argument inconnu pour la commande ls voulez-vous dire -l?\n " );
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs == 1){
       listusers();
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs > 1){
       printf("trop d'argument pour la commande listusers\n");
     }
@@ -281,9 +281,9 @@ void interprete_commande(){
       }
           tab.nbArgs = 0;
 
-    } 
+    }
 
- 
+
  }
 }
 
@@ -337,10 +337,10 @@ int main() {
     printf("\nTables d'utilisateurs :\n");
     for (int i = 0; i < NB_USERS; i++) {
       printf("uid = %2d | login = %32s| hash_password = %s\n", i, virtual_disk_sos->users_table[i].login, virtual_disk_sos->users_table[i].passwd);
-    } 
+    }
 
     printf("TEST ------------------------\n");
-    
+
   }
 
   if(TEST_DELETE_INODE){
@@ -454,10 +454,10 @@ int main() {
   interprete_commande();
 
 
-  
 
 
-  
+
+
   /*
   }*/
     /*
@@ -469,7 +469,7 @@ int main() {
 
     // On cherche à récupérer, un à un, tous les mots (token) de la phrase
     // et on commence par le premier.
-  
+
   printf("Saisissez une commande : ");
   gets(str);
   int j = 0;
@@ -495,6 +495,6 @@ int main() {
 
     printf("Le nombre total de mots dans cette chaine est = %d\n", tab.nbArgs);
 */
-  
+
   return 0;
 }

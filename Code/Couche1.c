@@ -86,12 +86,8 @@ int init_disk_sos(char* nom_repertoire_disque){
     return 1;
   }
   virtual_disk_sos->storage = disque;
-  if(read_super_block())
+  if(read_super_block() || read_inodes_table() || read_users_table())
     return 1;
-  if(read_inodes_table())
-    return 1;
-
-
 
   if((session = malloc(sizeof(session_t))) == NULL) // init variable globale session
     return 1;
@@ -110,7 +106,7 @@ int init_disk_sos(char* nom_repertoire_disque){
 */
 int save_disk_sos(void){
 
-  if(write_super_block() || write_inodes_table()){
+  if(write_super_block() || write_inodes_table() || write_users_table()){
     return 1;
   }
 

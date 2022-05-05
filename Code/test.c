@@ -9,6 +9,7 @@ extern virtual_disk_t *virtual_disk_sos;
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
 #define TEST_WRITE_FILE
+#define TEST_READ_FILE
 
 int main() {
 
@@ -100,30 +101,15 @@ int main() {
       printf("userid = %8d | login = %32s | passeword = %s\n", i, virtual_disk_sos->users_table[i].login, virtual_disk_sos->users_table[i].passwd);
     }
 
-    printf("\nEDIT FILE\n");
-    file_t file2;
-    for (int i = 0; i < 99; i++) {
-      if((i%30) == 0)
-        file2.data[i] = '\n';
-      else
-        file2.data[i] = 'a';
-    }
-    file2.data[99] = (uchar)EOF;
-    file2.size = 100;
-    write_file("test",file2);
+  #endif
 
-    printf("Superbloc :\n");
-    printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
+  #ifdef TEST_READ_FILE
+  file_t file2;
+  read_file("test", &file2);
 
-    printf("Table inodes :\n");
-    for (int i = 0; i < INODE_TABLE_SIZE; i++) {
-      printf("nom fichier = %30s | taille fichier = %6d | first_byte = %10d\n", virtual_disk_sos->inodes[i].filename, virtual_disk_sos->inodes[i].size, virtual_disk_sos->inodes[i].first_byte);
-    }
+  printf("%s\n", (char *) file2.data);
 
-    printf("\nTable user :\n");
-    for (int i = 0; i < NB_USERS; i++) {
-      printf("userid = %8d | login = %32s | passeword = %s\n", i, virtual_disk_sos->users_table[i].login, virtual_disk_sos->users_table[i].passwd);
-    }
+
   #endif
 
   if(save_disk_sos())
