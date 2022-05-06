@@ -5,7 +5,8 @@ EXEC=os_program
 CC=gcc	# compilateur
 CFLAGS=-Werror -Wextra -Wall	# options compilateur
 LDFLAGS=	# edition de lien
-SRC= $(wildcard *.c)	# fichiers .c
+
+SRC = $(filter-out Installeur.c, $(wildcard *.c))
 OBJ= $(SRC:.c=.o)	# fichiers .o -> fichiers.c
 
 
