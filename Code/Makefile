@@ -33,6 +33,9 @@ $(EXEC): $(OBJ)
 clean:
 	@rm -rf *.o
 
+install:
+	@$(CC) Couche1.c Couche2.c Couche3.c Couche4.c Installeur.c sha256_utils.c sha256.c time_stamp.c -o install $(LDFLAGS) $(CFLAGS)
+	@mv install ..
 
 mrproper: clean
 	@rm -rf $(EXEC)

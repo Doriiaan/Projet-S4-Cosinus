@@ -4,7 +4,7 @@
 #include "Couche3.h"
 #include "Couche4.h"
 #include "Couche5.h"
-#include "conio.h"
+#include <conio.h>
 extern virtual_disk_t *virtual_disk_sos;
 
 #define FIRST_TIME 1

@@ -1,10 +1,16 @@
-#include "Couche4.h"
 #include <sys/stat.h>
 #include <sys/termios.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+
+#include "Couche1.h"
+#include "Couche2.h"
+#include "Couche3.h"
+#include "Couche4.h"
+
+
 
 // create a file named di (i = diskid) in directory dirname of size bytes
 // the file is initialized with 0
