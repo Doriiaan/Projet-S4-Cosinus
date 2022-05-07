@@ -4,7 +4,6 @@
 #include "Couche3.h"
 #include "Couche4.h"
 #include "Couche5.h"
-#include <conio.h>
 extern virtual_disk_t *virtual_disk_sos;
 
 #define FIRST_TIME 1
@@ -33,11 +32,11 @@ void listusers(){
 
 void ls_l(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
-    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid ,
-      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
+    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
+      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp , 
       virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
     fflush(stdout);
-
+    
   }
 } // je referais l'affichage plus tard
 
@@ -49,6 +48,11 @@ int cat(char* nom_fichier){
 }
 
 int adduser(){
+  if(get_session()!=0){
+    printf("Commande réservé a l'utilisateur root .\n");
+    return 0;
+
+  }
   int pos;
   pos = get_unused_user();
   if(pos==-1){
@@ -57,21 +61,25 @@ int adduser(){
   }
   char login[20];
   char password[20];
-
+ 
     printf("Saisissez un login\n");
     fgets(login , 20 , stdin);
     printf("Saisissez un mot de passe :\n" );
     fgets(password , 20 , stdin);
     add_user(login , password);
-    printf("Creation de l utilisateur %s reussi\n" , virtual_disk_sos->users_table[pos].login);
+    printf("Creation de l utilisateur %s reussi \n" , virtual_disk_sos->users_table[pos].login);
     return 1;
-
+  
 }
 
 int rmuser(char * nom_login){
   int pos;
   pos = search_login(nom_login);
+  if(get_session()!=0){
+    printf("Commande réservé a l'utilisateur root .\n");
+    return 0;
 
+  }
   if(pos==-1){
     printf("Login inexistant\n");
     return 0;
@@ -85,23 +93,10 @@ int rmuser(char * nom_login){
 
 }
 
-
-int edit(char* nom_fichier){
-  file_t file;
-  printf("Entrez vos donnees , utilisez la touche espace suivi de @ pour quitter la saisie\n");
-
-    fgets((char*)file.data, MAX_FILE_SIZE , stdin);
-      char ch = getch();
-      if ( kbhit() && ch=='@' ) { // quand on rentre \n et @ ca s'arrete
-                return 0;
-            }
-
-    file.data[MAX_FILE_SIZE-1] = (uchar)EOF;
-    file.size = MAX_FILE_SIZE;
-    write_file(nom_fichier,file);
-    return 1;
-
-  }
+int deconnexion(){
+  del_session();
+  return 1;
+}
 
 void ls(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
@@ -116,6 +111,7 @@ void quit(){
 }
 int cr(char* nom_fichier){
   init_inode(nom_fichier , MAX_FILE_SIZE , virtual_disk_sos->super_block.first_free_byte);
+  
   return 1;
 }
 
@@ -178,7 +174,7 @@ int connexion(){
           if(erreur==3){
             printf("Nombre d'essai max atteint , fermeture système\n");
             return 0;
-          }
+          }  
         }
       }
     }
@@ -186,10 +182,10 @@ int connexion(){
       printf("Connexion valide : \n");
       printf("Lancement de l'interprete de commande ...\n");
       printf("Tapez -help a tout moment pour connaitre les commandes utilisables\n");
-
+      new_session(login);
         connexion=0;
         return 1;
-
+      
     }
   }
   return 0;
@@ -225,14 +221,14 @@ void interprete_commande(){
     else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs>2){
       printf("Trop d'argument pour la commande %s " , commande[0]);
     }
-    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0 && tab.nbArgs==2){
+    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0 && tab.nbArgs==2){ 
       printf("Argument inconnu pour la commande ls voulez-vous dire -l?\n " );
     }
-
+    
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs == 1){
       listusers();
     }
-
+    
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs > 1){
       printf("trop d'argument pour la commande listusers\n");
     }
@@ -265,27 +261,32 @@ void interprete_commande(){
         ls();
       }
 
-      if(strcmp(commande[0] , "rm")==0 && tab.nbArgs>1 && commande[1]!=NULL){
+      if(strcmp(commande[0] , "rm")==0 && tab.nbArgs>1 && commande[1]!=NULL && find_file(commande[1])!=-1){
         rm(commande[1]);
       }
 
-      if(strcmp(commande[0] , "edit")==0 && tab.nbArgs>1 && commande[1]!=NULL){
+      /*if(strcmp(commande[0] , "edit")==0 && tab.nbArgs>1 && commande[1]!=NULL){
         edit(commande[1]);
-      }
+      }*/
 
       if(strcmp(commande[0] , "cat")==0 && tab.nbArgs>1 && commande[1]!=NULL){
         cat(commande[1]);
       }
-      if(strcmp(commande[0] , "adduser")==0 && tab.nbArgs==1){
+      if(strcmp(commande[0] , "adduser")==0 && tab.nbArgs==1 && adduser()!=0){
         adduser();
       }
       if(strcmp(commande[0] , "rmuser")==0 && tab.nbArgs>1 && commande[1]!=NULL){
         rmuser(commande[1]);
       }
+      if(strcmp(commande[0] , "exit")==0 && tab.nbArgs==1 ){
+        deconnexion();
+        connexion();
+      }
           tab.nbArgs = 0;
 
-    }
+    } 
 
-
+ 
  }
 }
+
