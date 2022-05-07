@@ -5,7 +5,7 @@
 
 extern virtual_disk_t *virtual_disk_sos;
 
-//#define FIRST_TIME
+#define FIRST_TIME
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
 //#define TEST_WRITE_FILE
