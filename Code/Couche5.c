@@ -59,6 +59,7 @@ int adduser(){
     printf("Nombre d'utilisateurs max atteint\n");
     return 0;
   }
+
   char login[20];
   char password[20];
  
@@ -111,7 +112,12 @@ void quit(){
 }
 int cr(char* nom_fichier){
   init_inode(nom_fichier , MAX_FILE_SIZE , virtual_disk_sos->super_block.first_free_byte);
-  
+  int pos = find_file(nom_fichier);
+  int user = get_session();
+  virtual_disk_sos->inodes[pos].uid = user;
+  printf("proprietaire du fichier = %s\n" , virtual_disk_sos->users_table[user].login );
+  virtual_disk_sos->inodes[pos].uright = 3;
+  virtual_disk_sos->inodes[pos].oright = 3;
   return 1;
 }
 
@@ -146,11 +152,18 @@ int connexion(){
   int mot_de_passe = 1;
   int connexion = 1;
   int id;
+        char user[15];
+
   while(connexion){
     while(utilisateur){
       printf("Veuillez saisir un nom d'utilisateur : \n");
-      gets(login);
-      id = search_login(login);
+      fgets(login , 32 , stdin);
+      int i = strlen(login);
+      for(int j = 0 ; j<i-1 ; j++ ){
+        user[j]=login[j];
+      }
+
+      id = search_login(user);
       if(id==-1){
         printf("Nom d'utilisateur incorrect\n");
       }
@@ -162,8 +175,13 @@ int connexion(){
     if(!utilisateur){
       while(mot_de_passe && erreur!=3){
         printf("Saisissez le mot de passe : ");
-        gets(password);
-        sha256ofString((BYTE *) password, hash);
+        fgets(password , 15 , stdin);
+        char pass[15];
+        int taille = strlen(password);
+         for(int j = 0 ; j<taille-1 ; j++ ){
+            pass[j]=password[j];
+            }
+        sha256ofString((BYTE *) pass, hash);
         if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
           printf("Mot de passe correct\n");
           mot_de_passe = 0;
@@ -182,7 +200,7 @@ int connexion(){
       printf("Connexion valide : \n");
       printf("Lancement de l'interprete de commande ...\n");
       printf("Tapez -help a tout moment pour connaitre les commandes utilisables\n");
-      new_session(login);
+      new_session(user);
         connexion=0;
         return 1;
       
@@ -272,7 +290,7 @@ void interprete_commande(){
       if(strcmp(commande[0] , "cat")==0 && tab.nbArgs>1 && commande[1]!=NULL){
         cat(commande[1]);
       }
-      if(strcmp(commande[0] , "adduser")==0 && tab.nbArgs==1 && adduser()!=0){
+      if(strcmp(commande[0] , "adduser")==0 && tab.nbArgs==1 ){
         adduser();
       }
       if(strcmp(commande[0] , "rmuser")==0 && tab.nbArgs>1 && commande[1]!=NULL){
@@ -289,4 +307,3 @@ void interprete_commande(){
  
  }
 }
-
