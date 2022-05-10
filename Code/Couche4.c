@@ -185,37 +185,32 @@ int delete_file(char* filename){
 * @return int : 1 si le fichier a été chargé, 0 en cas d'erreur
 **/
 int load_file_from_host(char* filename){
-	/* variables nécessaires */
+
 	FILE* host_file = fopen(filename, "r");
-	int size = ftell(host_file);
-	char ch = fgetc(host_file);
+	if(host_file == NULL)
+		return 0;
+
 	file_t new_file;
 	int i = 0;
+	char ch;
 
-	/* vérification de l'ouverture du fichier */
-    if(host_file == NULL){
-		return 0;
-    }
 
-	/* si le fichier est vide */
-	if(size == 0){
-		/* on peut l'écrire directement car il est vide */
-		return write_file(filename, new_file);
-	}
-
-	/* si la taille du fichier dépasse la limite */
-	if(size > MAX_FILE_SIZE){
-		/* on s'arrête car l'écriture du fichier sera impossible */
-		return 0;
-	}
-
-	/* sauvegarde du fichier host dans le variable 'new_file' caractère par caractère */
-	while(ch != EOF){
+	ch = fgetc(host_file);
+	while(ch != EOF && i < MAX_FILE_SIZE-1){
 		new_file.data[i] = ch;
-		i++;
-
 		ch = fgetc(host_file);
+		i++;
 	}
+
+	//si c'était le dernier caractère du fichier mais que c'était pas un EOF
+	//il faut s'arrêter au MAX_FILE_SIZE-1 pour ajouter le dernier caractère
+	if(i == MAX_FILE_SIZE-1 && ch != EOF)
+		return 0;
+
+
+	new_file.data[i] = 3;
+	i++;
+	new_file.size = i;
 
 	/* écriture le fichier sur le système */
 	fclose(host_file);

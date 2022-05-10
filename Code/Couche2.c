@@ -66,8 +66,8 @@ int read_super_block(void){
 */
 void update_first_free_byte_super_block(uint byte){
 
-  if((byte)%4 != 0){
-    byte += (4 - (byte)%4);
+  if((byte)%BLOCK_SIZE != 0){
+    byte += (BLOCK_SIZE - (byte)%BLOCK_SIZE);
   }
   virtual_disk_sos->super_block.first_free_byte = byte;
 }

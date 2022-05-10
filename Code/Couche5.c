@@ -4,6 +4,7 @@
 #include "Couche3.h"
 #include "Couche4.h"
 #include "Couche5.h"
+#include "term_canon.h"
 extern virtual_disk_t *virtual_disk_sos;
 
 #define FIRST_TIME 1
@@ -15,6 +16,14 @@ extern virtual_disk_t *virtual_disk_sos;
 
 
 int interprete = 1;
+
+void enlever_retour_ligne(char *chaine){
+
+  int taille = strlen(chaine);
+  if(chaine[taille-1] == '\n')
+    chaine[taille-1] = '\0';
+}
+
 
 
 void listusers(){
@@ -32,11 +41,11 @@ void listusers(){
 
 void ls_l(){
   for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
-    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid , 
-      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp , 
+    printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid ,
+      virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
       virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
     fflush(stdout);
-    
+
   }
 } // je referais l'affichage plus tard
 
@@ -55,6 +64,7 @@ int adduser(){
   }
   int pos;
   pos = get_unused_user();
+  printf("%d\n", pos);
   if(pos==-1){
     printf("Nombre d'utilisateurs max atteint\n");
     return 0;
@@ -62,15 +72,17 @@ int adduser(){
 
   char login[20];
   char password[20];
- 
+
     printf("Saisissez un login\n");
     fgets(login , 20 , stdin);
+    enlever_retour_ligne(login);
     printf("Saisissez un mot de passe :\n" );
     fgets(password , 20 , stdin);
+    enlever_retour_ligne(password);
     add_user(login , password);
     printf("Creation de l utilisateur %s reussi \n" , virtual_disk_sos->users_table[pos].login);
     return 1;
-  
+
 }
 
 int rmuser(char * nom_login){
@@ -112,7 +124,7 @@ void quit(){
 }
 int cr(char* nom_fichier){
   init_inode(nom_fichier , MAX_FILE_SIZE , virtual_disk_sos->super_block.first_free_byte);
-  int pos = find_file(nom_fichier);
+  int pos = search_file_inode(nom_fichier);
   int user = get_session();
   virtual_disk_sos->inodes[pos].uid = user;
   printf("proprietaire du fichier = %s\n" , virtual_disk_sos->users_table[user].login );
@@ -129,6 +141,49 @@ int rm(char* nom_fichier){
 return 1;
 }
 
+
+
+int edit_file(file_t *file){
+
+  if(!Term_non_canonique())
+    return 1;
+
+  char c;
+  int fin = 0;
+
+  do {
+    printf ("\033[H\033[J");
+    printf("*****EDIT*****\n\n");
+
+    for (int i = 0; i < (int)file->size; i++) {
+      printf("%c", file->data[i]);
+    }
+
+    c=fgetc(stdin);
+
+    switch (c) {
+      case '@':
+        fin = 1;
+        break;
+      case '\b':
+        if(file->size > 0)
+          file->size--;
+        break;
+      default:
+        file->data[file->size] = c;
+        file->size++;
+    }
+
+  } while(!fin && file->size < MAX_FILE_SIZE);
+  printf ("\033[H\033[J");
+
+  if(!Term_canonique())
+    return 1;
+
+  return 0;
+}
+
+
 void help(){
   printf("cat <nom de fichier> : affiche a  l ecran le contenu d un fichier si l utilisateur a les droits\n");
   printf("rm <nom de fichier> : supprime un fichier du systeme si l utilisateur a les droits\n");
@@ -144,26 +199,22 @@ void help(){
 }
 
 int connexion(){
-  char password[15];
-  char login[15];
+  char password[50] = {0};
+  char login[FILENAME_MAX_SIZE];
   int erreur = 0;
-  char hash[100];
+  char hash[SHA256_BLOCK_SIZE*2 + 1];
   int utilisateur = 1;
   int mot_de_passe = 1;
   int connexion = 1;
   int id;
-        char user[15];
 
   while(connexion){
     while(utilisateur){
-      printf("Veuillez saisir un nom d'utilisateur : \n");
-      fgets(login , 32 , stdin);
-      int i = strlen(login);
-      for(int j = 0 ; j<i-1 ; j++ ){
-        user[j]=login[j];
-      }
+      printf("Veuillez saisir un nom d'utilisateur : ");
+      fgets(login , FILENAME_MAX_SIZE , stdin);
+      enlever_retour_ligne(login);
+      id = search_login(login);
 
-      id = search_login(user);
       if(id==-1){
         printf("Nom d'utilisateur incorrect\n");
       }
@@ -175,24 +226,21 @@ int connexion(){
     if(!utilisateur){
       while(mot_de_passe && erreur!=3){
         printf("Saisissez le mot de passe : ");
-        fgets(password , 15 , stdin);
-        char pass[15];
-        int taille = strlen(password);
-         for(int j = 0 ; j<taille-1 ; j++ ){
-            pass[j]=password[j];
-            }
-        sha256ofString((BYTE *) pass, hash);
+        fgets(password, 50, stdin);
+        enlever_retour_ligne(password);
+        sha256ofString((BYTE *) password, hash);
+
         if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
           printf("Mot de passe correct\n");
           mot_de_passe = 0;
         }
         else{
-          printf("Mot de passe incorrect\n ");
+          printf("Mot de passe incorrect\n");
           erreur++;
           if(erreur==3){
             printf("Nombre d'essai max atteint , fermeture système\n");
             return 0;
-          }  
+          }
         }
       }
     }
@@ -200,10 +248,10 @@ int connexion(){
       printf("Connexion valide : \n");
       printf("Lancement de l'interprete de commande ...\n");
       printf("Tapez -help a tout moment pour connaitre les commandes utilisables\n");
-      new_session(user);
+      new_session(login);
         connexion=0;
         return 1;
-      
+
     }
   }
   return 0;
@@ -239,24 +287,19 @@ void interprete_commande(){
     else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs>2){
       printf("Trop d'argument pour la commande %s " , commande[0]);
     }
-    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0 && tab.nbArgs==2){ 
+    else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0 && tab.nbArgs==2){
       printf("Argument inconnu pour la commande ls voulez-vous dire -l?\n " );
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs == 1){
       listusers();
     }
-    
+
     if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs > 1){
       printf("trop d'argument pour la commande listusers\n");
     }
 
 
-    if(strcmp(commande[0] , "quit")==0){
-      save_disk_sos();
-      printf("\nSAVE\n");
-      quit();
-    }
     somme = get_unused_inode();
     if(strcmp(commande[0] , "cr")==0 && tab.nbArgs>1 && commande[1]!=NULL && somme==-1){
         printf("Nombre de fichier max atteint\n");
@@ -279,7 +322,7 @@ void interprete_commande(){
         ls();
       }
 
-      if(strcmp(commande[0] , "rm")==0 && tab.nbArgs>1 && commande[1]!=NULL && find_file(commande[1])!=-1){
+      if(strcmp(commande[0] , "rm")==0 && tab.nbArgs>1 && commande[1]!=NULL && search_file_inode(commande[1])!=-1){
         rm(commande[1]);
       }
 
@@ -300,10 +343,13 @@ void interprete_commande(){
         deconnexion();
         connexion();
       }
+
+      if(strcmp(commande[0] , "quit")==0){
+        quit();
+      }
           tab.nbArgs = 0;
 
-    } 
+    }
 
- 
  }
 }
