@@ -225,28 +225,17 @@ int load_file_from_host(char* filename){
 **/
 int store_file_to_host(char* filename){
 	/* variables nécessaires */
-	file_t* system_file = malloc(sizeof(file_t));
-	FILE* new_file = fopen(filename, "w");
+	file_t system_file;
+	system_file.size = 0;
 	read_file("filename", system_file);
-	char data[MAX_FILE_SIZE];
+	FILE* new_file = fopen(filename, "w");
 
 	/* vérification de la création du fichier */
 	if(new_file == NULL){
 		return 0;
 	}
 
-	/* si le fichier est vide */
-	if(system_file->size == 0){
-		/* on s'arrête car il n'y a rien à recopier */
-		return 1;
-	}
-
-	/* on sauvegarde les données du fichier dans un variable */
-	for(uint i = 0; i < system_file->size; i++){
-		data[i] = system_file->data[i];
-	}
-
 	/* stockage des données sur le host */
-	fprintf(new_file, data);
+	fprintf(new_file, "%s\n", system_file->data);
 	return 1;
 }
