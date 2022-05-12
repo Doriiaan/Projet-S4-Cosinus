@@ -37,7 +37,8 @@ int write_users_table(void){
       file.size += (strlen(virtual_disk_sos->users_table[i].login) + (SHA256_BLOCK_SIZE*2) + 2) ;
     }
   }
-
+  file.data[file.size] = 3;
+  file.size++;
   write_file("passwd", file);
 
   return 0;
