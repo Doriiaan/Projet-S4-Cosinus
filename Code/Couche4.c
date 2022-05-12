@@ -225,17 +225,16 @@ int load_file_from_host(char* filename){
 **/
 int store_file_to_host(char* filename){
 	/* variables nécessaires */
-	file_t system_file;
-	system_file.size = 0;
-	read_file("filename", system_file);
-	FILE* new_file = fopen(filename, "w");
-
-	/* vérification de la création du fichier */
-	if(new_file == NULL){
+	if(search_file_inode(filename)==-1){
+		printf("Fichier inexistant");
 		return 0;
 	}
-
-	/* stockage des données sur le host */
-	fprintf(new_file, "%s\n", system_file->data);
+	file_t *file = malloc(sizeof(file_t));
+    read_file(filename , file);
+	char test[]={"../Stockage_file/"};
+	strcat(test , filename);
+	FILE* new_file = fopen(test , "a+");
+	fprintf(new_file , "%s" , (char*)file->data);
+	fclose(new_file);
 	return 1;
 }
