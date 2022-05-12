@@ -216,26 +216,3 @@ int load_file_from_host(char* filename){
 	fclose(host_file);
 	return write_file(filename, new_file);
 }
-
-
-/**
-* @brief Ecrit un fichier du système sur l'ordinateur host
-* @param char* filename : Nom du fichier à transférer
-* @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
-**/
-int store_file_to_host(char* filename){
-	/* variables nécessaires */
-	file_t system_file;
-	system_file.size = 0;
-	read_file("filename", system_file);
-	FILE* new_file = fopen(filename, "w");
-
-	/* vérification de la création du fichier */
-	if(new_file == NULL){
-		return 0;
-	}
-
-	/* stockage des données sur le host */
-	fprintf(new_file, "%s\n", system_file->data);
-	return 1;
-}

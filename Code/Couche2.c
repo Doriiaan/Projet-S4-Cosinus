@@ -236,7 +236,7 @@ void init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_files = 0;
   virtual_disk_sos->super_block.number_of_users = 0; //root
   virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE));
-  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE + 1 + 3; //debut block
+  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE; //debut block
   write_super_block();
 }
 
