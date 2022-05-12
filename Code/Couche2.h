@@ -113,18 +113,18 @@ int search_file_inode(char *name_of_file);
 /**
 * @brief Cette fonction initialise le super bloc pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_super_block(void);
+int init_first_time_super_block(void);
 
 
 /**
 * @brief Cette fonction initialise la table d'inodes pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_inodes_tables(void);
+int init_first_time_inodes_tables(void);
 
 #endif

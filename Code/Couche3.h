@@ -75,10 +75,10 @@ int delete_user(char *login);
 /**
 * @brief Cette fonction initialise la table d'utilisateurs pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_user_table(void);
+int init_first_time_user_table(void);
 
 
 /**

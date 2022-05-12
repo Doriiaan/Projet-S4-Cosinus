@@ -229,30 +229,30 @@ int search_file_inode(char *name_of_file){
 /**
 * @brief Cette fonction initialise le super bloc pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_super_block(void){
+int init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_files = 0;
   virtual_disk_sos->super_block.number_of_users = 0; //root
   virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE));
-  virtual_disk_sos->super_block.first_free_byte = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE; //debut block
-  write_super_block();
+  virtual_disk_sos->super_block.first_free_byte = ((SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE) + 4; //debut block
+  return write_super_block();
 }
 
 
 /**
 * @brief Cette fonction initialise la table d'inodes pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_inodes_tables(void){
+int init_first_time_inodes_tables(void){
 
   for (int i = 0; i < INODE_TABLE_SIZE; i++) {
     virtual_disk_sos->inodes[i].first_byte = 0;
     virtual_disk_sos->inodes[i].size = 0;
     strcpy(virtual_disk_sos->inodes[i].filename, "");
   }
-  write_inodes_table();
+  return write_inodes_table();
 }

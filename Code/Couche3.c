@@ -62,7 +62,7 @@ int read_users_table(void){
   int i = 0;
   int i_champs;
 
-  while(i < (int)file.size){
+  while(i < (int)file.size-2){
 
     i_champs = 0;
     while(file.data[i] != ':'){
@@ -70,17 +70,19 @@ int read_users_table(void){
       i_champs++;
       i++;
     }
+    printf("login : %s\n", virtual_disk_sos->users_table[nb_users].login);
     i++;
     i_champs = 0;
     while(i_champs < 64){
       virtual_disk_sos->users_table[nb_users].passwd[i_champs] = file.data[i];
       i_champs++;
+      virtual_disk_sos->users_table[nb_users].passwd[i_champs] = '\0';
       i++;
     }
-    i++;
-
+    printf("passwd : %s\n", virtual_disk_sos->users_table[nb_users].passwd);
     nb_users++;
   }
+  i++;
 
   if(nb_users < NB_USERS){
     for (int i = nb_users; i < NB_USERS; i++) {
@@ -197,15 +199,15 @@ int delete_user(char *login){
 /**
 * @brief Cette fonction initialise la table d'utilisateurs pour la première fois
 * @param void
-* @return void
+* @return 0 si tout c'est bien passé, 1 sinon
 * @pre variable systeme déjà initialisé
 */
-void init_first_time_user_table(void){
+int init_first_time_user_table(void){
 
   for (int i = 0; i < NB_USERS; i++) {
     strcpy(virtual_disk_sos->users_table[i].login, "\0");
   }
-  write_users_table();
+  return write_users_table();
 }
 
 

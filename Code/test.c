@@ -7,10 +7,10 @@
 
 extern virtual_disk_t *virtual_disk_sos;
 
-#define FIRST_TIME
+//#define FIRST_TIME
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
-#define TEST_WRITE_FILE
+//#define TEST_WRITE_FILE
 //#define TEST_READ_FILE
 //#define TEST_INTERPRETE
 
@@ -25,6 +25,19 @@ int main() {
     init_first_time_user_table();
     add_user("root", "root");
   #endif
+
+  printf("\nSuperbloc :\n");
+  printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
+
+  printf("Table inodes :\n");
+  for (int i = 0; i < INODE_TABLE_SIZE; i++) {
+    printf("nom fichier = %30s | taille fichier = %6d | first_byte = %10d\n", virtual_disk_sos->inodes[i].filename, virtual_disk_sos->inodes[i].size, virtual_disk_sos->inodes[i].first_byte);
+  }
+
+  printf("\nTable users :\n");
+  for (int i = 0; i < NB_USERS; i++) {
+    printf("user id = %3d | login = %32s | password = %s\n", i, virtual_disk_sos->users_table[i].login,virtual_disk_sos->users_table[i].passwd);
+  }
 
 
 
