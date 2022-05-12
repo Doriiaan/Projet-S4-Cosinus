@@ -216,3 +216,28 @@ int load_file_from_host(char* filename){
 	fclose(host_file);
 	return write_file(filename, new_file);
 }
+<<<<<<< HEAD
+=======
+
+
+/**
+* @brief Ecrit un fichier du système sur l'ordinateur host
+* @param char* filename : Nom du fichier à transférer
+* @return int : 1 si le fichier a été stocké, 0 en cas d'erreur
+**/
+int store_file_to_host(char* filename){
+	/* variables nécessaires */
+	if(search_file_inode(filename)==-1){
+		printf("Fichier inexistant");
+		return 0;
+	}
+	file_t *file = malloc(sizeof(file_t));
+    read_file(filename , file);
+	char test[]={"../Stockage_file/"};
+	strcat(test , filename);
+	FILE* new_file = fopen(test , "a+");
+	fprintf(new_file , "%s" , (char*)file->data);
+	fclose(new_file);
+	return 1;
+}
+>>>>>>> dcb257965bb1b174e765b2a9b623e8efcafdab7b
