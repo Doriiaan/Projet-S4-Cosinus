@@ -216,8 +216,7 @@ int load_file_from_host(char* filename){
 	fclose(host_file);
 	return write_file(filename, new_file);
 }
-<<<<<<< HEAD
-=======
+
 
 
 /**
@@ -240,4 +239,3 @@ int store_file_to_host(char* filename){
 	fclose(new_file);
 	return 1;
 }
->>>>>>> dcb257965bb1b174e765b2a9b623e8efcafdab7b
