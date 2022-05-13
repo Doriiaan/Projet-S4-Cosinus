@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "affichage_logo.h"
 
 
