@@ -1,9 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
+#include "affichage_logo.h"
 
-#include "term_canon.h"
 
 #define EXIT_ERROR_N_CAN 1
 #define EXIT_ERROR_CAN 2

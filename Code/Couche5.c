@@ -50,9 +50,7 @@ void enlever_caractere_fin(char *chaine){
 * @return void
 **/
 void listusers(){
-    if(virtual_disk_sos->super_block.number_of_users == 0){
-        printf("0 utilisateurs");
-    }
+
     printf("Nombre d'utilisateurs : %d\n" , virtual_disk_sos->super_block.number_of_users );
     for(uint i = 0 ; i<virtual_disk_sos->super_block.number_of_users ; i++){
         if(virtual_disk_sos->users_table[i].login==NULL){
@@ -131,7 +129,6 @@ int adduser(){
     int confirmer = 0;
     int pos;
     pos = get_unused_user();
-    printf("%d\n", pos);
 
     if(pos==-1){
         printf("Nombre d'utilisateurs max atteint\n");
@@ -143,15 +140,14 @@ int adduser(){
     char password[FILENAME_MAX_SIZE];
     int num = 0;
     int login_existe = 0;
-    printf ("\033[H\033[J");
-    printf("Saisissez un login\n");
+    printf("Saisissez un login : ");
     fgets(login , FILENAME_MAX_SIZE , stdin);
     enlever_retour_ligne(login);
 
     while(!login_existe){
         if(search_login(login)!=-1){
             printf("Ce pseudo est déja utilisé veuillez en selectionner un autre\n");
-            printf("Saisissez un login\n");
+            printf("Saisissez un login : ");
             fgets(login , FILENAME_MAX_SIZE , stdin);
         }
 
@@ -160,9 +156,9 @@ int adduser(){
         }
     }
 
-    printf("Saisissez un mot de passe :\n" );
+    printf("Saisissez un mot de passe : " );
     fgets(password , FILENAME_MAX_SIZE , stdin);
-    printf("Veuillez confirmer le mot de passe:\n");
+    printf("Veuillez confirmer le mot de passe: ");
     fgets(confirm , FILENAME_MAX_SIZE , stdin);
     enlever_retour_ligne(password);
     enlever_retour_ligne(confirm);
@@ -171,7 +167,7 @@ int adduser(){
 
         if(strcmp(confirm , password)!=0){
             num++;
-            printf("Les mot de passes ne correspondent pas , veuillez retaper le mdp\n");
+            printf("Les mot de passes ne correspondent pas , veuillez retaper le mot de passe :");
             fgets(confirm , FILENAME_MAX_SIZE , stdin);
             enlever_retour_ligne(confirm);
             printf("Tentative numero %d de validation\n" , num);
@@ -354,8 +350,6 @@ void ls(){
 void quit(){
     interprete = 0;
     save_disk_sos();
-    printf("\nSAVE\n");
-
 }
 
 /**
@@ -483,6 +477,7 @@ int chown(char* nom_fichier , char* login){
 **/
 
 void help(){
+    printf("\n");
     printf("cat <nom de fichier> : affiche a  l ecran le contenu d un fichier si l utilisateur a les droits\n");
     printf("\n");
     printf("rm <nom de fichier> : supprime un fichier du systeme si l utilisateur a les droits\n");
@@ -560,7 +555,7 @@ int connexion(){
 
     while(connexion){
         while(utilisateur){
-            printf("Veuillez saisir un nom d'utilisateur : \n");
+            printf("Veuillez saisir un nom d'utilisateur : ");
             fgets(login , FILENAME_MAX_SIZE , stdin);
             enlever_retour_ligne(login);
             id = search_login(login);
@@ -570,7 +565,6 @@ int connexion(){
             }
 
             else{
-                printf("Nom d'utilisateur correct\n");
                 utilisateur = 0;
             }
         }
@@ -584,7 +578,6 @@ int connexion(){
                 sha256ofString((BYTE *) password, hash);
 
                 if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
-                    printf("Mot de passe correct\n");
                     mot_de_passe = 0;
                 }
 
@@ -602,9 +595,7 @@ int connexion(){
         }
 
         if(!utilisateur && !mot_de_passe){
-            printf("Connexion valide : \n");
-            printf("Lancement de l'interprete de commande ...\n");
-            printf("Tapez -help a tout moment pour connaitre les commandes utilisables\n");
+            printf("\nTapez -help a tout moment pour connaitre les commandes utilisables\n");
             new_session(login);
             connexion=0;
             return 1;
@@ -642,8 +633,9 @@ void interprete_commande(){
             int user = get_session();
             char* pseudo = virtual_disk_sos->users_table[user].login;
             //tant que l'interprete est en marche
-            printf("[%s] Saisissez une commande :\n " , pseudo );
+            printf("\n[%s] Saisissez une commande $ " , pseudo );
             fgets(str , 32 , stdin); // on rentre la commande
+            printf("\n");
             int j = 0;
             char * strToken = strtok ( str, separators );
 
@@ -733,7 +725,6 @@ void interprete_commande(){
 
             if(strcmp(commande[0] , "exit")==0 && tab.nbArgs==1 ){
                 deconnexion();
-                printf("%d session :\n " , get_session());
                 connexion();
             }
 
@@ -767,15 +758,9 @@ void interprete_commande(){
     }
 }
 int main(void) {
-    if(init_disk_sos("."))
-    return 1;
+    if(init_disk_sos("../Dossier_Disque/Disque"))
+      return 1;
 
-    #ifdef FIRST_TIME
-    init_first_time_super_block();
-    init_first_time_inodes_tables();
-    init_first_time_user_table();
-    add_user("root", "root");
-    #endif
     disp_design_os(true);
     interprete_commande();
 

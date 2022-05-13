@@ -1,4 +1,9 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <stdbool.h>
+#include "term_canon.h"
+
 
 void no_canon();
 

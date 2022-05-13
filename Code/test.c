@@ -7,25 +7,20 @@
 
 extern virtual_disk_t *virtual_disk_sos;
 
-//#define FIRST_TIME
+//define COMPILE
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
 //#define TEST_WRITE_FILE
-#define TEST_DELETE_FILE
+//#define TEST_DELETE_FILE
 //#define TEST_READ_FILE
 //#define TEST_INTERPRETE
 
 
+#ifdef COMPILE
 int main() {
   if(init_disk_sos("../Dossier_Disque/Disque"))
     return 1;
 
-  #ifdef FIRST_TIME
-    init_first_time_super_block();
-    init_first_time_inodes_tables();
-    init_first_time_user_table();
-    add_user("root", "root");
-  #endif
 
   printf("\nSuperbloc :\n");
   printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
@@ -119,14 +114,14 @@ int main() {
 
     delete_file("test1");
 
-    file_t file;
+    file_t file2;
     for (int i = 0; i < MAX_FILE_SIZE-1; i++) {
-        file.data[i] = 'a';
+        file2.data[i] = 'a';
     }
 
-    file.data[MAX_FILE_SIZE-1] = '\3';
-    file.size = MAX_FILE_SIZE;
-    write_file("test1",file);
+    file2.data[MAX_FILE_SIZE-1] = '\3';
+    file2.size = MAX_FILE_SIZE;
+    write_file("test1",file2);
 
     printf("\nSuperbloc :\n");
     printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
@@ -145,10 +140,10 @@ int main() {
 
   #ifdef TEST_READ_FILE
   printf("\nREAD FILE\n\n");
-  file_t file2;
-  read_file("test", &file2);
+  file_t file3;
+  read_file("test", &file3);
 
-  printf("%s\n\n", (char *) file2.data);
+  printf("%s\n\n", (char *) file3.data);
 
   #endif
 
@@ -177,3 +172,4 @@ int main() {
 
   return 0;
 }
+#endif
