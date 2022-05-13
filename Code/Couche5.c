@@ -122,7 +122,7 @@ void clear(){
 
 int adduser(){
     if(get_session()!=0){
-        printf("Commande réservé a l'utilisateur root .\n");
+        printf("Commande réservé a l'utilisateur root\n");
         return 0;
     }
 
@@ -268,13 +268,13 @@ int edit_file(char* filename){
             fin = 1;
             break;*/
             case '\b':
-            if(file->size > 0)
-            file->size--;
-            printf ("\033[H\033[J");
-            break;
+              if(file->size > 0)
+                file->size--;
+              printf ("\033[H\033[J");
+              break;
             default:
-            file->data[file->size] = c;
-            file->size++;
+              file->data[file->size] = c;
+              file->size++;
         }
 
     } while(!fin && file->size < MAX_FILE_SIZE);
@@ -336,7 +336,7 @@ int deconnexion(){
 **/
 
 void ls(){
-    for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
+    for (int i = 0; i < (int)virtual_disk_sos->super_block.number_of_files ; i++){
         printf("%s \t  %d \n  " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size );
     }
 }
@@ -496,7 +496,13 @@ void help(){
     printf("\n");
     printf("listusers : affiche la liste des utilisateurs du systeme\n");
     printf("\n");
-    printf("quit : sort de l interprete de commande\n");
+    printf("adduser : Ajouter un utilisateur\n");
+    printf("\n");
+    printf("rmuser : Supprimer un utilisateur\n");
+    printf("\n");
+    printf("quit : Quitter le sytème\n");
+    printf("\n");
+    printf("exit : Quitter la session en cours\n");
     printf("\n");
     printf("clear : efface le contenu du terminal\n");
     printf("\n");
