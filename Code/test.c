@@ -11,6 +11,7 @@ extern virtual_disk_t *virtual_disk_sos;
 //#define TEST_ADD_INODE
 //#define TEST_DELETE_INODE
 //#define TEST_WRITE_FILE
+#define TEST_DELETE_FILE
 //#define TEST_READ_FILE
 //#define TEST_INTERPRETE
 
@@ -95,6 +96,37 @@ int main() {
     file.size = MAX_FILE_SIZE;
     write_file("test1",file);
     write_file("test2",file);
+
+    printf("\nSuperbloc :\n");
+    printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);
+
+    printf("Table inodes :\n");
+    for (int i = 0; i < INODE_TABLE_SIZE; i++) {
+      printf("nom fichier = %30s | taille fichier = %6d | first_byte = %10d\n", virtual_disk_sos->inodes[i].filename, virtual_disk_sos->inodes[i].size, virtual_disk_sos->inodes[i].first_byte);
+    }
+
+    printf("\nTable users :\n");
+    for (int i = 0; i < NB_USERS; i++) {
+      printf("user id = %3d | login = %32s | password = %s\n", i, virtual_disk_sos->users_table[i].login,virtual_disk_sos->users_table[i].passwd);
+    }
+
+  #endif
+
+  #ifdef TEST_DELETE_FILE
+
+    printf("\nDELETE FILE\n");
+    new_session("root");
+
+    delete_file("test1");
+
+    file_t file;
+    for (int i = 0; i < MAX_FILE_SIZE-1; i++) {
+        file.data[i] = 'a';
+    }
+
+    file.data[MAX_FILE_SIZE-1] = '\3';
+    file.size = MAX_FILE_SIZE;
+    write_file("test1",file);
 
     printf("\nSuperbloc :\n");
     printf("nb file=%d | nb user=%d | nb block=%d | first_byte=%d\n\n", virtual_disk_sos->super_block.number_of_files, virtual_disk_sos->super_block.number_of_users, virtual_disk_sos->super_block.nb_blocks_used, virtual_disk_sos->super_block.first_free_byte);

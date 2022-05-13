@@ -81,7 +81,7 @@ void update_first_free_byte_super_block(uint byte){
 */
 int read_inodes_table(void){
 
-  if(fseek(virtual_disk_sos->storage, INODES_START, SEEK_SET) != 0){
+  if(fseek(virtual_disk_sos->storage, INODES_START-1, SEEK_SET) != 0){
     return 1;
   }
 
@@ -101,7 +101,7 @@ int read_inodes_table(void){
 */
 int write_inodes_table(void){
 
-  if(fseek(virtual_disk_sos->storage , INODES_START , SEEK_SET) != 0){
+  if(fseek(virtual_disk_sos->storage , INODES_START-1, SEEK_SET) != 0){
     return 1;
   }
 
@@ -236,7 +236,7 @@ int init_first_time_super_block(void){
   virtual_disk_sos->super_block.number_of_files = 0;
   virtual_disk_sos->super_block.number_of_users = 0; //root
   virtual_disk_sos->super_block.nb_blocks_used = (SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE));
-  virtual_disk_sos->super_block.first_free_byte = ((SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE) + 4; //debut block
+  virtual_disk_sos->super_block.first_free_byte = ((SUPER_BLOCK_SIZE + INODE_TABLE_SIZE*(INODE_SIZE))*BLOCK_SIZE); //debut block
   return write_super_block();
 }
 

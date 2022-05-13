@@ -70,7 +70,6 @@ int read_users_table(void){
       i_champs++;
       i++;
     }
-    printf("login : %s\n", virtual_disk_sos->users_table[nb_users].login);
     i++;
     i_champs = 0;
     while(i_champs < 64){
@@ -79,7 +78,6 @@ int read_users_table(void){
       virtual_disk_sos->users_table[nb_users].passwd[i_champs] = '\0';
       i++;
     }
-    printf("passwd : %s\n", virtual_disk_sos->users_table[nb_users].passwd);
     nb_users++;
   }
   i++;
