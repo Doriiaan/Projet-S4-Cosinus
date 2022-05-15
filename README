@@ -1,0 +1,37 @@
+# Projet-S4-Cosinus
+Projet du S4, création d'un OS from scratch
+
+
+
+# Installation programme C
+
+$ cd Code
+$ make install
+$ cd ..
+$ ./install 
+
+$ cd Code
+$ make
+$ ./os_program
+
+
+
+# Usage programme C
+
+L'OS est vraiment intuitif, une fois les étapes d'installation effectué et le programme lancé ("./os_program") vous pouvez vous logger en tant que root.
+Tapez -help pour connaître l'ensemble des commandes disponibles ainsi que leurs usages. 
+Terminer le programme par la commande "quit" ou vous ne verrez pas vos informations sauvegardées.
+
+
+
+# Installation programme JAVA
+
+$ cd Projet_SOS
+$ chmod u+x SOS.jar
+$ ./SOS.jar
+
+
+# Usage programme JAVA
+
+L'application graphique vous permet de défragmenter le disque, de vérifier les données du super bloc ainsi que de la table d'inodes. Vous pourrez en plus de cela visionner ces données.
+Important : Le programme C "os_program" doit être fermé !
