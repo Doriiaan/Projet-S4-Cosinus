@@ -1,3 +1,4 @@
+
 #include "header.h"
 #include "Couche1.h"
 #include "Couche2.h"
@@ -6,16 +7,8 @@
 #include "Couche5.h"
 #include "term_canon.h"
 #include "affichage_logo.h"
+
 extern virtual_disk_t *virtual_disk_sos;
-
-#define FIRST_TIME 0
-#define TEST_ADD_INODE 1
-#define TEST_DELETE_INODE 0
-#define TEST_ADD_USER 1
-#define TEST_DELETE_USER 0
-#define TEST_SESSION 0
-
-
 int interprete = 1;
 
 /**
@@ -27,7 +20,7 @@ void enlever_retour_ligne(char *chaine){
 
     int taille = strlen(chaine);
     if(chaine[taille-1] == '\n')
-    chaine[taille-1] = '\0';
+        chaine[taille-1] = '\0';
 }
 
 /**
@@ -70,8 +63,8 @@ void listusers(){
 void ls_l(){
     for (uint i = 0; i < virtual_disk_sos->super_block.number_of_files ; i++){
         printf("%s | %d | %d | %d | %d | %s | %s | %d | %d\n " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size , virtual_disk_sos->inodes[i].uid ,
-        virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
-        virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
+            virtual_disk_sos->inodes[i].uright , virtual_disk_sos->inodes[i].oright , virtual_disk_sos->inodes[i].ctimestamp , virtual_disk_sos->inodes[i].mtimestamp ,
+            virtual_disk_sos->inodes[i].nblock , virtual_disk_sos->inodes[i].first_byte );
         printf("\n");
 
     }
@@ -84,7 +77,14 @@ void ls_l(){
 * @note utilise la fonction read_file de la couche 4 pour afficher le contenu du fichier filename
 * @return int : 1 si le fichier a été trouvé et affiché, 0 en cas d'erreur
 **/
-int cat(char* nom_fichier){
+int cat(cmd_t *commande){
+    if(commande->nbArgs != 2){
+        printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+        return 0;
+    }
+
+    char *nom_fichier = commande->tabArgs[1];
+
     if(search_file_inode(nom_fichier)==-1){
         printf("Fichier inexistant");
         return 0;
@@ -120,68 +120,77 @@ void clear(){
 * @return int
 **/
 
-int adduser(){
+int adduser(cmd_t* commande){
+    if(commande->nbArgs != 2){
+            printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+            return 0;
+        }
+    char* login = commande->tabArgs[1];
+
+
     if(get_session()!=0){
-        printf("Commande réservé a l'utilisateur root\n");
-        return 0;
-    }
+    printf("\033[0;31m"); //couleur
+    printf("Commande réservé a l'utilisateur root\n");
+    printf("\033[0m"); //couleur
 
-    int confirmer = 0;
-    int pos;
-    pos = get_unused_user();
-
-    if(pos==-1){
-        printf("Nombre d'utilisateurs max atteint\n");
-        return 0;
-    }
-
-    char confirm[FILENAME_MAX_SIZE];
-    char login[FILENAME_MAX_SIZE];
-    char password[FILENAME_MAX_SIZE];
-    int num = 0;
-    int login_existe = 0;
-    printf("Saisissez un login : ");
-    fgets(login , FILENAME_MAX_SIZE , stdin);
-    enlever_retour_ligne(login);
-
-    while(!login_existe){
-        if(search_login(login)!=-1){
-            printf("Ce pseudo est déja utilisé veuillez en selectionner un autre\n");
-            printf("Saisissez un login : ");
-            fgets(login , FILENAME_MAX_SIZE , stdin);
-        }
-
-        else{
-            login_existe=1;
-        }
-    }
-
-    printf("Saisissez un mot de passe : " );
-    fgets(password , FILENAME_MAX_SIZE , stdin);
-    printf("Veuillez confirmer le mot de passe: ");
-    fgets(confirm , FILENAME_MAX_SIZE , stdin);
-    enlever_retour_ligne(password);
-    enlever_retour_ligne(confirm);
-
-    while(!confirmer){
-
-        if(strcmp(confirm , password)!=0){
-            num++;
-            printf("Les mot de passes ne correspondent pas , veuillez retaper le mot de passe :");
-            fgets(confirm , FILENAME_MAX_SIZE , stdin);
-            enlever_retour_ligne(confirm);
-            printf("Tentative numero %d de validation\n" , num);
-        }
-
-        if(strcmp(confirm , password)==0){
-            add_user(login , password);
-            printf("Creation de l utilisateur %s reussi \n" , virtual_disk_sos->users_table[pos].login);
-            confirmer = 1;
-            return 1;
-
-        }
-    }
     return 0;
+}
+
+int confirmer = 0;
+int pos;
+pos = get_unused_user();
+
+if(pos==-1){
+    printf("\033[0;31m"); //couleur
+    printf("Nombre d'utilisateurs max atteint\n");
+    printf("\033[0m"); //couleur
+    return 0;
+}
+if(search_login(login)!=-1){
+    printf("Ce nom d'utilisateur existe deja \n");
+    return 0;
+}
+char confirm[FILENAME_MAX_SIZE];
+char password[FILENAME_MAX_SIZE];
+
+
+int num = 1;
+
+
+printf("Saisissez un mot de passe : " );
+fgets(password , FILENAME_MAX_SIZE , stdin);
+printf("Veuillez confirmer le mot de passe: ");
+fgets(confirm , FILENAME_MAX_SIZE , stdin);
+enlever_retour_ligne(password);
+enlever_retour_ligne(confirm);
+
+while(!confirmer){
+
+    if(strcmp(confirm , password)!=0){
+        num++;
+        printf("Les mot de passes ne correspondent pas , veuillez retaper le mot de passe :\n");
+        fgets(confirm , FILENAME_MAX_SIZE , stdin);
+        enlever_retour_ligne(confirm);
+        printf("Tentative numero %d de validation\n" , num);
+        if(num==3){
+            printf("\033[0;31m"); //couleur
+            printf("Erreur creation utilisateur , trop de tentative de mot de passe\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+    }
+
+
+    if(strcmp(confirm , password)==0 ){
+        add_user(login , password);
+        printf("Creation de l utilisateur %s reussi \n" , virtual_disk_sos->users_table[pos].login);
+        confirmer = 1;
+        return 1;
+
+    }
+
+}
+return 0;
 }
 
 /**
@@ -214,8 +223,14 @@ int getdroit(char* nom_fichier){
 * @note ajouter de la valeur 3 au debut pour simplifier la verification java
 * @return int 1 si tout se passe bien , 0 si le fichier ne peut pas etre crée
 **/
-int cr(char* nom_fichier){
+int cr(cmd_t *commande){
 
+    if(commande->nbArgs != 2){
+      printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+      return 0;
+    }
+
+    char *nom_fichier = commande->tabArgs[1];
     if(strlen(nom_fichier)>FILENAME_MAX_SIZE){
         printf("Un fichier ne peut contenir que %d caractere maximum\n" , FILENAME_MAX_SIZE);
         return 0;
@@ -230,6 +245,7 @@ int cr(char* nom_fichier){
 
 }
 
+
 /**
 * @brief modifie le fichier s'il existe , ou le crée et ecrit dedans il existe pas
 * @note  2048 caracteres max a ecrire , saisir @@ pour quitter
@@ -237,14 +253,17 @@ int cr(char* nom_fichier){
 * @return int 1 si tout se passe bien (si le fichier existe)
 **/
 
-int edit_file(char* filename){
-    file_t* file = malloc(sizeof(file_t));
+int edit_file(cmd_t *commande){
+    file_t file ;
+    char* filename = commande->tabArgs[1];
     int pos = search_file_inode(filename);
     if(pos==-1){
-        cr(filename);
+        cr(commande);
     }
+    read_file(filename , &file);
+    printf("%s" , (char*)file.data);
     if(!Term_non_canonique())
-    return 1;
+        return 1;
 
     char c;
     int fin = 0;
@@ -254,35 +273,32 @@ int edit_file(char* filename){
         printf("*****EDIT*****\n\n");
         printf("Tapez @@ à tout moment pour arreter la saisie\n\n");
 
-        for (int i = 0; i < (int)file->size; i++) {
-            if((int)file->data[i]+(int)file->data[i+1]==128){
-                fin = 1;
-            }
-            printf("%c", file->data[i]);
+        for (int i = 0; i < (int)file.size; i++) {
+            printf("%c", file.data[i]);
         }
 
         c=fgetc(stdin);
 
         switch (c) {
-            /*case '@':
+            case '@':
             fin = 1;
-            break;*/
+            break;
             case '\b':
-              if(file->size > 0)
-                file->size--;
-              printf ("\033[H\033[J");
-              break;
+            if(file.size > 0)
+                file.size--;
+            printf ("\033[H\033[J");
+            break;
             default:
-              file->data[file->size] = c;
-              file->size++;
+            file.data[file.size] = c;
+            file.size++;
         }
 
-    } while(!fin && file->size < MAX_FILE_SIZE);
+    } while(!fin && file.size < MAX_FILE_SIZE);
     printf("\n");
-    enlever_caractere_fin((char*)file->data);
-    write_file(filename , *file);
+    enlever_caractere_fin((char*)file.data);
+    write_file(filename , file);
     if(!Term_canonique())
-    return 1;
+        return 1;
 
     return 1;
 }
@@ -293,28 +309,42 @@ int edit_file(char* filename){
 * @return int 1 si tout se passe bien (si l'user connecte est le root et si le login existe) , 0 sinon
 **/
 
-int rmuser(char * nom_login){
+int rmuser(cmd_t* commande){
     int pos;
-    pos = search_login(nom_login);
+    char* login = commande->tabArgs[1];
+    if(commande->nbArgs != 2){
+            printf("Usage : %s <login>\n", commande->tabArgs[0]);
+            return 0;
+        }
+    pos = search_login(login);
     if(get_session()!=0){
-        printf("Commande réservé a l'utilisateur root .\n");
-        return 0;
+    printf("\033[0;31m"); //couleur
+    printf("Commande réservé a l'utilisateur root .\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+
+        if(pos==-1){
+    printf("\033[0;31m"); //couleur
+    printf("Login inexistant\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+
+        if(pos==0){
+    printf("\033[0;31m"); //couleur
+    printf("Impossible de supprimer l'utilisateur root\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+                printf("\033[0;32m"); //couleur
+                printf("Suprresion de l'utilisateur %s" , virtual_disk_sos->users_table[pos].login);
+            printf("\033[0m"); //couleur
+
+        delete_user(login);
+        return 1;
+
     }
-
-    if(pos==-1){
-        printf("Login inexistant\n");
-        return 0;
-    }
-
-    if(pos==0){
-        printf("Impossible de supprimer l'utilisateur root\n");
-        return 0;
-    }
-
-    delete_user(nom_login);
-    return 1;
-
-}
 
 /**
 * @brief deconnecte l'user
@@ -323,10 +353,10 @@ int rmuser(char * nom_login){
 * @return int 1 si tout se passe bien
 **/
 
-int deconnexion(){
-    del_session();
-    return 1;
-}
+    int deconnexion(){
+        del_session();
+        return 1;
+    }
 
 /**
 * @brief Affiche la liste des fichiers et leurs descriptions
@@ -335,11 +365,11 @@ int deconnexion(){
 * @return void
 **/
 
-void ls(){
-    for (int i = 0; i < (int)virtual_disk_sos->super_block.number_of_files ; i++){
-        printf("%s \t  %d \n  " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size );
+    void ls(){
+        for (int i = 0; i < (int)virtual_disk_sos->super_block.number_of_files ; i++){
+            printf("%s \t  %d \n  " , virtual_disk_sos->inodes[i].filename , virtual_disk_sos->inodes[i].size );
+        }
     }
-}
 
 /**
 * @brief ferme l'interprete et sauvegarde le systeme sur le disque
@@ -347,10 +377,10 @@ void ls(){
 * @return void
 **/
 
-void quit(){
-    interprete = 0;
-    save_disk_sos();
-}
+    void quit(){
+        interprete = 0;
+        save_disk_sos();
+    }
 
 /**
 * @brief efface un fichier du systeme si l'user connecte a les droits (root ou proprietaire du fichier)
@@ -359,18 +389,34 @@ void quit(){
 * @return int 1 si l'user a les droits et le fichier existe , 0 sinon
 **/
 
-int rm(char* nom_fichier){
-    int pos = search_file_inode(nom_fichier);
-    uint user = get_session();
 
-    if(pos==-1){
-        printf("Nom de fichier inexistant\n");
-        return 0;
-    }
 
-    if(virtual_disk_sos->inodes[pos].uid==user){
-        if(delete_file(nom_fichier)==-1){
-            printf("Erreur suppression\n");
+    int rm(cmd_t *commande){
+        uint user = get_session();
+        if(commande->nbArgs != 2){
+            printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+            return 0;
+        }
+        char *nom_fichier = commande->tabArgs[1];
+            if(strlen(nom_fichier)>FILENAME_MAX_SIZE){
+                printf("Un fichier ne peut contenir que %d caractere maximum\n" , FILENAME_MAX_SIZE);
+                return 0;
+                }
+            int pos = search_file_inode(nom_fichier);
+
+        if(pos==-1){
+     printf("\033[0;31m"); //couleur
+     printf("Nom de fichier inexistant\n");
+            printf("\033[0m"); //couleur
+
+            return 0;
+        }
+
+        if(virtual_disk_sos->inodes[pos].uid==user){
+            if(delete_file(nom_fichier)==-1){
+        printf("\033[0;31m"); //couleur
+        printf("Erreur suppression\n");
+            printf("\033[0m"); //couleur
             return 0;
         }
         return 1;
@@ -378,18 +424,22 @@ int rm(char* nom_fichier){
 
     if(virtual_disk_sos->inodes[pos].uid!=user && virtual_disk_sos->inodes[pos].oright==3){
         if(delete_file(nom_fichier)==-1){
-            printf("Erreur suppression\n");
+         printf("\033[0;31m"); //couleur
+         printf("Erreur suppression\n");
+            printf("\033[0m"); //couleur
             return 0;
         }
 
         return 1;
     }
     else{
-        printf("Vous n'avez pas les droits pour supprimer le fichier %s\n" , nom_fichier);
+     printf("\033[0;31m"); //couleur
+     printf("Vous n'avez pas les droits pour supprimer le fichier %s\n" , nom_fichier);
+            printf("\033[0m"); //couleur
+            return 0;
+        }
         return 0;
     }
-    return 0;
-}
 
 /**
 * @brief change les droits pour les autres utilisateurs si l'user connecte a les droits (root ou proprietaire)
@@ -398,39 +448,50 @@ int rm(char* nom_fichier){
 * @return int 1 si l'user connecte a les droits et que le fichier existe , 0 sinon
 **/
 
-int chmod(char* nom_fichier , int droit){
-    int pos = search_file_inode(nom_fichier);
-    uint user = get_session();
+    int chmod(cmd_t *commande){
+        char *nom_fichier = commande->tabArgs[1];
+        int droit = atoi(commande->tabArgs[2]);
+        int pos = search_file_inode(nom_fichier);
+        uint user = get_session();
+        if(commande->nbArgs != 3){
+            printf("Usage : %s <nom de fichier> <droit>\n", commande->tabArgs[0]);
+            return 0;
+        }
+        if(pos==-1){
+            printf("\033[0;31m"); //couleur
+            printf("Fichier inexistant\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
 
-    if(pos==-1){
-        printf("Fichier inexistant\n");
+        if(droit>3){
+            printf("\033[0;31m"); //couleur
+            printf("Le droit maximum est 3 pour lecture et ecriture\n");
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+
+        if(virtual_disk_sos->inodes[pos].uid==user && virtual_disk_sos->inodes[pos].uright==3){
+            virtual_disk_sos->inodes[pos].oright=droit;
+            getdroit(nom_fichier);
+            return 1;
+        }
+
+        if(user==0){
+            virtual_disk_sos->inodes[pos].oright=droit;
+            getdroit(nom_fichier);
+            return 1;
+        }
+
+        else{
+     printf("\033[0;31m"); //couleur
+     printf("Vous ne pouvez pas changez les droits du fichier %s\n" , nom_fichier);
+            printf("\033[0m"); //couleur
+            return 0;
+        }
+
         return 0;
     }
-
-    if(droit>3){
-        printf("Le droit maximum est 3 pour lecture et ecriture\n");
-        return 0;
-    }
-
-    if(virtual_disk_sos->inodes[pos].uid==user && virtual_disk_sos->inodes[pos].uright==3){
-        virtual_disk_sos->inodes[pos].oright=droit;
-        getdroit(nom_fichier);
-        return 1;
-    }
-
-    if(user==0){
-        virtual_disk_sos->inodes[pos].oright=droit;
-        getdroit(nom_fichier);
-        return 1;
-    }
-
-    else{
-        printf("Vous ne pouvez pas changez les droits du fichier %s\n" , nom_fichier);
-        return 0;
-    }
-
-    return 0;
-}
 
 /**
 * @brief change le proprietaire d'un fichier si l'user connecte a les droits (root ou proprietaire)
@@ -439,35 +500,40 @@ int chmod(char* nom_fichier , int droit){
 * @return int si l'user est le root ou le proprietaire du fichier , si le fichier existe et si le login existe , 0 sinon
 **/
 
-int chown(char* nom_fichier , char* login){
-    int pos = search_file_inode(nom_fichier);
-    uint user = get_session();
-    uint log = search_login(login);
-    int logi = search_login(login);
+    int chown(cmd_t* commande){
+        char *nom_fichier = commande->tabArgs[1];
+        char* login = commande->tabArgs[1];
+        int pos = search_file_inode(nom_fichier);
+        uint user = get_session();
+        uint log = search_login(login);
+        int logint = search_login(login);
+        if(commande->nbArgs != 3){
+            printf("Usage : %s <nom de fichier> <login>\n", commande->tabArgs[0]);
+            return 0;
+        }
+        if(pos==-1){
+            printf("Fichier inexistant\n");
+            return 0;
+        }
 
-    if(pos==-1){
-        printf("Fichier inexistant\n");
+        if(virtual_disk_sos->inodes[pos].uid==log){
+            printf("%s est déja le proprietaire du fichier\n" , login);
+            return 0;
+        }
+
+        if(logint==-1){
+            printf("Login inexistant\n");
+            return 0;
+        }
+
+        if(virtual_disk_sos->inodes[pos].uid==user || user==0){
+            virtual_disk_sos->inodes[pos].uid=log;
+            getdroit(nom_fichier);
+            return 1;
+        }
+
         return 0;
     }
-
-    if(virtual_disk_sos->inodes[pos].uid==log){
-        printf("%s est déja le proprietaire du fichier\n" , login);
-        return 0;
-    }
-
-    if(logi==-1){
-        printf("Login inexistant\n");
-        return 0;
-    }
-
-    if(virtual_disk_sos->inodes[pos].uid==user || user==0){
-        virtual_disk_sos->inodes[pos].uid=log;
-        getdroit(nom_fichier);
-        return 1;
-    }
-
-    return 0;
-}
 
 /**
 * @brief Affiche la liste des commandes executables
@@ -476,37 +542,37 @@ int chown(char* nom_fichier , char* login){
 * @return void
 **/
 
-void help(){
-    printf("\n");
-    printf("cat <nom de fichier> : affiche a  l ecran le contenu d un fichier si l utilisateur a les droits\n");
-    printf("\n");
-    printf("rm <nom de fichier> : supprime un fichier du systeme si l utilisateur a les droits\n");
-    printf("\n");
-    printf("cr <nom de fichier> : cree un nouveau fichier sur le systeme, le proprietaire est l utilisateur.\n");
-    printf("\n");
-    printf("edit <nom de fichier> : edite un fichier pour modifier son contenu si l utilisateur a les droits\n") ;
-    printf("\n");
-    printf("load <nom de fichier> : copie le contenu d un fichier du systeme hote sur le systeme avec le meme nom\n ");
-    printf("\n");
-    printf("store <nom de fichier> : copie le contenu d un fichier du systeme sur hote avec le meme nom\n");
-    printf("\n");
-    printf("chown <nom de fichier> <login autre utilisateur> change le proprietaire d un fichier\n");
-    printf("\n");
-    printf("chmod <nom de fichier> <droit> change les droits d’un fichier pour tous les autres utilisateurs\n");
-    printf("\n");
-    printf("listusers : affiche la liste des utilisateurs du systeme\n");
-    printf("\n");
-    printf("adduser : Ajouter un utilisateur\n");
-    printf("\n");
-    printf("rmuser : Supprimer un utilisateur\n");
-    printf("\n");
-    printf("quit : Quitter le sytème\n");
-    printf("\n");
-    printf("exit : Quitter la session en cours\n");
-    printf("\n");
-    printf("clear : efface le contenu du terminal\n");
-    printf("\n");
-}
+    void help(){
+        printf("\n");
+        printf("cat <nom de fichier> : affiche a  l ecran le contenu d un fichier si l utilisateur a les droits\n");
+        printf("\n");
+        printf("rm <nom de fichier> : supprime un fichier du systeme si l utilisateur a les droits\n");
+        printf("\n");
+        printf("cr <nom de fichier> : cree un nouveau fichier sur le systeme, le proprietaire est l utilisateur.\n");
+        printf("\n");
+        printf("edit <nom de fichier> : edite un fichier pour modifier son contenu si l utilisateur a les droits\n") ;
+        printf("\n");
+        printf("load <nom de fichier> : copie le contenu d un fichier du systeme hote sur le systeme avec le meme nom\n ");
+        printf("\n");
+        printf("store <nom de fichier> : copie le contenu d un fichier du systeme sur hote avec le meme nom\n");
+        printf("\n");
+        printf("chown <nom de fichier> <login autre utilisateur> change le proprietaire d un fichier\n");
+        printf("\n");
+        printf("chmod <nom de fichier> <droit> change les droits d’un fichier pour tous les autres utilisateurs\n");
+        printf("\n");
+        printf("listusers : affiche la liste des utilisateurs du systeme\n");
+        printf("\n");
+        printf("adduser : Ajouter un utilisateur , si l'utilisateur est le root\n");
+        printf("\n");
+        printf("rmuser : Supprimer un utilisateur , si l'utilisateur est le root\n");
+        printf("\n");
+        printf("quit : Quitter le sytème\n");
+        printf("\n");
+        printf("exit : Quitter la session en cours\n");
+        printf("\n");
+        printf("clear : efface le contenu du terminal\n");
+        printf("\n");
+    }
 
 /**
 * @brief charge un fichier du systeme sur l'ordinateur de l'host_file
@@ -515,17 +581,22 @@ void help(){
 * @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
 **/
 
-int store(char* filename){
-    int pos = search_file_inode(filename);
+    int store(cmd_t* commande){
+        char *filename = commande->tabArgs[1];
+        if(commande->nbArgs != 2){
+            printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+            return 0;
+        }
+        int pos = search_file_inode(filename);
 
-    if(pos==-1){
-        printf("Fichier inexistant\n");
-        return 0;
+        if(pos==-1){
+            printf("Fichier inexistant\n");
+            return 0;
+        }
+
+        store_file_to_host(filename);
+        return 1;
     }
-
-    store_file_to_host(filename);
-    return 1;
-}
 
 /**
 * @brief charge un fichier de l'ordinateur hote sur le systeme
@@ -534,13 +605,18 @@ int store(char* filename){
 * @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
 **/
 
-int load(char* filename){
-    if(load_file_from_host(filename)==0){
-        printf("Probleme ouverture fichier\n");
-        return 0;
+    int load(cmd_t* commande){
+        char *filename = commande->tabArgs[1];
+        if(commande->nbArgs != 2){
+            printf("Usage : %s <nom de fichier>\n", commande->tabArgs[0]);
+            return 0;
+        }
+        if(load_file_from_host(filename)==0){
+            printf("Probleme ouverture fichier\n");
+            return 0;
+        }
+        return 1;
     }
-    return 1;
-}
 
 /**
 * @brief demande a l'user un login et un mdp , cherche une correspondance dans le fichier passwd , et si une correspondance existe , l'user se connecte
@@ -549,67 +625,67 @@ int load(char* filename){
 * @return int : 1 si l'user a pu se connecter , 0 sinon
 **/
 
-int connexion(){
-    char password[FILENAME_MAX_SIZE];
-    char login[FILENAME_MAX_SIZE];
-    int erreur = 0;
-    char hash[SHA256_BLOCK_SIZE*2 + 1];
-    int utilisateur = 1;
-    int mot_de_passe = 1;
-    int connexion = 1;
-    int id;
+    int connexion(){
+        char password[FILENAME_MAX_SIZE];
+        char login[FILENAME_MAX_SIZE];
+        int erreur = 0;
+        char hash[SHA256_BLOCK_SIZE*2 + 1];
+        int utilisateur = 1;
+        int mot_de_passe = 1;
+        int connexion = 1;
+        int id;
 
-    while(connexion){
-        while(utilisateur){
-            printf("Veuillez saisir un nom d'utilisateur : ");
-            fgets(login , FILENAME_MAX_SIZE , stdin);
-            enlever_retour_ligne(login);
-            id = search_login(login);
+        while(connexion){
+            while(utilisateur){
+                printf("Veuillez saisir un nom d'utilisateur : ");
+                fgets(login , FILENAME_MAX_SIZE , stdin);
+                enlever_retour_ligne(login);
+                id = search_login(login);
 
-            if(id==-1){
-                printf("Nom d'utilisateur incorrect\n");
-            }
-
-            else{
-                utilisateur = 0;
-            }
-        }
-
-        if(!utilisateur){
-
-            while(mot_de_passe && erreur!=3){
-                printf("Saisissez le mot de passe : ");
-                fgets(password , FILENAME_MAX_SIZE , stdin);
-                enlever_retour_ligne(password);
-                sha256ofString((BYTE *) password, hash);
-
-                if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
-                    mot_de_passe = 0;
+                if(id==-1){
+                    printf("Nom d'utilisateur incorrect\n");
                 }
 
                 else{
-                    printf("Mot de passe incorrect\n ");
-                    erreur++;
+                    utilisateur = 0;
+                }
+            }
 
-                    if(erreur==3){
-                        printf("Nombre d'essai max atteint , fermeture système\n");
-                        save_disk_sos();
-                        return 0;
+            if(!utilisateur){
+
+                while(mot_de_passe && erreur!=3){
+                    printf("Saisissez le mot de passe : ");
+                    fgets(password , FILENAME_MAX_SIZE , stdin);
+                    enlever_retour_ligne(password);
+                    sha256ofString((BYTE *) password, hash);
+
+                    if(strcmp(virtual_disk_sos->users_table[id].passwd , hash) ==0){
+                        mot_de_passe = 0;
+                    }
+
+                    else{
+                        printf("Mot de passe incorrect\n ");
+                        erreur++;
+
+                        if(erreur==3){
+                            printf("Nombre d'essai max atteint , fermeture système\n");
+                            save_disk_sos();
+                            return 0;
+                        }
                     }
                 }
             }
-        }
 
-        if(!utilisateur && !mot_de_passe){
-            printf("\nTapez -help a tout moment pour connaitre les commandes utilisables\n");
-            new_session(login);
-            connexion=0;
-            return 1;
+            if(!utilisateur && !mot_de_passe){
+                printf("\nTapez -help a tout moment pour connaitre les commandes utilisables\n");
+                new_session(login);
+                connexion=0;
+                return 1;
 
+            }
         }
+        return 0;
     }
-    return 0;
-}
 
 /**
 * @brief interprete de commande qui va executer les cpommandes saisies par l'user connecte
@@ -619,12 +695,6 @@ int connexion(){
 **/
 
 void interprete_commande(){
-    char str[100];
-    cmd_t tab;
-    char *commande[10] = {" " }; // tableau de chaine de caractere qui va contenir les commandes
-    tab.nbArgs = 0;//nombre d'arguments de la commande
-    const char * separators = " \n \t " " "; // separateur d'argument
-    int somme = 0;
 
     /* On cherche à récupérer, un à un, tous les mots (token) de la phrase
     et on commence par le premier.
@@ -635,142 +705,113 @@ void interprete_commande(){
 
     if(connexion()==1){//si l'user a pu se connecter
 
+        cmd_t *commande = malloc(sizeof(cmd_t));
+        commande->tabArgs = malloc(10*sizeof(char*));
+        int max = 10;
+
+        int user;
+        char pseudo[FILENAME_MAX_SIZE];
+
+        char str[50];
+        char *separators =" ";
+        char *strToken;
+
         while(interprete){
-            int user = get_session();
-            char* pseudo = virtual_disk_sos->users_table[user].login;
-            //tant que l'interprete est en marche
+
+            //récupérer le pseudo
+            user = get_session();
+            strcpy(pseudo, virtual_disk_sos->users_table[user].login);
+
+            //taper la commande
             printf("\n[%s] Saisissez une commande $ " , pseudo );
-            fgets(str , 32 , stdin); // on rentre la commande
+            fgets(str, 50 , stdin);
+            enlever_retour_ligne(str);
             printf("\n");
-            int j = 0;
-            char * strToken = strtok ( str, separators );
 
-            while ( strToken != NULL ) {
-                commande[j] = strToken;
-                j++;
-                tab.nbArgs++;
-                strToken = strtok ( NULL, separators );// parcour la chaine str avec le separateur " " pour remplir le tableau de commande
-            }// on prend chaque argument et on les compte
+            //creer un tab de commande argv et le nombre de commande argc
+            commande->nbArgs = 0;
+            strToken = strtok (str, separators);
+            while (strToken != NULL){
 
-            if(strcmp(commande[0] , "ls")==0 && commande[1]==NULL){
-                ls();
-            }
-            // si le premier argument est ls et qu'il n'ya un seul argument on appel ls
+                commande->tabArgs[commande->nbArgs] = strToken;
+                commande->nbArgs++;
+                if(commande->nbArgs == max){
+                  commande->tabArgs = realloc(commande->tabArgs, max*2*sizeof(char*));
+                  max *= 2;
+                }
 
-            else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs>2){
-                printf("Trop d'argument pour la commande %s " , commande[0]);
+                strToken = strtok (NULL, separators);
             }
 
-            // si le premier argument est ls et qu'il y a + que 2 arguments on affiche un message d'erreur
 
-            else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")!=0 && tab.nbArgs==2){
-                printf("Argument inconnu pour la commande ls voulez-vous dire -l?\n " );
+            //debut appel des commandes
+            if(commande->nbArgs > 0){
+
+            if(strcmp(commande->tabArgs[0], "cr") == 0)
+                cr(commande);
+
             }
-            // si le premier argument est ls et qu'il n'ya 2 arguments mais que le 2 eme n'est pas -l , message d'erreur
+            if(strcmp(commande->tabArgs[0], "rm") == 0){
+                rm(commande);
 
-            else if(strcmp(commande[0] , "ls")==0 && strcmp(commande[1] , "-l")==0 && tab.nbArgs==2){
+            }
+            if(strcmp(commande->tabArgs[0], "ls") == 0){
                 ls_l();
             }
-            // si le premier argument est ls et qu'il n'ya 2 arguments et que le 2 eme est  -l , appel de ls -l
-
-
-            if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs == 1){
-                listusers();
+            if(strcmp(commande->tabArgs[0], "edit") == 0){
+                edit_file(commande);
             }
-            // appel de listusers si la fonction contient exactement un argument et que son argument = listusers
-
-            if(strcmp(commande[0] , "listusers")==0 && tab.nbArgs > 1){
-                printf("Trop d'argument pour la commande listusers\n");
+            if(strcmp(commande->tabArgs[0], "cat") == 0){
+                cat(commande);
             }
-
-            if(strcmp(commande[0] , "quit")==0){
-                quit();
+            if(strcmp(commande->tabArgs[0], "chmod") == 0){
+                chmod(commande);
             }
-            //appel quit si l'argument est unique et contient la chaine de caractere quit
-
-            somme = get_unused_inode();
-            if(strcmp(commande[0] , "cr")==0 && tab.nbArgs>1 && commande[1]!=NULL && somme==-1){
-                printf("Nombre de fichier max atteint\n");
-            }
-            //message d'erreur car la fonction get_unused_inode a renvoyé -1 , le nombre de fichiers max est donc atteint
-
-            if(strcmp(commande[0] , "cr")==0 && tab.nbArgs>1 && commande[1]!=NULL && somme!=-1)
-            {
-                printf("Creation fichier %s\n" , commande[1]);
-                cr(commande[1]);
-            }
-            //appel de cr
-
-            if(strcmp(commande[0] , "cr")==0 && tab.nbArgs==1 )
-            {
-                printf("La commande cr prend au moin un argument\n");
-            }
-
-            if(strcmp(commande[0] , "-help")==0 && tab.nbArgs==1){
+            if(strcmp(commande->tabArgs[0] , "-help")==0){
                 help();
             }
-
-            if(strcmp(commande[0] , "rm")==0 && tab.nbArgs>1 && commande[1]!=NULL && search_file_inode(commande[1])!=-1){
-                rm(commande[1]);
+            if(strcmp(commande->tabArgs[0] , "rmuser")==0){
+                rmuser(commande);
             }
-
-            if(strcmp(commande[0] , "edit")==0 && tab.nbArgs>1 && commande[1]!=NULL){
-                edit_file(commande[1]);
+            if(strcmp(commande->tabArgs[0] , "adduser")==0){
+                adduser(commande);
             }
-
-            if(strcmp(commande[0] , "cat")==0 && tab.nbArgs>1 && commande[1]!=NULL){
-                cat(commande[1]);
+            if(strcmp(commande->tabArgs[0] , "listusers")==0){
+                listusers();
             }
-            if(strcmp(commande[0] , "adduser")==0 && tab.nbArgs==1 ){
-                adduser();
+            if(strcmp(commande->tabArgs[0] , "chown")==0){
+                chown(commande);
             }
-
-            if(strcmp(commande[0] , "rmuser")==0 && tab.nbArgs>1 && commande[1]!=NULL){
-                rmuser(commande[1]);
+            if(strcmp(commande->tabArgs[0] , "store")==0){
+                store(commande);
+            }            //pas de else
+            if(strcmp(commande->tabArgs[0] , "load")==0){
+                load(commande);
             }
-
-            if(strcmp(commande[0] , "exit")==0 && tab.nbArgs==1 ){
+            if(strcmp(commande->tabArgs[0] , "exit")==0){
                 deconnexion();
                 connexion();
             }
-
-            if(strcmp(commande[0] , "chmod")==0 && tab.nbArgs==3 ){
-                chmod(commande[1] , atoi(commande[2]));
-            }
-
-            if(strcmp(commande[0] , "chown")==0 && tab.nbArgs==3 ){
-                chown(commande[1] , commande[2]);
-            }
-
-            if(strcmp(commande[0] , "clear")==0 && tab.nbArgs==1 ){
+            if(strcmp(commande->tabArgs[0] , "clear")==0){
                 clear();
             }
-
-            if(strcmp(commande[0] , "store")==0 && tab.nbArgs==2 ){
-                store(commande[1]);
+            if(strcmp(commande->tabArgs[0] , "quit")==0){
+                quit();
             }
-
-            if(strcmp(commande[0] , "store")==0 && tab.nbArgs>2){
-                printf("Trop d'argument pour la commande store\n");
-            }
-
-            if(strcmp(commande[0] , "load")==0 && tab.nbArgs==2){
-                load(commande[1]);
-            }
-
-            tab.nbArgs = 0;
-
         }
+        free(commande->tabArgs);
+        free(commande);
     }
 }
+
 int main(void) {
     if(init_disk_sos("../Dossier_Disque/Disque"))
       return 1;
 
-    disp_design_os(true);
-    interprete_commande();
+  disp_design_os(true);
+  interprete_commande();
 
 
 
-    return 0;
+  return 0;
 }

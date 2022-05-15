@@ -30,10 +30,14 @@ void enlever_retour_ligne(char *chaine){
     chaine[taille-1] = '\0';
 }
 
-// create a file named di (i = diskid) in directory dirname of size bytes
-// the file is initialized with 0
-// dirname must be a valid directory
-// 0 <= diskid < 10
+/**
+* @brief Créé un fichier nommé di (i = diskid) dans le répertoire dirname
+* @param char *dirname : nom du répertoire du furtur disque
+* @param int size : taille du disque
+* @param int diskid : id du disque
+* @return int : 0 si tout c'est bien passé, d'autres valeurs sinon
+* @pre 0 <= diskid < 10
+*/
 int formatage(char *dirname, int size, int diskid){
   char filename[strlen(dirname)+4];
   snprintf(filename, strlen(dirname)+4, "%s/d%d", dirname, diskid);
@@ -51,6 +55,11 @@ int formatage(char *dirname, int size, int diskid){
   return 0;
 }
 
+/**
+* @brief Permet l'affichage avec logo et chargement
+* @param int nb_chargement : nombre de symbole # pour le chargement
+* @return void
+*/
 void affichage(int nb_chargement){
 
   char chargement[30] = "";
@@ -76,6 +85,11 @@ void affichage(int nb_chargement){
 }
 
 
+/**
+* @brief Programme principal de l'installation
+* @param void
+* @return int : 0 si tout c'est bien passé, 1 sinon
+*/
 int main(void){
 
   char chemin[SIZE_CHEMIN];
@@ -85,8 +99,8 @@ int main(void){
   char password_root[MAX_SIZE_PASSWORD];
   char password_root_confirm[MAX_SIZE_PASSWORD];
 
-  /* Page d'arrivé */
 
+  /* Page d'arrivé */
   printf ("\033[H\033[J");
   printf("\033[0;32m");
   disp_design_os(true);
@@ -107,8 +121,6 @@ int main(void){
     fflush(stdin);
     fgets(chemin, SIZE_CHEMIN,stdin);
     enlever_retour_ligne(chemin);
-    if(strcmp(chemin, "1") == 0)
-      return 0;
 
     if(stat(chemin,&element_chemin) == 0){
       if(S_ISDIR(element_chemin.st_mode) != 0){
@@ -116,15 +128,16 @@ int main(void){
         affichage(5);
         printf(" (*) Chemin d'accès correct \n");
         sleep(3);
+
         affichage(10);
         printf(" (*) Creation disque : ");
         if(formatage(chemin, 300000, 0) == 0){
           sleep(3);
+
           affichage(15);
           printf(" (*) Disque Créé ! \n");
           sleep(3);
           install = true;
-
         }
         else{
           affichage(0);

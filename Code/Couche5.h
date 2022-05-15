@@ -6,18 +6,4 @@
 #include "Couche2.h"
 #include "Couche3.h"
 
-
-int rm(char* nom_fichier);
-
-void listusers();
-
-void ls_l();
-
-void ls();
-
-void quit();
-
-void interprete_commande();
-
-
 #endif

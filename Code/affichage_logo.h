@@ -1,19 +1,38 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include "term_canon.h"
+#ifndef __AFFICHAGE_LOGO_H__
+#define __AFFICHAGE_LOGO_H__
 
 
-void no_canon();
+/**
+* @brief Passage du terminal en mode non canonique
+* @param void
+* @return void
+*/
+void no_canon(void);
 
-/* passage en forme canonique */
-void canon();
 
-/* fin de l'affichage et retour en mode canonique pour ecrire au debut
-de la ligne "line"
- */
+/**
+* @brief Passage du terminal en mode canonique
+* @param void
+* @return void
+*/
+void canon(void);
+
+
+/**
+* @brief Fin de l'affichage et retour en mode canonique pour ecrire au debut de la ligne "line"
+* @param int line : ligne à laquelle il faut revenir
+* @return void
+*/
 void end_of_display(int line);
-/* affiche le design de l'os au dessus de l'editeur de commande
-le booleen "starting" permet de mettre ou non l'animation du design
+
+
+/**
+* @brief Affiche le design de l'os au dessus de l'editeur de commande
+* @param bool starting : permet de mettre ou non l'animation du design
+* @return void
+* @note Couleur différente possible (la couleur doit être présente à l'appel)
 */
 void disp_design_os(bool starting);
+
+
+#endif

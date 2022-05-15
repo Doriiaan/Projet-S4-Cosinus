@@ -40,6 +40,7 @@ install:
 
 mrproper: clean
 	@rm -rf $(EXEC)
+	@rm -rf ../install
 
 doc: $(DOC)
 	@doxygen ../Documentation/dconfig
