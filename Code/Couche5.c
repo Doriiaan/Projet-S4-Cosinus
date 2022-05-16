@@ -346,7 +346,7 @@ int edit_file(cmd_t *commande){
   do {
     printf ("\033[H\033[J");
     printf("*****EDIT*****\n\n");
-    printf("Tapez @@ à tout moment pour arreter la saisie\n\n");
+    printf("Tapez @ à tout moment pour arreter la saisie\n\n");
 
     for (int i = 0; i < (int)file.size; i++) {
       printf("%c", file.data[i]);
