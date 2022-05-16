@@ -65,48 +65,35 @@ public class SOS {
 	        return bytes;
 	    }
 	 
-	  final boolean defragmentation(RandomAccessFile raf, byte[] tab, int NombreFichiers) throws IOException {
-		 byte[] fichier_en_byte = Files.readAllBytes(Paths.get("d0"));
-			if(PremierByte(0) != (16+TAILLEBLOCK*BLOCKS_INODE*NOMBREINODES)) {
-				System.out.println("Premier Byte du premier fichier : " + PremierByte(0) + " " + (16+TAILLEBLOCK*BLOCKS_INODE*NOMBREINODES));
-				raf.seek(16+TAILLEBLOCK*BLOCKS_INODE*NOMBREINODES);
-				raf.write(fichier_en_byte, PremierByte(0),Taille_fichier(0)-1);
-				raf.seek(121+TAILLEBLOCK*BLOCKS_INODE*0);
-				raf.write(intToBytes(16+TAILLEBLOCK*BLOCKS_INODE*NOMBREINODES),0,4);	
-			}
-			for (int i = 1; i < NombreFichiers ; i++) {
-				int position = PremierByte(i-1) + Taille_fichier(i-1);
-				
-				if((PremierByte(i)) != position){
-					System.out.println("Premier byte = " + PremierByte(i) +" taille =  "  + Taille_fichier(i-1) +" position = " + position + " i = " + i);
-					raf.seek(position);
-					raf.write(fichier_en_byte,PremierByte(i),Taille_fichier(i));
-					raf.seek(120+TAILLEBLOCK*BLOCKS_INODE*i);
-					byte[] remplace = new byte[4];
-					remplace = intToBytes(position);
-					raf.write(remplace,0,4);
-					raf.seek(120+TAILLEBLOCK*BLOCKS_INODE*i);
-					raf.read(tab,0,4);
-
-					
-				}
-			}
-			int taille_disque = PremierByte(NombreFichiers-1) + Taille_fichier(NombreFichiers-1);
-			System.out.println("taille du disque = " + taille_disque/4 + "Premier byte dernier fichier :" + PremierByte(NombreFichiers-1));
-			if (taille_disque % 4 == 0) {
-				System.out.println();
-				raf.seek(8);
-				raf.write(intToBytes(taille_disque/4-1),0,4);
-				
-			}
-			else {
-				raf.seek(8);
-				raf.write(intToBytes(taille_disque/4),0,4);
-			}
-			raf.seek(12);
-			raf.write(intToBytes(taille_disque+1),0,4);
-			
-			
+	  final boolean defragmentation() throws IOException {
+		 byte[] fichier_en_byte = new byte[1024*2];
+		 int newfirstbyte = (16+TAILLEBLOCK*NOMBREINODES*BLOCKS_INODE)+taillefichiertotale();
+		 int oldfirstbyte = PremierByte(0);
+		 raf.seek(0);
+		 raf.read(fichier_en_byte,0,12);
+		 raf.seek(0);
+		 raf.write(fichier_en_byte, 0, 12);
+		 raf.write(intToBytes(newfirstbyte));
+		 raf.seek(120);
+		 raf.write(intToBytes(16+TAILLEBLOCK*NOMBREINODES*BLOCKS_INODE));
+		 raf.seek(oldfirstbyte);
+		 raf.read(fichier_en_byte,0,Taille_fichier(0)+1);
+		 raf.seek(newfirstbyte);
+		 raf.write(fichier_en_byte,0,Taille_fichier(0)+1);
+		 for (int i = 1 ; i < Nombre_de_fichier ; i++) {
+			 oldfirstbyte = PremierByte(i);
+			 newfirstbyte = PremierByte(i-1) + Taille_fichier(i-1);
+			 if (newfirstbyte % 4 != 0) {
+				 newfirstbyte +=  4 -( newfirstbyte %4 );
+			 }
+			 raf.seek(120+TAILLEBLOCK*BLOCKS_INODE*i );
+			 raf.write(intToBytes(newfirstbyte));
+			 raf.seek(oldfirstbyte);
+			 raf.read(fichier_en_byte,0,Taille_fichier(i));
+			 raf.seek(newfirstbyte);
+			 raf.write(fichier_en_byte,0,Taille_fichier(i));
+			 
+		 }
 			
 			
 			
@@ -134,6 +121,19 @@ public class SOS {
 		 
 		 return taille;
 	 }
+	  
+	  public final int taillefichiertotale() throws IOException{
+		  int total = 0;
+		  int taille_aux = 0;
+		  for (int indice = 0; indice < Nombre_de_fichier;indice++ ) {
+			  taille_aux = Taille_fichier(indice);
+				 if (taille_aux % 4 != 0) {
+					 taille_aux +=  4 -( taille_aux %4 );
+				 }
+				 total += taille_aux;
+		  }
+		  return total;
+	  }
 	 
 	static final int PremierByte(int indiceFichier) throws IOException{
 		raf.seek(120+TAILLEBLOCK*BLOCKS_INODE*indiceFichier);
@@ -176,12 +176,12 @@ public class SOS {
 		//System.out.println(Nombre_users + " utilisateur(s) trouvé(s) ! : ");
 		raf.seek(premierByteUsers);
 		Arrays.fill(tab, (byte) 1);
-		//String s ="";
+		String s ="";
 		while((char)tab[0] != '\3') {
 			raf.read(tab,0,1);
-			/*if (Nombretrouve < Nombre_users) {
+			if (Nombretrouve < Nombre_users) {
 				s += (char)tab[0];
-			}*/
+			}
 			if((char) tab[0] == '\n') {
 				//System.out.println("Utilisateur " + (Nombretrouve+1) +": "+ s);
 				Nombretrouve +=1;
@@ -209,8 +209,14 @@ public class SOS {
 	
 	 final public boolean verifFirstFreeByte() throws IOException {
 		int verifbyte = PremierByte(Nombre_de_fichier-1);
+		//System.out.println("i dernier fichier = " +( Nombre_de_fichier-1) + " premier byte = " + verifbyte);
 		int taille = Taille_fichier(Nombre_de_fichier-1);
-		verifbyte += taille+1;
+		verifbyte += taille;
+		if (verifbyte %4 !=0) {
+			verifbyte +=( 4- (verifbyte %4));
+
+		}
+		//System.out.println("byte trouvé " + verifbyte + " byte cherché " + first_free_byte + "taille = " + taille );
 		if (verifbyte == first_free_byte) {
 			return true;
 		}
@@ -218,10 +224,11 @@ public class SOS {
 		return false;
 	}
 	
-	 final public boolean verifSuperBlock(int NombreFichiers,int NombreUsers, int NombreBlockUsed, int First_Free_Byte, RandomAccessFile raf,byte[] tab) throws IOException {
+	 final public boolean verifSuperBlock() throws IOException {
 		if (verifierNombreFichiers()) {
 			System.out.println("Nombre de Fichiers vérifiés !\n");
 			PremierByte(indTableUsers);
+			//System.out.println(PremierByte(indTableUsers));
 			if (verifNombreUsers()) {
 				System.out.println("Nombre d'users vérifiés !");
 				if (verifNombreblocks()) {
@@ -240,7 +247,7 @@ public class SOS {
 		return false;
 	}
 	 final boolean verifTablesInodes() throws IOException {
-		System.out.println("Vérification de la table des inodes en cours ...");
+		//System.out.println("Vérification de la table des inodes en cours ...");
 		for (int i = 0; i < Nombre_de_fichier ; i++) {
 			int firstbyte = PremierByte(i);
 			int taille = Taille_fichier(i);
@@ -252,7 +259,7 @@ public class SOS {
 				return false;
 			}
 		}
-		System.out.println("La table des inodes est correcte !");
+		//System.out.println("La table des inodes est correcte !");
 		return true;
 	}
 	

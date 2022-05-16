@@ -29,6 +29,7 @@ public class Frame extends JFrame {
 	JButton retour3;
 	JButton retour4;
 	JButton retour5;
+	JButton retour6;
 	JButton infoFichiers;
 	JButton infoUsers;
 	
@@ -57,6 +58,8 @@ public class Frame extends JFrame {
 	JLabel label14;
 	JLabel label15;
 	JLabel label16;
+	JLabel label17;
+	JLabel label18;
 	
 	JLabel fich1;
 	JLabel fich2;
@@ -138,6 +141,14 @@ public class Frame extends JFrame {
 		panel5.setVisible(false);
 		panel5.setLayout(null);
 		add(panel5);
+		
+		/* SIXIEME JPANEL */
+		panel6 = new JPanel();
+		panel6.setBackground(Color.black);
+		panel6.setBounds(0, 0, 750, 500);
+		panel6.setVisible(false);
+		panel6.setLayout(null);
+		add(panel6);
 		
 		/*  JPANEL INFORMATIONS FICHIERS */
 		information_fichiers = new JPanel();
@@ -302,6 +313,25 @@ public class Frame extends JFrame {
 		label16.setVisible(true);
 		panel5.add(label16);
 		
+		/* DIX SEPTIEME LABEL */
+		label17 = new JLabel();
+		label17.setFont(new Font("Comic sans MS", Font.BOLD,35));
+		label17.setForeground(Color.green);
+		label17.setBounds(125, 0, 800, 100);
+		label17.setVisible(true);
+		panel6.add(label17);	
+		
+		
+			/* DIX HUITIEME LABEL */
+		label18 = new JLabel();
+		label18.setFont(new Font("Comic sans MS", Font.BOLD,20));
+		label18.setForeground(Color.green);
+		label18.setBounds(0, 150, 600, 30);
+		label18.setVisible(true);
+		panel6.add(label18);	
+		
+		
+			
 		/* LABELS DES FICHIERS */
 		
 		fich1 = new JLabel();
@@ -448,6 +478,7 @@ public class Frame extends JFrame {
 		defrag.setBackground(Color.black);
 		defrag.setBorder(new MatteBorder(0, 0, 0, 0, Color.black));
 		defrag.setVisible(true);
+		defrag.addActionListener(click);
 		defrag.setEnabled(false);
 		panel2.add(defrag);
 		
@@ -538,6 +569,17 @@ public class Frame extends JFrame {
 		retour5.setVisible(false);
 		retour5.addActionListener(click);
 		panel5.add(retour5);
+		
+			/* JBUTTON RETOUR6 */
+		
+		retour6 = new JButton("Retour");
+		retour6.setFont(new Font("Comic sans MS", Font.BOLD, 25));
+		retour6.setForeground(Color.black);
+		retour6.setBackground(Color.green);
+		retour6.setBounds(600, 400, 120, 50);
+		retour6.setVisible(false);
+		retour6.addActionListener(click);
+		panel6.add(retour6);
 	}	
 							
 											/* ANIMATION 1 */
@@ -848,12 +890,13 @@ public class Frame extends JFrame {
 				animation3(label4," Informations SuperBlock",label5,NombresFichiers,label6,NombresUsers,label7,NombreBlock,label8 , FirstByte);
 			}
 			
-			else if (e.getSource() == retour1 || e.getSource() == retour2 || e.getSource() == retour5) {
+			else if (e.getSource() == retour1 || e.getSource() == retour2 || e.getSource() == retour5 || e.getSource() == retour6) {
 				setContentPane(panel2);
-				retour1.setVisible(false);retour2.setVisible(false);infoFichiers.setVisible(false);information_user.setVisible(false);retour5.setVisible(false);
+				retour1.setVisible(false);retour2.setVisible(false);infoFichiers.setVisible(false);infoUsers.setVisible(false);retour5.setVisible(false);retour6.setVisible(false);
 				label4.setText("");label5.setText("");label6.setText("");label7.setText("");label8.setText("");
 				label9.setText("");label10.setText("");label11.setText("");label12.setText("");label13.setText("");label14.setText("");
 				label15.setText("");label16.setText("");
+				label17.setText("");label18.setText("");
 
 			}
 			
@@ -963,6 +1006,17 @@ public class Frame extends JFrame {
 				panel5.setVisible(true);
 				animation1(label15, "Vérification de la Table d'Inodes", label16, veriftb, retour5);
 			}
+			
+			else if (e.getSource() == defrag){
+				setContentPane(panel6);
+				String defragtxt ="DEFRAGMENTATION EN COURS ...   ";
+				try {
+					if (prog.defragmentation()) {defragtxt += "REUSSISTE !";} else {defragtxt += "ECHEC !";}} catch (IOException e1) {}
+					panel6.setVisible(true);
+					animation1(label17,"Defragmentation du Disque",label18,defragtxt, retour6);
+			}
+			
+			
 			
 			else if (e.getSource() == quitter) {
 				System.exit(0);

@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		
-		SOS prog = new SOS();		
+		SOS prog = new SOS();
 		SwingUtilities.invokeLater(new Runnable() {		
 			public void run() {
 				new Frame("SOS",prog);
