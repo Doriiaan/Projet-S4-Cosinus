@@ -3,7 +3,6 @@
 * @author Groupe Cosinus
 * @brief Implémentation de la couche 4
 * @date Avril 2022
-*
 */
 
 #include "Couche4.h"
@@ -57,7 +56,7 @@ int write_file_on_disk(file_t file, uint first_byte){
 * @param char* filename : Nom du fichier à écrire
 * @param file_t file : Fichier à écrire sur le système
 * @return int : 1 si le fichier a été écrit, 0 en cas d'erreur
-* @pre variable systeme et session initialisé
+* @pre variable système et session initialisé
 * @note ne pas créer de fichier si aucune session n'est ouverte
 **/
 int write_file(char* filename, file_t file){
@@ -186,15 +185,12 @@ int delete_file(char* filename){
 **/
 int load_file_from_host(char* filename){
 
+	int i = 0;
+	char ch;
+	file_t new_file;
 	FILE* host_file = fopen(filename, "r");
 	if(host_file == NULL)
 		return 0;
-
-
-	file_t new_file;
-	int i = 0;
-	char ch;
-
 
 	ch = fgetc(host_file);
 	while(ch != EOF && i < MAX_FILE_SIZE-1){
@@ -247,12 +243,12 @@ int store_file_to_host(char* filename){
 		printf("Fichier inexistant");
 		return 0;
 	}
-	file_t *file = malloc(sizeof(file_t));
-    read_file(filename , file);
+	file_t file;
+  read_file(filename , &file);
 	char test[]={"../Stockage_file/"};
 	strcat(test , filename);
 	FILE* new_file = fopen(test , "a+");
-	fprintf(new_file , "%s" , (char*)file->data);
+	fprintf(new_file , "%s" , (char*)file.data);
 	fclose(new_file);
 	return 1;
 }
