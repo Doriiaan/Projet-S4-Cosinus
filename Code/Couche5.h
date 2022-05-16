@@ -27,7 +27,7 @@ void enlever_retour_ligne(char *chaine);
 
 
 /**
-* @brief Lis la valeur de la table d'utilisateurs sur le disque et l'ecrit sur la variable systeme
+* @brief cherche si un caractere est present dans une chaine de caractere
 * @param char* chaine a traiter , char carac a detecer dans la chaine
 * @return int : 0 si caractere pas present ,  1 sinon
 */
