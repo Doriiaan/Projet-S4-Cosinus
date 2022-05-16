@@ -1,9 +1,8 @@
 /**
 * @file Couche5.h
 * @author Groupe Cosinus
-* @brief Header de l'Implémentation de la couche 5
+* @brief Header de l'Implementation de la couche 5
 * @date Mai 2022
-*
 */
 
 #ifndef __COUCHE5_H__
@@ -18,6 +17,7 @@
 #include "term_canon.h"
 #include "affichage_logo.h"
 
+
 /**
 * @brief Enleve le \n de fin lors d'une saisie avec fgets
 * @param char* chaine
@@ -27,7 +27,7 @@ void enlever_retour_ligne(char *chaine);
 
 
 /**
-* @brief Lis la valeur de la table d'utilisateurs sur le disque et l'écrit sur la variable systeme
+* @brief Lis la valeur de la table d'utilisateurs sur le disque et l'ecrit sur la variable systeme
 * @param char* chaine a traiter , char carac a detecer dans la chaine
 * @return int : 0 si caractere pas present ,  1 sinon
 */
@@ -64,9 +64,9 @@ void ls_l();
 
 /**
 * @brief Affiche le contenu d'un fichier du systeme
-* @param char* filename : Nom du fichier à ecire sur stdout
+* @param char* filename : Nom du fichier a ecire sur stdout
 * @note utilise la fonction read_file de la couche 4 pour afficher le contenu du fichier filename
-* @return int : 1 si le fichier a été trouvé et affiché, 0 en cas d'erreur
+* @return int : 1 si le fichier a ete trouve et affiche, 0 en cas d'erreur
 **/
 int cat(cmd_t *commande);
 
@@ -83,11 +83,10 @@ void clear();
 /**
 * @brief ajoute un utilisateur au systeme
 * @param NULL
-* @note demande un login a l'utilisateur root et si ce login n'est pas dans la table , l'user est ajouté
+* @note demande un login a l'utilisateur root et si ce login n'est pas dans la table , l'user est ajoute
 * @note  seul root a acces a cette commande
-* @return int 1 si l'user a pu etre créé , 0 sinon
+* @return int 1 si l'user a pu etre cree , 0 sinon
 **/
-
 int adduser(cmd_t* commande);
 
 
@@ -104,19 +103,19 @@ int getdroit(char* nom_fichier);
 * @brief cree le fichier nom_fichier , s'il depasse la taille max on renvoie une erreur
 * @param char* : nom de fichier
 * @note ajouter de la valeur 3 au debut pour simplifier la verification java
-* @return int 1 si tout se passe bien , 0 si le fichier ne peut pas etre crée
+* @return int 1 si tout se passe bien , 0 si le fichier ne peut pas etre cree
 **/
 int cr(cmd_t *commande);
 
 
 /**
-* @brief modifie le fichier s'il existe , ou le crée et ecrit dedans s'il n'existe pas
+* @brief modifie le fichier s'il existe , ou le cree et ecrit dedans s'il n'existe pas
 * @note  2048 caracteres max a ecrire , saisir @ pour quitter
 * @param char* : nom de fichier
 * @return int 1 si tout se passe bien (si le fichier existe)
 **/
-
 int edit_file(cmd_t *commande);
+
 
 /**
 * @brief supprimer un user du systeme
@@ -124,8 +123,8 @@ int edit_file(cmd_t *commande);
 * @param char* nom de login
 * @return int 1 si tout se passe bien (si l'user connecte est le root et si le login existe) , 0 sinon
 **/
-
 int rmuser(cmd_t* commande);
+
 
 /**
 * @brief deconnecte l'user en utilisant la fonction delete session
@@ -133,7 +132,6 @@ int rmuser(cmd_t* commande);
 * @param NULL
 * @return int 1 si tout se passe bien , 0 sinon
 **/
-
 int deconnexion();
 
 
@@ -143,16 +141,16 @@ int deconnexion();
 * @param void
 * @return NULL
 **/
-
 void ls(cmd_t *commande);
+
 
 /**
 * @brief ferme l'interprete et sauvegarde le systeme sur le disque
 * @param NULL
 * @return void
 **/
-
 void quit();
+
 
 /**
 * @brief efface un fichier du systeme si l'user connecte a les droits (root ou proprietaire du fichier)
@@ -160,10 +158,8 @@ void quit();
 * @param char* nom_fichier
 * @return int 1 si l'user a les droits et le fichier existe , 0 sinon
 **/
-
-
-
 int rm(cmd_t *commande);
+
 
 /**
 * @brief change les droits pour les autres utilisateurs si l'user connecte a les droits (root ou proprietaire)
@@ -171,8 +167,8 @@ int rm(cmd_t *commande);
 * @param char* nom du fichier cible ou les droits doivent etre changees , int droit (0 , 1 , 2 , 3)
 * @return int 1 si l'user connecte a les droits et que le fichier existe , 0 sinon
 **/
-
 int chmod(cmd_t *commande);
+
 
 /**
 * @brief change le proprietaire d'un fichier si l'user connecte a les droits (root ou proprietaire)
@@ -180,8 +176,8 @@ int chmod(cmd_t *commande);
 * @param char * nom du fichier , char* login du nouveau proprietaire
 * @return int si l'user est le root ou le proprietaire du fichier , si le fichier existe et si le login existe , 0 sinon
 **/
-
 int chown(cmd_t* commande);
+
 
 /**
 * @brief Affiche la liste des commandes executables
@@ -189,51 +185,43 @@ int chown(cmd_t* commande);
 * @param void
 * @return void
 **/
-
 void help();
+
 
 /**
 * @brief charge un fichier du systeme sur l'ordinateur de l'host
-* @note: le fichier aura le meme nom que le fichier du systeme et sera crée dans le repertoire Stockage_file du dossier
+* @note: le fichier aura le meme nom que le fichier du systeme et sera cree dans le repertoire Stockage_file du dossier
 * @param char* nom_du_fichier a transferer
-* @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
+* @return int si le fichier existe et que le transfert s'est bien passe , 0 sinon
 **/
-
 int store(cmd_t* commande);
+
 
 /**
 * @brief charge un fichier de l'ordinateur hote sur le systeme
 * @note: le fichier aura le meme nom que le fichier transfere
 * @param char* nom_du_fichier a transferer
-* @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
+* @return int si le fichier existe et que le transfert s'est bien passe , 0 sinon
 **/
-
 int load(cmd_t* commande);
 
+
 /**
-* @brief demande a l'user un login et un mdp , cherche une correspondance dans le fichier passwd , 
+* @brief demande a l'user un login et un mdp , cherche une correspondance dans le fichier passwd ,
 * et si une correspondance existe , l'user se connecte
 * @note: l'user aura acces a chaque commande du systeme
 * @param void
 * @return int : 1 si l'user a pu se connecter , 0 sinon
 **/
-
 int connexion();
 
+
 /**
-* @brief interprete de commande qui va executer les cpommandes saisies par l'user connecte
+* @brief interprete de commande qui va executer les commandes saisies par l'user connecte
 * @note contient un tableau de chaine de caractere commande qui contient les arguments de la commande
 * @param void
 * @return void
 **/
-
-/**
-* @brief interprete de commande qui va executer les cpommandes saisies par l'user connecte
-* @note contient un tableau de chaine de caractere commande qui contient les arguments de la commande
-* @param void
-* @return void
-**/
-
 void interprete_commande();
 
 

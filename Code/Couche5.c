@@ -1,13 +1,6 @@
 #include "Couche5.h"
 extern virtual_disk_t *virtual_disk_sos;
 
-#define FIRST_TIME 0
-#define TEST_ADD_INODE 1
-#define TEST_DELETE_INODE 0
-#define TEST_ADD_USER 1
-#define TEST_DELETE_USER 0
-#define TEST_SESSION 0
-
 
 int interprete = 1;
 
@@ -868,7 +861,7 @@ void interprete_commande(){
             fgets(str, 50 , stdin);
             printf("\n");
         }
-      
+
     } while(strcmp(str, "\n") == 0);
 
     enlever_retour_ligne(str);

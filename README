@@ -8,7 +8,7 @@ Projet du S4, création d'un OS from scratch
 $ cd Code
 $ make install
 $ cd ..
-$ ./install 
+$ ./install
 
 $ cd Code
 $ make
@@ -19,16 +19,19 @@ $ ./os_program
 # Usage programme C
 
 L'OS est vraiment intuitif, une fois les étapes d'installation effectué et le programme lancé ("./os_program") vous pouvez vous logger en tant que root.
-Tapez -help pour connaître l'ensemble des commandes disponibles ainsi que leurs usages. 
+Tapez -help pour connaître l'ensemble des commandes disponibles ainsi que leurs usages.
 Terminer le programme par la commande "quit" ou vous ne verrez pas vos informations sauvegardées.
+Code couleur retour de fonction :
+  - Rouge : erreurs
+  - Bleu  : La fonction s'est terminé sans erreurs
 
 
 
-# Installation programme JAVA
+# Installation programme JAVA (requiert la dernière version de openjdk )
 
 $ cd Projet_SOS
 $ chmod u+x SOS.jar
-$ ./SOS.jar
+$ java -jar SOS.jar
 
 
 # Usage programme JAVA
