@@ -179,8 +179,8 @@ int adduser(cmd_t* commande){
     printf("Usage : %s <nom de login>\n", commande->tabArgs[0]);
     return 0;
   }
-  char* login = commande->tabArgs[1];
 
+  char* login = commande->tabArgs[1];
 
   if(get_session()!=0){
     printf("\033[0;31m"); //couleur
@@ -209,9 +209,7 @@ int adduser(cmd_t* commande){
   char confirm[FILENAME_MAX_SIZE];
   char password[FILENAME_MAX_SIZE];
 
-
   int num = 1;
-
 
   printf("Saisissez un mot de passe : " );
   fgets(password , FILENAME_MAX_SIZE , stdin);
@@ -219,15 +217,19 @@ int adduser(cmd_t* commande){
   fgets(confirm , FILENAME_MAX_SIZE , stdin);
   enlever_retour_ligne(password);
   enlever_retour_ligne(confirm);
+  printf("\n");
 
   while(!confirmer){
 
     if(strcmp(confirm , password)!=0){
       num++;
-      printf("Les mot de passes ne correspondent pas , veuillez retaper le mot de passe :\n");
+      printf("Les mots de passes ne correspondent pas saisissez à nouveau un mot de passe : " );
+      fgets(password , FILENAME_MAX_SIZE , stdin);
+      printf("Veuillez confirmer le mot de passe: ");
       fgets(confirm , FILENAME_MAX_SIZE , stdin);
+      enlever_retour_ligne(password);
       enlever_retour_ligne(confirm);
-      printf("Tentative numero %d de validation\n" , num);
+      printf("\n");
       if(num==3){
         printf("\033[0;31m"); //couleur
         printf("Erreur creation utilisateur , trop de tentative de mot de passe\n");
@@ -375,6 +377,7 @@ int edit_file(cmd_t *commande){
   if(!Term_canonique())
     return 0;
 
+  clear();
   return 1;
 }
 /**
@@ -869,7 +872,7 @@ void interprete_commande(){
       cr(commande);
 
     }
-    
+
     if(strcmp(commande->tabArgs[0], "rm") == 0){
       rm(commande);
 
