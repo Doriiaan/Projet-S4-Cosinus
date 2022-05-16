@@ -190,6 +190,7 @@ int load_file_from_host(char* filename){
 	if(host_file == NULL)
 		return 0;
 
+
 	file_t new_file;
 	int i = 0;
 	char ch;
@@ -207,14 +208,30 @@ int load_file_from_host(char* filename){
 	if(i == MAX_FILE_SIZE-1 && ch != EOF)
 		return 0;
 
-
 	new_file.data[i] = 3;
 	i++;
 	new_file.size = i;
 
+
+	/* Suppression du chemin pour le nom */
+	char nom_fichier[FILENAME_MAX_SIZE];
+	char nom_chemin[1000];
+	strcpy(nom_chemin, filename);
+
+	const char * separators = "/";
+	char * strToken = strtok(nom_chemin, separators);
+
+	i = 0;
+	while(strToken != NULL){
+
+		strcpy(nom_fichier, strToken);
+		strToken = strtok (NULL, separators);
+		i++;
+	}
+
 	/* écriture le fichier sur le système */
 	fclose(host_file);
-	return write_file(filename, new_file);
+	return write_file(nom_fichier, new_file);
 }
 
 

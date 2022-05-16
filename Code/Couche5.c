@@ -28,7 +28,7 @@ void enlever_retour_ligne(char *chaine){
 
   int taille = strlen(chaine);
   if(chaine[taille-1] == '\n')
-  chaine[taille-1] = '\0';
+    chaine[taille-1] = '\0';
 }
 
 int caractere_present(char* chaine , char carac){
@@ -738,55 +738,16 @@ int load(cmd_t* commande){
     return 0;
   }
 
-  char *filename = commande->tabArgs[1];
-  char* nom_fichier_ordi = filename;
-  printf("Nom_fichier_ordi = %s" , nom_fichier_ordi);
-
-  if(caractere_present(filename , '/')){
-
-    if(load_file_from_host(filename)==0){
-      printf("Erreur\n");
-    }
-
-    int pos = search_file_inode(filename);
-
-    if(pos==-1){
-      printf("\033[0;31m"); //couleur
-      printf("Fichier inexistant\n");
-      printf("\033[0m"); //couleur
-    }
-
-    char** contenu = malloc(10*sizeof(char*));
-    int i = 0;
-    const char * separators = "/";
-    char * strToken = strtok ( nom_fichier_ordi, separators );
-
-    while ( strToken != NULL ) {
-      contenu[i] = strToken;
-      i++;
-      strToken = strtok ( NULL, separators );
-    }
-    strcpy(virtual_disk_sos->inodes[pos].filename , contenu[i-1] );
-    printf("\033[0;34m"); //couleur
-    printf("Copie du fichier %s sur le systeme\n" , virtual_disk_sos->inodes[pos].filename);
-    printf("\033[0m"); //couleur
-
-
-    return 1;
-
+  if(load_file_from_host(commande->tabArgs[1])==0){
+    printf("Erreur\n");
+    return 0;
   }
 
-  else if(!caractere_present(filename , '/')){
+  printf("\033[0;34m"); //couleur
+  printf("Copie du fichier %s sur le systeme\n", commande->tabArgs[1]);
+  printf("\033[0m"); //couleur
 
-    if(load_file_from_host(filename)==0){
-
-      printf("Probleme fonction load\n");
-      return 0;
-    }
-
-    return 1;
-  }
-  return 0;
+  return 1;
 }
 
 /**
