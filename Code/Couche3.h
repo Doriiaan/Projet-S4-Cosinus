@@ -49,6 +49,9 @@ int get_unused_user(void);
 int search_login(char *login);
 
 
+char* search_id(int id);
+
+
 /**
 * @brief Ajoute un utilisateur au systeme
 * @param char *login : login de l'utilisateur

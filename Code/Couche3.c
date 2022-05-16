@@ -39,6 +39,7 @@ int write_users_table(void){
   }
   file.data[file.size] = 3;
   file.size++;
+  new_session("root");
   write_file("passwd", file);
 
   return 0;
@@ -129,6 +130,12 @@ int search_login(char *login){
   }
   return id;
 }
+
+char* search_id(int id){
+
+  return virtual_disk_sos->users_table[id].login;
+}
+
 
 
 /**
