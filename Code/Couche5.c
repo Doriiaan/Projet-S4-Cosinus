@@ -1,6 +1,13 @@
 #include "Couche5.h"
 extern virtual_disk_t *virtual_disk_sos;
 
+#define FIRST_TIME 0
+#define TEST_ADD_INODE 1
+#define TEST_DELETE_INODE 0
+#define TEST_ADD_USER 1
+#define TEST_DELETE_USER 0
+#define TEST_SESSION 0
+
 
 int interprete = 1;
 
@@ -16,6 +23,11 @@ void enlever_retour_ligne(char *chaine){
     chaine[taille-1] = '\0';
 }
 
+/**
+* @brief cherche dans une chaine de caractere si un caractere est present
+* @param char* chaine a traiter , char carac a detecer dans la chaine
+* @return int : 0 si caractere pas present ,  1 sinon
+*/
 int caractere_present(char* chaine , char carac){
   int taille = strlen(chaine);
   for(int i = 0 ; i<taille ; i++){
@@ -50,7 +62,7 @@ void listusers(){
 
   printf("Nombre d'utilisateurs : %d\n" , virtual_disk_sos->super_block.number_of_users );
   for(uint i = 0 ; i<virtual_disk_sos->super_block.number_of_users ; i++){
-    if(virtual_disk_sos->users_table[i].login==NULL){
+    if(strcmp(virtual_disk_sos->users_table[i].login , "\0")==0){
       i++;
     }
     printf("%s\n"  ,virtual_disk_sos->users_table[i].login);
@@ -861,7 +873,7 @@ void interprete_commande(){
             fgets(str, 50 , stdin);
             printf("\n");
         }
-
+      
     } while(strcmp(str, "\n") == 0);
 
     enlever_retour_ligne(str);
