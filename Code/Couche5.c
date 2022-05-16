@@ -321,6 +321,8 @@ int cr(cmd_t *commande){
 
 int edit_file(cmd_t *commande){
   file_t file ;
+  uint user = get_session();
+
   char* filename = commande->tabArgs[1];
   if(strcmp(filename , "passwd")==0){
     printf("\033[0;31m"); //couleur
@@ -328,7 +330,8 @@ int edit_file(cmd_t *commande){
     printf("\033[0m"); //couleur
     return 0;
   }
-  int pos = search_file_inode(filename);
+    int pos = search_file_inode(filename);
+
   if(pos==-1){
     if(cr(commande)!=1){
       printf("\033[0;31m"); //couleur
@@ -336,6 +339,10 @@ int edit_file(cmd_t *commande){
       printf("\033[0m"); //couleur
       return 0;
     }
+  }
+  if(virtual_disk_sos->inodes[pos].uid!=user && (virtual_disk_sos->inodes[pos].oright==2 || virtual_disk_sos->inodes[pos].oright==0) && user!=0 ){
+    printf("Vous n'avez pas les droits d'ecriture\n");
+    return 0;
   }
   read_file(filename , &file);
   printf("%s" , (char*)file.data);
@@ -348,7 +355,7 @@ int edit_file(cmd_t *commande){
   do {
     printf ("\033[H\033[J");
     printf("*****EDIT*****\n\n");
-    printf("Tapez @ à tout moment pour arreter la saisie\n\n");
+    printf("Tapez @@ à tout moment pour arreter la saisie\n\n");
 
     for (int i = 0; i < (int)file.size; i++) {
       printf("%c", file.data[i]);
@@ -377,7 +384,6 @@ int edit_file(cmd_t *commande){
   if(!Term_canonique())
     return 0;
 
-  clear();
   return 1;
 }
 /**
