@@ -955,17 +955,22 @@ void interprete_commande(){
   }
   free(commande->tabArgs);
   free(commande);
-}
+  }
 }
 
-int main(void) {
-  if(init_disk_sos("../Dossier_Disque/Disque"))
-  return 1;
+int main(int argc, char* argv[]) {
+
+  if(argc != 2){
+    printf("Usage : %s <chemin relatif vers le dossier du disque>\n", argv[0]);
+    return 1;
+  }
+  if(init_disk_sos(argv[1])){
+    printf("Le dossier ne contient pas de disque\n");
+    return 1;
+  }
 
   disp_design_os(true);
   interprete_commande();
-
-
 
   return 0;
 }
