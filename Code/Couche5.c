@@ -854,10 +854,13 @@ void interprete_commande(){
     strcpy(pseudo, virtual_disk_sos->users_table[user].login);
 
     //taper la commande
-    printf("\n[%s] Saisissez une commande $ " , pseudo );
-    fgets(str, 50 , stdin);
+    do {
+      printf("\n[%s] Saisissez une commande $ " , pseudo );
+      fgets(str, 50 , stdin);
+      printf("\n");
+    } while(strcmp(str, "\n") == 0);
+
     enlever_retour_ligne(str);
-    printf("\n");
 
     //creer un tab de commande argv et le nombre de commande argc
     commande->nbArgs = 0;
