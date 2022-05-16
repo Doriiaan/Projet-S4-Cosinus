@@ -2,7 +2,7 @@
 \label{Couche4_8h}\index{Couche4.h@{Couche4.h}}
 
 
-Header de l\textquotesingle{}Implémentation de la couche 4.  
+Header de l\textquotesingle{}Implementation de la couche 4.  
 
 
 {\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
@@ -12,22 +12,22 @@ Header de l\textquotesingle{}Implémentation de la couche 4.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}{find\+\_\+file}} (char $\ast$filename)
-\item 
-void \mbox{\hyperlink{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}{write\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
-\item 
-int \mbox{\hyperlink{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}{read\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
-\item 
+int \mbox{\hyperlink{Couche4_8h_a8fd1cb7565788c054372e008b26b62ae}{write\+\_\+file\+\_\+on\+\_\+disk}} (\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file, \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} first\+\_\+byte)
+\begin{DoxyCompactList}\small\item\em Fonction interne, non visible par l\textquotesingle{}utilisateur, ecrit un fichier sur le disque. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche4_8h_a16c2f54b4c7047ec078051a8e65e1a75}{write\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} file)
+\begin{DoxyCompactList}\small\item\em Creer ou modifier un fichier. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche4_8h_a848d9b10873e220a263c86e8379f4e41}{read\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} $\ast$file)
+\begin{DoxyCompactList}\small\item\em Lit un fichier et enregistre son contenu. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche4_8h_af317d1866241c85f868b546657dd2d26}{delete\+\_\+file}} (char $\ast$filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Supprime l\textquotesingle{}inode correspondant au fichier \char`\"{}filename\char`\"{}. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}{load\+\_\+file\+\_\+from\+\_\+host}} (char $\ast$filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Ecrit un fichier du host sur le systeme. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}{store\+\_\+file\+\_\+to\+\_\+host}} (char $\ast$filename)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Ecrit un fichier du systeme sur l\textquotesingle{}ordinateur host. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Header de l\textquotesingle{}Implémentation de la couche 4. 
+Header de l\textquotesingle{}Implementation de la couche 4. 
 
 \begin{DoxyAuthor}{Author}
 Groupe Cosinus 
@@ -38,39 +38,123 @@ Avril 2022
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}\label{Couche4_8h_a38f1b7192cac0ee4adac0b84ac4a075c}} 
-\index{Couche4.h@{Couche4.h}!find\_file@{find\_file}}
-\index{find\_file@{find\_file}!Couche4.h@{Couche4.h}}
-\doxysubsubsection{\texorpdfstring{find\_file()}{find\_file()}}
-{\footnotesize\ttfamily int find\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{Couche4_8h_a8fd1cb7565788c054372e008b26b62ae}\label{Couche4_8h_a8fd1cb7565788c054372e008b26b62ae}} 
+\index{Couche4.h@{Couche4.h}!write\_file\_on\_disk@{write\_file\_on\_disk}}
+\index{write\_file\_on\_disk@{write\_file\_on\_disk}!Couche4.h@{Couche4.h}}
+\doxysubsubsection{\texorpdfstring{write\_file\_on\_disk()}{write\_file\_on\_disk()}}
+{\footnotesize\ttfamily int write\+\_\+file\+\_\+on\+\_\+disk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file,  }\item[{\mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}}]{first\+\_\+byte }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}\label{Couche4_8h_a5ebd4528e2e79fed4f412db6d3b72add}} 
+
+
+Fonction interne, non visible par l\textquotesingle{}utilisateur, ecrit un fichier sur le disque. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+t} & file \+: fichier a ecrire \\
+\hline
+{\em uint} & first\+\_\+byte \+: emplacement de fichier sur le disque \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 0 si tout c\textquotesingle{}est bien passe, 1 sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche4_8h_a16c2f54b4c7047ec078051a8e65e1a75}\label{Couche4_8h_a16c2f54b4c7047ec078051a8e65e1a75}} 
 \index{Couche4.h@{Couche4.h}!write\_file@{write\_file}}
 \index{write\_file@{write\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{write\_file()}{write\_file()}}
-{\footnotesize\ttfamily void write\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int write\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}\label{Couche4_8h_a7c8725d7450f1a1c4d29f1c728f7c657}} 
+
+
+Creer ou modifier un fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & filename \+: Nom du fichier a ecrire \\
+\hline
+{\em file\+\_\+t} & file \+: Fichier a ecrire sur le systeme \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a ete ecrit, 0 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+variable systeme et session initialise 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Note}
+ne pas creer de fichier si aucune session n\textquotesingle{}est ouverte 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche4_8h_a848d9b10873e220a263c86e8379f4e41}\label{Couche4_8h_a848d9b10873e220a263c86e8379f4e41}} 
 \index{Couche4.h@{Couche4.h}!read\_file@{read\_file}}
 \index{read\_file@{read\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{read\_file()}{read\_file()}}
-{\footnotesize\ttfamily int read\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}}}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int read\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{header_8h_a8cb1afe4310b673375714153c80a0e15}{file\+\_\+t}} $\ast$}]{file }\end{DoxyParamCaption})}
 
+
+
+Lit un fichier et enregistre son contenu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & filename \+: Nom du fichier a lire \\
+\hline
+{\em file\+\_\+t} & file \+: Fichier qui enregistre les donnees du fichier lu \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a ete lu, 0 s\textquotesingle{}il n\textquotesingle{}existe pas 
+\end{DoxyReturn}
 \mbox{\Hypertarget{Couche4_8h_af317d1866241c85f868b546657dd2d26}\label{Couche4_8h_af317d1866241c85f868b546657dd2d26}} 
 \index{Couche4.h@{Couche4.h}!delete\_file@{delete\_file}}
 \index{delete\_file@{delete\_file}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{delete\_file()}{delete\_file()}}
 {\footnotesize\ttfamily int delete\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 
+
+
+Supprime l\textquotesingle{}inode correspondant au fichier \char`\"{}filename\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & filename \+: Nom du fichier a supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a ete supprime, 0 s\textquotesingle{}il n\textquotesingle{}existe pas, et -\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
 \mbox{\Hypertarget{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}\label{Couche4_8h_ab122dd7eed0ef4863f97a8703b02e5b4}} 
 \index{Couche4.h@{Couche4.h}!load\_file\_from\_host@{load\_file\_from\_host}}
 \index{load\_file\_from\_host@{load\_file\_from\_host}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{load\_file\_from\_host()}{load\_file\_from\_host()}}
 {\footnotesize\ttfamily int load\+\_\+file\+\_\+from\+\_\+host (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 
+
+
+Ecrit un fichier du host sur le systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & filename \+: Nom du fichier a transferer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a ete charge, 0 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
 \mbox{\Hypertarget{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}\label{Couche4_8h_a5a909c8377bff7302faa6ff209bbcc9e}} 
 \index{Couche4.h@{Couche4.h}!store\_file\_to\_host@{store\_file\_to\_host}}
 \index{store\_file\_to\_host@{store\_file\_to\_host}!Couche4.h@{Couche4.h}}
 \doxysubsubsection{\texorpdfstring{store\_file\_to\_host()}{store\_file\_to\_host()}}
 {\footnotesize\ttfamily int store\+\_\+file\+\_\+to\+\_\+host (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
 
+
+
+Ecrit un fichier du systeme sur l\textquotesingle{}ordinateur host. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & filename \+: Nom du fichier a transferer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a ete stocke, 0 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}

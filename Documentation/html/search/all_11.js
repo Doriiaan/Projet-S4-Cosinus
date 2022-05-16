@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['virtual_5fdisk_5fs_0',['virtual_disk_s',['../structvirtual__disk__s.html',1,'']]],
-  ['virtual_5fdisk_5ft_1',['virtual_disk_t',['../header_8h.html#aaf09485b84abb570966e29863675619f',1,'header.h']]]
+  ['tabargs_0',['tabArgs',['../structcmd__s.html#a11696b13884ad02fdc9b1636fa8d2060',1,'cmd_s']]],
+  ['timestamp_5fsize_1',['TIMESTAMP_SIZE',['../header_8h.html#a7b4282b06832a01cee279660fd4b829d',1,'header.h']]]
 ];

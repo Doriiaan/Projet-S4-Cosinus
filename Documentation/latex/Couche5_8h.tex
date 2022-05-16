@@ -1,0 +1,547 @@
+\hypertarget{Couche5_8h}{}\doxysection{Couche5.\+h File Reference}
+\label{Couche5_8h}\index{Couche5.h@{Couche5.h}}
+
+
+Header de l\textquotesingle{}Implementation de la couche 5.  
+
+
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche2.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche3.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche4.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Couche5.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}term\+\_\+canon.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}affichage\+\_\+logo.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{Couche5_8h_a1e028041afedac32548a23374eb8eafe}{enlever\+\_\+retour\+\_\+ligne}} (char $\ast$chaine)
+\begin{DoxyCompactList}\small\item\em retire le caractere ~\newline
+ lors d\textquotesingle{}une saisie de login avec fgets \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a6c3052b7eaa14a7a0342a8c6ece5bae4}{caractere\+\_\+present}} (char $\ast$chaine, char carac)
+\begin{DoxyCompactList}\small\item\em Cherche dans une chaine de caractere si un caractere est present. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a5d83c2b9c402aa41571cb7420bbd1bd8}{credit}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction bonus, credite les programmeurs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a5e60be2d1cb8e0b8968cf367d17c797b}{listusers}} (void)
+\begin{DoxyCompactList}\small\item\em Affiche la liste des utilisateurs du systeme. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a9b9c0edec0b8c3e3d53ea172491f69b7}{ls\+\_\+l}} (void)
+\begin{DoxyCompactList}\small\item\em Affiche la liste des fichiers et leurs descriptions. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_afecdf4a0e3a597f36ed275faf818a8b1}{cat}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Affiche le contenu d\textquotesingle{}un fichier du systeme. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_ae683fe63c33c388e9ba1c6392dd477eb}{clear}} (void)
+\begin{DoxyCompactList}\small\item\em vide le terminal \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_ab6dbce1eb6e6aad09232f5f7906ded16}{adduser}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em ajoute un utilisateur au systeme \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a271677902b03080040d41db4f2566962}{getdroit}} (char $\ast$nom\+\_\+fichier)
+\begin{DoxyCompactList}\small\item\em Affiche le proprietaire et les droits du fichier en parametre. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a8e9c464e8b1f5aa39d4e15f3ae012503}{cr}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Cree le fichier nom\+\_\+fichier, s\textquotesingle{}il depasse la taille max on renvoie une erreur. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_af992b9b342f72ea07c780861d7f65819}{edit\+\_\+file}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Modifie le fichier s\textquotesingle{}il existe , ou le crée et ecrit dedans il existe pas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a0a195f70b77414975c416fa7929be4b3}{rmuser}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Supprimer un user du systeme. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a436355537bbdf9ef08ed06af8d9ebb47}{deconnexion}} (void)
+\begin{DoxyCompactList}\small\item\em deconnecte l\textquotesingle{}user \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a8c920397b803242f0be267f36182af01}{ls}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Affiche la liste des fichiers et leurs descriptions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a2463a3acef2df4c951ce942a3229e44e}{quit}} ()
+\begin{DoxyCompactList}\small\item\em Ferme l\textquotesingle{}interprete et sauvegarde le systeme sur le disque. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a87e34fe7dc124d87d68c2ed3f8e5ef58}{rm}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Efface un fichier du systeme si l\textquotesingle{}user connecte a les droits (root ou proprietaire du fichier) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a5416712cd0addceb42620c601173255c}{chmod}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Change les droits pour les autres utilisateurs si l\textquotesingle{}user connecte a les droits (root ou proprietaire) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_a6797d215a77c007ba2784cb663a6c885}{chown}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Change le proprietaire d\textquotesingle{}un fichier si l\textquotesingle{}user connecte a les droits (root ou proprietaire) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a0bed8474bd33a912769360766f6b10d4}{help}} (void)
+\begin{DoxyCompactList}\small\item\em Affiche la liste des commandes executables. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_adbffbf839affe5bd3660c8e2fd320d32}{store}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Charge un fichier du systeme sur l\textquotesingle{}ordinateur de l\textquotesingle{}host\+\_\+file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_af383cbc33f06414cb7b508845e059157}{load}} (\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$commande)
+\begin{DoxyCompactList}\small\item\em Charge un fichier de l\textquotesingle{}ordinateur hote sur le systeme. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche5_8h_ae785d1bbabfe6a07f9c9e06330664541}{connexion}} (void)
+\begin{DoxyCompactList}\small\item\em Demande a l\textquotesingle{}user un login et un mdp , cherche une correspondance dans le fichier passwd , et si une correspondance existe , l\textquotesingle{}user se connecte. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Couche5_8h_a3883b71deecef05176d3ef244a7b03a9}{interprete\+\_\+commande}} (void)
+\begin{DoxyCompactList}\small\item\em interprete de commande qui va executer les commandes saisies par l\textquotesingle{}user connecte \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header de l\textquotesingle{}Implementation de la couche 5. 
+
+\begin{DoxyAuthor}{Author}
+Groupe Cosinus 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Mai 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Couche5_8h_a1e028041afedac32548a23374eb8eafe}\label{Couche5_8h_a1e028041afedac32548a23374eb8eafe}} 
+\index{Couche5.h@{Couche5.h}!enlever\_retour\_ligne@{enlever\_retour\_ligne}}
+\index{enlever\_retour\_ligne@{enlever\_retour\_ligne}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{enlever\_retour\_ligne()}{enlever\_retour\_ligne()}}
+{\footnotesize\ttfamily void enlever\+\_\+retour\+\_\+ligne (\begin{DoxyParamCaption}\item[{char $\ast$}]{chaine }\end{DoxyParamCaption})}
+
+
+
+retire le caractere ~\newline
+ lors d\textquotesingle{}une saisie de login avec fgets 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & chaine de caractere \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_a6c3052b7eaa14a7a0342a8c6ece5bae4}\label{Couche5_8h_a6c3052b7eaa14a7a0342a8c6ece5bae4}} 
+\index{Couche5.h@{Couche5.h}!caractere\_present@{caractere\_present}}
+\index{caractere\_present@{caractere\_present}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{caractere\_present()}{caractere\_present()}}
+{\footnotesize\ttfamily int caractere\+\_\+present (\begin{DoxyParamCaption}\item[{char $\ast$}]{chaine,  }\item[{char}]{carac }\end{DoxyParamCaption})}
+
+
+
+Cherche dans une chaine de caractere si un caractere est present. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & chaine \+: chaine a traiter \\
+\hline
+{\em char} & carac \+: caractere a detecer dans la chaine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 0 si caractere pas present, 1 sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_a5d83c2b9c402aa41571cb7420bbd1bd8}\label{Couche5_8h_a5d83c2b9c402aa41571cb7420bbd1bd8}} 
+\index{Couche5.h@{Couche5.h}!credit@{credit}}
+\index{credit@{credit}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{credit()}{credit()}}
+{\footnotesize\ttfamily void credit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction bonus, credite les programmeurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_a5e60be2d1cb8e0b8968cf367d17c797b}\label{Couche5_8h_a5e60be2d1cb8e0b8968cf367d17c797b}} 
+\index{Couche5.h@{Couche5.h}!listusers@{listusers}}
+\index{listusers@{listusers}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{listusers()}{listusers()}}
+{\footnotesize\ttfamily void listusers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Affiche la liste des utilisateurs du systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_a9b9c0edec0b8c3e3d53ea172491f69b7}\label{Couche5_8h_a9b9c0edec0b8c3e3d53ea172491f69b7}} 
+\index{Couche5.h@{Couche5.h}!ls\_l@{ls\_l}}
+\index{ls\_l@{ls\_l}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{ls\_l()}{ls\_l()}}
+{\footnotesize\ttfamily void ls\+\_\+l (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Affiche la liste des fichiers et leurs descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+affichage de toutes les donnees de l\textquotesingle{}inode 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_afecdf4a0e3a597f36ed275faf818a8b1}\label{Couche5_8h_afecdf4a0e3a597f36ed275faf818a8b1}} 
+\index{Couche5.h@{Couche5.h}!cat@{cat}}
+\index{cat@{cat}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{cat()}{cat()}}
+{\footnotesize\ttfamily int cat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Affiche le contenu d\textquotesingle{}un fichier du systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}1\mbox{]} nom du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier a été trouvé et affiché, 0 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+utilise la fonction read\+\_\+file de la couche 4 pour afficher le contenu du fichier filename 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_ae683fe63c33c388e9ba1c6392dd477eb}\label{Couche5_8h_ae683fe63c33c388e9ba1c6392dd477eb}} 
+\index{Couche5.h@{Couche5.h}!clear@{clear}}
+\index{clear@{clear}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void clear (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+vide le terminal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+utilise un printf specifique pour effacer le terminal 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_ab6dbce1eb6e6aad09232f5f7906ded16}\label{Couche5_8h_ab6dbce1eb6e6aad09232f5f7906ded16}} 
+\index{Couche5.h@{Couche5.h}!adduser@{adduser}}
+\index{adduser@{adduser}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{adduser()}{adduser()}}
+{\footnotesize\ttfamily int adduser (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+ajoute un utilisateur au systeme 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}1\mbox{]} est le login de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si tout c\textquotesingle{}est bien passe, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Si le login n\textquotesingle{}est pas dans la table, l\textquotesingle{}utilisateur est ajouté Seul root a acces a cette commande 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a271677902b03080040d41db4f2566962}\label{Couche5_8h_a271677902b03080040d41db4f2566962}} 
+\index{Couche5.h@{Couche5.h}!getdroit@{getdroit}}
+\index{getdroit@{getdroit}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{getdroit()}{getdroit()}}
+{\footnotesize\ttfamily int getdroit (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom\+\_\+fichier }\end{DoxyParamCaption})}
+
+
+
+Affiche le proprietaire et les droits du fichier en parametre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & \+: nom de fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 si tout se passe bien (si le fichier existe) 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Fonction inutile mais pratique pour avoir un apercu 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a8e9c464e8b1f5aa39d4e15f3ae012503}\label{Couche5_8h_a8e9c464e8b1f5aa39d4e15f3ae012503}} 
+\index{Couche5.h@{Couche5.h}!cr@{cr}}
+\index{cr@{cr}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{cr()}{cr()}}
+{\footnotesize\ttfamily int cr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Cree le fichier nom\+\_\+fichier, s\textquotesingle{}il depasse la taille max on renvoie une erreur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t} & $\ast$commande \+: commande\mbox{[}1\mbox{]} nom de fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si tout se passe bien, 0 si le fichier ne peut pas etre crée 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_af992b9b342f72ea07c780861d7f65819}\label{Couche5_8h_af992b9b342f72ea07c780861d7f65819}} 
+\index{Couche5.h@{Couche5.h}!edit\_file@{edit\_file}}
+\index{edit\_file@{edit\_file}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{edit\_file()}{edit\_file()}}
+{\footnotesize\ttfamily int edit\+\_\+file (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Modifie le fichier s\textquotesingle{}il existe , ou le crée et ecrit dedans il existe pas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t} & $\ast$commande \+: commande\mbox{[}1\mbox{]} nom de fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 si tout se passe bien (si le fichier existe) 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+2048 caracteres max a ecrire, saisir @ pour quitter 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a0a195f70b77414975c416fa7929be4b3}\label{Couche5_8h_a0a195f70b77414975c416fa7929be4b3}} 
+\index{Couche5.h@{Couche5.h}!rmuser@{rmuser}}
+\index{rmuser@{rmuser}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{rmuser()}{rmuser()}}
+{\footnotesize\ttfamily int rmuser (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Supprimer un user du systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}1\mbox{]} nom de login \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si tout se passe bien (si l\textquotesingle{}user connecte est le root et si le login existe), 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+utilisable que par root et si le login existe 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a436355537bbdf9ef08ed06af8d9ebb47}\label{Couche5_8h_a436355537bbdf9ef08ed06af8d9ebb47}} 
+\index{Couche5.h@{Couche5.h}!deconnexion@{deconnexion}}
+\index{deconnexion@{deconnexion}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{deconnexion()}{deconnexion()}}
+{\footnotesize\ttfamily int deconnexion (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+deconnecte l\textquotesingle{}user 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 si tout se passe bien 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: l\textquotesingle{}user se deconnecte et met son id a -\/1 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a8c920397b803242f0be267f36182af01}\label{Couche5_8h_a8c920397b803242f0be267f36182af01}} 
+\index{Couche5.h@{Couche5.h}!ls@{ls}}
+\index{ls@{ls}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{ls()}{ls()}}
+{\footnotesize\ttfamily void ls (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Affiche la liste des fichiers et leurs descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t} & $\ast$commande \+: commande\mbox{[}1\mbox{]} \mbox{[}-\/l\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+N\textquotesingle{}affiche que le nom du fichier et sa taille 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a2463a3acef2df4c951ce942a3229e44e}\label{Couche5_8h_a2463a3acef2df4c951ce942a3229e44e}} 
+\index{Couche5.h@{Couche5.h}!quit@{quit}}
+\index{quit@{quit}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{quit()}{quit()}}
+{\footnotesize\ttfamily void quit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ferme l\textquotesingle{}interprete et sauvegarde le systeme sur le disque. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Couche5_8h_a87e34fe7dc124d87d68c2ed3f8e5ef58}\label{Couche5_8h_a87e34fe7dc124d87d68c2ed3f8e5ef58}} 
+\index{Couche5.h@{Couche5.h}!rm@{rm}}
+\index{rm@{rm}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{rm()}{rm()}}
+{\footnotesize\ttfamily int rm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Efface un fichier du systeme si l\textquotesingle{}user connecte a les droits (root ou proprietaire du fichier) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t} & $\ast$commande \+: commande\mbox{[}1\mbox{]} nom\+\_\+fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 si l\textquotesingle{}user a les droits et le fichier existe, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+impossible d\textquotesingle{}effacer le fichier de quelqu\textquotesingle{}un d\textquotesingle{}autre 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a5416712cd0addceb42620c601173255c}\label{Couche5_8h_a5416712cd0addceb42620c601173255c}} 
+\index{Couche5.h@{Couche5.h}!chmod@{chmod}}
+\index{chmod@{chmod}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{chmod()}{chmod()}}
+{\footnotesize\ttfamily int chmod (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Change les droits pour les autres utilisateurs si l\textquotesingle{}user connecte a les droits (root ou proprietaire) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t} & $\ast$commande \+: commande\mbox{[}1\mbox{]} nom du fichier, commande\mbox{[}2\mbox{]} droit (0 , 1 , 2 , 3) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 si l\textquotesingle{}user connecte a les droits et que le fichier existe, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: impossible de changer les droits si le fichier ne nous appartient pas. 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a6797d215a77c007ba2784cb663a6c885}\label{Couche5_8h_a6797d215a77c007ba2784cb663a6c885}} 
+\index{Couche5.h@{Couche5.h}!chown@{chown}}
+\index{chown@{chown}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{chown()}{chown()}}
+{\footnotesize\ttfamily int chown (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Change le proprietaire d\textquotesingle{}un fichier si l\textquotesingle{}user connecte a les droits (root ou proprietaire) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}1\mbox{]} nom du fichier, commande\mbox{[}2\mbox{]} login du nouveau proprietaire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si l\textquotesingle{}user est le root ou le proprietaire du fichier, si le fichier existe et si le login existe, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+impossible de changer le proprietaire si l\textquotesingle{}user connecte ne l\textquotesingle{}est pas ou si l\textquotesingle{}user connecte n\textquotesingle{}est pas root 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a0bed8474bd33a912769360766f6b10d4}\label{Couche5_8h_a0bed8474bd33a912769360766f6b10d4}} 
+\index{Couche5.h@{Couche5.h}!help@{help}}
+\index{help@{help}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{help()}{help()}}
+{\footnotesize\ttfamily void help (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Affiche la liste des commandes executables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: a taper a tout moment pour obtenir la liste 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_adbffbf839affe5bd3660c8e2fd320d32}\label{Couche5_8h_adbffbf839affe5bd3660c8e2fd320d32}} 
+\index{Couche5.h@{Couche5.h}!store@{store}}
+\index{store@{store}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{store()}{store()}}
+{\footnotesize\ttfamily int store (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Charge un fichier du systeme sur l\textquotesingle{}ordinateur de l\textquotesingle{}host\+\_\+file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}0\mbox{]} nom\+\_\+du\+\_\+fichier a transferer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier existe et que le transfert s\textquotesingle{}est bien passé, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: le fichier aura le meme nom que le fichier du systeme 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_af383cbc33f06414cb7b508845e059157}\label{Couche5_8h_af383cbc33f06414cb7b508845e059157}} 
+\index{Couche5.h@{Couche5.h}!load@{load}}
+\index{load@{load}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily int load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a4251cb68940eef7193936044e4db954f}{cmd\+\_\+t}} $\ast$}]{commande }\end{DoxyParamCaption})}
+
+
+
+Charge un fichier de l\textquotesingle{}ordinateur hote sur le systeme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+\_\+t$\ast$} & commande \+: commande\mbox{[}1\mbox{]} nom\+\_\+du\+\_\+fichier a transferer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si le fichier existe et que le transfert s\textquotesingle{}est bien passé, 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: le fichier aura le meme nom que le fichier transfere 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_ae785d1bbabfe6a07f9c9e06330664541}\label{Couche5_8h_ae785d1bbabfe6a07f9c9e06330664541}} 
+\index{Couche5.h@{Couche5.h}!connexion@{connexion}}
+\index{connexion@{connexion}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{connexion()}{connexion()}}
+{\footnotesize\ttfamily int connexion (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Demande a l\textquotesingle{}user un login et un mdp , cherche une correspondance dans le fichier passwd , et si une correspondance existe , l\textquotesingle{}user se connecte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: 1 si l\textquotesingle{}user a pu se connecter , 0 sinon 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: l\textquotesingle{}user aura acces a chaque commande du systeme 
+\end{DoxyNote}
+\mbox{\Hypertarget{Couche5_8h_a3883b71deecef05176d3ef244a7b03a9}\label{Couche5_8h_a3883b71deecef05176d3ef244a7b03a9}} 
+\index{Couche5.h@{Couche5.h}!interprete\_commande@{interprete\_commande}}
+\index{interprete\_commande@{interprete\_commande}!Couche5.h@{Couche5.h}}
+\doxysubsubsection{\texorpdfstring{interprete\_commande()}{interprete\_commande()}}
+{\footnotesize\ttfamily void interprete\+\_\+commande (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+interprete de commande qui va executer les commandes saisies par l\textquotesingle{}user connecte 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+contient un tableau de chaine de caractere commande qui contient les arguments de la commande 
+\end{DoxyNote}

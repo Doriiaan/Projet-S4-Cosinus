@@ -2,37 +2,31 @@
 \label{Couche3_8h}\index{Couche3.h@{Couche3.h}}
 
 
-Header de l\textquotesingle{}Implémentation de la couche 3.  
+Header de l\textquotesingle{}Implementation de la couche 3.  
 
 
 {\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Couche1.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{Couche3_8h_ab99ddd5e59cd6029478e31792e89bc16}{USERS\+\_\+\+START}}~((\mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}} + \mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\+\_\+\+TABLE\+\_\+\+SIZE}}$\ast$(\mbox{\hyperlink{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}{INODE\+\_\+\+SIZE}}))$\ast$\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}} + 1)
-\item 
-\#define \mbox{\hyperlink{Couche3_8h_afa0091633f161684ee6e539bf493bc86}{USER\+\_\+\+SIZE}}~((\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}} + \mbox{\hyperlink{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}{SHA256\+\_\+\+BLOCK\+\_\+\+SIZE}}$\ast$2 + 1)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}} + 1)
-\item 
-\#define \mbox{\hyperlink{Couche3_8h_a77988da40e9a35da51ea0e8943ebbd4a}{ROOT}}~UID 0
-\end{DoxyCompactItemize}
+{\ttfamily \#include \char`\"{}Couche4.\+h\char`\"{}}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{Couche3_8h_ab2295e5e2940bdfb6c0acd6b3f785ef8}{write\+\_\+users\+\_\+table}} (void)
 \begin{DoxyCompactList}\small\item\em Ecrit la table d\textquotesingle{}utilisateurs de la variable systeme sur le disque. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_ac50e75d26c2b9bf1bcfe5b6a669ed040}{read\+\_\+users\+\_\+table}} (void)
-\begin{DoxyCompactList}\small\item\em Lis la valeur de la table d\textquotesingle{}utilisateurs sur le disque et l\textquotesingle{}écrit sur la variable systeme. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Lis la valeur de la table d\textquotesingle{}utilisateurs sur le disque et l\textquotesingle{}ecrit sur la variable systeme. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_a4a7dfdd501efee019bd1ad8a5a67734f}{get\+\_\+unused\+\_\+user}} (void)
 \begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}incide d\textquotesingle{}un utilisateur libre sur la table d\textquotesingle{}utilisateurs. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_af80cb35770d0b0daef1b2b2dfb83c463}{search\+\_\+login}} (char $\ast$login)
-\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}indice de l\textquotesingle{}utilisateur rechercher dans la table d\textquotesingle{}utilisateurs. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}indice de l\textquotesingle{}utilisateur recherche dans la table d\textquotesingle{}utilisateurs. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{Couche3_8h_a6dba4ceb58ee992167e1c70c617e9e09}{search\+\_\+id}} (int id)
+\begin{DoxyCompactList}\small\item\em Retourne le login de l\textquotesingle{}utilisateur recherche dans la table d\textquotesingle{}utilisateurs. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_adebb96ff6f6cf40c4aa168f69b847c05}{add\+\_\+user}} (char $\ast$login, char $\ast$password\+\_\+clair)
 \begin{DoxyCompactList}\small\item\em Ajoute un utilisateur au systeme. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_ac9eb3e131be425b25807ba1c33b39a7c}{delete\+\_\+user}} (char $\ast$login)
-\begin{DoxyCompactList}\small\item\em Supprime l\textquotesingle{}utilisateur de nom login dans la table d\textquotesingle{}utilisateur et de la session si nécessaire. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{Couche3_8h_a599dc920da29541177e42b7bf07c9cf3}{init\+\_\+first\+\_\+time\+\_\+user\+\_\+table}} (void)
-\begin{DoxyCompactList}\small\item\em Cette fonction initialise la table d\textquotesingle{}utilisateurs pour la première fois. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Supprime l\textquotesingle{}utilisateur de nom login dans la table d\textquotesingle{}utilisateur et de la session si necessaire. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche3_8h_a292e1fff07db2193967337aa23ebdb3b}{init\+\_\+first\+\_\+time\+\_\+user\+\_\+table}} (void)
+\begin{DoxyCompactList}\small\item\em Cette fonction initialise la table d\textquotesingle{}utilisateurs pour la premiere fois. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche3_8h_a13ead678e08c9c9f704b413c6e227ab2}{new\+\_\+session}} (char $\ast$login)
 \begin{DoxyCompactList}\small\item\em Ouvre une nouvelle session pour l\textquotesingle{}utilisateur et supprime les autres. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{Couche3_8h_a3722df00f4359aec439d03c0a71694f3}{del\+\_\+session}} (void)
@@ -42,7 +36,7 @@ int \mbox{\hyperlink{Couche3_8h_a10efc172fe6040930259a1c47f70241b}{get\+\_\+sess
 
 
 \doxysubsection{Detailed Description}
-Header de l\textquotesingle{}Implémentation de la couche 3. 
+Header de l\textquotesingle{}Implementation de la couche 3. 
 
 \begin{DoxyAuthor}{Author}
 Groupe Cosinus 
@@ -50,27 +44,11 @@ Groupe Cosinus
 \begin{DoxyDate}{Date}
 Avril 2022 
 \end{DoxyDate}
-
-
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{Couche3_8h_ab99ddd5e59cd6029478e31792e89bc16}\label{Couche3_8h_ab99ddd5e59cd6029478e31792e89bc16}} 
-\index{Couche3.h@{Couche3.h}!USERS\_START@{USERS\_START}}
-\index{USERS\_START@{USERS\_START}!Couche3.h@{Couche3.h}}
-\doxysubsubsection{\texorpdfstring{USERS\_START}{USERS\_START}}
-{\footnotesize\ttfamily \#define USERS\+\_\+\+START~((\mbox{\hyperlink{header_8h_a42178fcae46f09d3c91ca3da27188231}{SUPER\+\_\+\+BLOCK\+\_\+\+SIZE}} + \mbox{\hyperlink{header_8h_a6c041fac527c965e3db582c4c19c1ab4}{INODE\+\_\+\+TABLE\+\_\+\+SIZE}}$\ast$(\mbox{\hyperlink{header_8h_a34a3a3e2e3a4bd30b993bce5b19f3d73}{INODE\+\_\+\+SIZE}}))$\ast$\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}} + 1)}
-
-\mbox{\Hypertarget{Couche3_8h_afa0091633f161684ee6e539bf493bc86}\label{Couche3_8h_afa0091633f161684ee6e539bf493bc86}} 
-\index{Couche3.h@{Couche3.h}!USER\_SIZE@{USER\_SIZE}}
-\index{USER\_SIZE@{USER\_SIZE}!Couche3.h@{Couche3.h}}
-\doxysubsubsection{\texorpdfstring{USER\_SIZE}{USER\_SIZE}}
-{\footnotesize\ttfamily \#define USER\+\_\+\+SIZE~((\mbox{\hyperlink{header_8h_a24c1405225e4ce27b24bcf4f32f4ff0e}{FILENAME\+\_\+\+MAX\+\_\+\+SIZE}} + \mbox{\hyperlink{sha256_8h_a9c1fe69ad43d4ca74b84303a0ed64f2f}{SHA256\+\_\+\+BLOCK\+\_\+\+SIZE}}$\ast$2 + 1)/\mbox{\hyperlink{header_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}} + 1)}
-
-\mbox{\Hypertarget{Couche3_8h_a77988da40e9a35da51ea0e8943ebbd4a}\label{Couche3_8h_a77988da40e9a35da51ea0e8943ebbd4a}} 
-\index{Couche3.h@{Couche3.h}!ROOT@{ROOT}}
-\index{ROOT@{ROOT}!Couche3.h@{Couche3.h}}
-\doxysubsubsection{\texorpdfstring{ROOT}{ROOT}}
-{\footnotesize\ttfamily \#define ROOT~UID 0}
-
+\begin{DoxyNote}{Note}
+La table d\textquotesingle{}utilisateur est un fichier systeme nomme \char`\"{}passwd\char`\"{}, au tout debut le fichier ne contient que l\textquotesingle{}utilisateur root, le format et le suivant \+: $<$login1$>$\+:$<$hash1$>$~\newline
+... $<$login\+N$>$\+:$<$hash\+N$>$~\newline
+\textbackslash{}3 
+\end{DoxyNote}
 
 
 \doxysubsection{Function Documentation}
@@ -90,10 +68,10 @@ Ecrit la table d\textquotesingle{}utilisateurs de la variable systeme sur le dis
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_ac50e75d26c2b9bf1bcfe5b6a669ed040}\label{Couche3_8h_ac50e75d26c2b9bf1bcfe5b6a669ed040}} 
 \index{Couche3.h@{Couche3.h}!read\_users\_table@{read\_users\_table}}
@@ -103,7 +81,7 @@ variable systeme déjà initialisé
 
 
 
-Lis la valeur de la table d\textquotesingle{}utilisateurs sur le disque et l\textquotesingle{}écrit sur la variable systeme. 
+Lis la valeur de la table d\textquotesingle{}utilisateurs sur le disque et l\textquotesingle{}ecrit sur la variable systeme. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -111,10 +89,10 @@ Lis la valeur de la table d\textquotesingle{}utilisateurs sur le disque et l\tex
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_a4a7dfdd501efee019bd1ad8a5a67734f}\label{Couche3_8h_a4a7dfdd501efee019bd1ad8a5a67734f}} 
 \index{Couche3.h@{Couche3.h}!get\_unused\_user@{get\_unused\_user}}
@@ -135,7 +113,7 @@ Retourne l\textquotesingle{}incide d\textquotesingle{}un utilisateur libre sur l
 int \+: indice d\textquotesingle{}utilisateur libre 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_af80cb35770d0b0daef1b2b2dfb83c463}\label{Couche3_8h_af80cb35770d0b0daef1b2b2dfb83c463}} 
 \index{Couche3.h@{Couche3.h}!search\_login@{search\_login}}
@@ -145,18 +123,39 @@ variable systeme déjà initialisé
 
 
 
-Retourne l\textquotesingle{}indice de l\textquotesingle{}utilisateur rechercher dans la table d\textquotesingle{}utilisateurs. 
+Retourne l\textquotesingle{}indice de l\textquotesingle{}utilisateur recherche dans la table d\textquotesingle{}utilisateurs. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em char} & $\ast$login \+: login de l\textquotesingle{}utilisateur rechercher \\
+{\em char} & $\ast$login \+: login de l\textquotesingle{}utilisateur recherche \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 int \+: indice de l\textquotesingle{}utilisateur dans la table d\textquotesingle{}utilisateurs 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{Couche3_8h_a6dba4ceb58ee992167e1c70c617e9e09}\label{Couche3_8h_a6dba4ceb58ee992167e1c70c617e9e09}} 
+\index{Couche3.h@{Couche3.h}!search\_id@{search\_id}}
+\index{search\_id@{search\_id}!Couche3.h@{Couche3.h}}
+\doxysubsubsection{\texorpdfstring{search\_id()}{search\_id()}}
+{\footnotesize\ttfamily char $\ast$ search\+\_\+id (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Retourne le login de l\textquotesingle{}utilisateur recherche dans la table d\textquotesingle{}utilisateurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & id \+: id de l\textquotesingle{}utilisateur recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char$\ast$ \+: login de l\textquotesingle{}utilisateur dans la table d\textquotesingle{}utilisateurs 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+variable systeme deja initialisee \&\& 0 \texorpdfstring{$<$}{<}= id \&\& id \texorpdfstring{$<$}{<} NB\+\_\+\+USERS 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_adebb96ff6f6cf40c4aa168f69b847c05}\label{Couche3_8h_adebb96ff6f6cf40c4aa168f69b847c05}} 
 \index{Couche3.h@{Couche3.h}!add\_user@{add\_user}}
@@ -176,13 +175,13 @@ Ajoute un utilisateur au systeme.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: id de l\textquotesingle{}utilisateur créer ou -\/1 en cas d\textquotesingle{}erreurs 
+int \+: id de l\textquotesingle{}utilisateur creer ou -\/1 en cas d\textquotesingle{}erreurs 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
 \begin{DoxyNote}{Note}
-Si le login est déjà existant ou qu\textquotesingle{}il n\textquotesingle{}y a plus d\textquotesingle{}utilisateurs libres retourne -\/1 
+Si le login est deja existant ou qu\textquotesingle{}il n\textquotesingle{}y a plus d\textquotesingle{}utilisateurs libres retourne -\/1 
 \end{DoxyNote}
 \mbox{\Hypertarget{Couche3_8h_ac9eb3e131be425b25807ba1c33b39a7c}\label{Couche3_8h_ac9eb3e131be425b25807ba1c33b39a7c}} 
 \index{Couche3.h@{Couche3.h}!delete\_user@{delete\_user}}
@@ -192,31 +191,31 @@ Si le login est déjà existant ou qu\textquotesingle{}il n\textquotesingle{}y a
 
 
 
-Supprime l\textquotesingle{}utilisateur de nom login dans la table d\textquotesingle{}utilisateur et de la session si nécessaire. 
+Supprime l\textquotesingle{}utilisateur de nom login dans la table d\textquotesingle{}utilisateur et de la session si necessaire. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em char} & $\ast$login\+: login de l\textquotesingle{}utilisateur à supprimer \\
+{\em char} & $\ast$login\+: login de l\textquotesingle{}utilisateur a supprimer \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: id de l\textquotesingle{}utilisateur supprimé ou -\/1 en cas d\textquotesingle{}erreurs 
+int \+: id de l\textquotesingle{}utilisateur supprimer ou -\/1 en cas d\textquotesingle{}erreurs 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
 \begin{DoxyNote}{Note}
-Impossible de supprimé l\textquotesingle{}utilisateur root 
+Impossible de supprimer l\textquotesingle{}utilisateur root 
 \end{DoxyNote}
-\mbox{\Hypertarget{Couche3_8h_a599dc920da29541177e42b7bf07c9cf3}\label{Couche3_8h_a599dc920da29541177e42b7bf07c9cf3}} 
+\mbox{\Hypertarget{Couche3_8h_a292e1fff07db2193967337aa23ebdb3b}\label{Couche3_8h_a292e1fff07db2193967337aa23ebdb3b}} 
 \index{Couche3.h@{Couche3.h}!init\_first\_time\_user\_table@{init\_first\_time\_user\_table}}
 \index{init\_first\_time\_user\_table@{init\_first\_time\_user\_table}!Couche3.h@{Couche3.h}}
 \doxysubsubsection{\texorpdfstring{init\_first\_time\_user\_table()}{init\_first\_time\_user\_table()}}
-{\footnotesize\ttfamily void init\+\_\+first\+\_\+time\+\_\+user\+\_\+table (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int init\+\_\+first\+\_\+time\+\_\+user\+\_\+table (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
-Cette fonction initialise la table d\textquotesingle{}utilisateurs pour la première fois. 
+Cette fonction initialise la table d\textquotesingle{}utilisateurs pour la premiere fois. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -224,10 +223,10 @@ Cette fonction initialise la table d\textquotesingle{}utilisateurs pour la premi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-void 
+0 si tout c\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_a13ead678e08c9c9f704b413c6e227ab2}\label{Couche3_8h_a13ead678e08c9c9f704b413c6e227ab2}} 
 \index{Couche3.h@{Couche3.h}!new\_session@{new\_session}}
@@ -245,10 +244,10 @@ Ouvre une nouvelle session pour l\textquotesingle{}utilisateur et supprime les a
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout c\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout c\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variables systeme et session déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variables systeme et session deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_a3722df00f4359aec439d03c0a71694f3}\label{Couche3_8h_a3722df00f4359aec439d03c0a71694f3}} 
 \index{Couche3.h@{Couche3.h}!del\_session@{del\_session}}
@@ -269,7 +268,7 @@ Supprime la session en cours.
 void 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable session déjà initialisé 
+variable session deja initialise 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche3_8h_a10efc172fe6040930259a1c47f70241b}\label{Couche3_8h_a10efc172fe6040930259a1c47f70241b}} 
 \index{Couche3.h@{Couche3.h}!get\_session@{get\_session}}
@@ -287,8 +286,8 @@ Retourne l\textquotesingle{}id d\textquotesingle{}utilisateur de la session en c
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: id de l\textquotesingle{}utilisateur 
+int \+: id de l\textquotesingle{}utilisateur ou -\/1 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable session déjà initialisé 
+variable session deja initialise 
 \end{DoxyPrecond}

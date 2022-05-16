@@ -1,15 +1,16 @@
+/**
+* @file Couche5.h
+* @author Groupe Cosinus
+* @brief Header de l'Implementation de la couche 5
+* @date Mai 2022
+*/
+
 #include "Couche5.h"
+
 extern virtual_disk_t *virtual_disk_sos;
 
-#define FIRST_TIME 0
-#define TEST_ADD_INODE 1
-#define TEST_DELETE_INODE 0
-#define TEST_ADD_USER 1
-#define TEST_DELETE_USER 0
-#define TEST_SESSION 0
-
-
 int interprete = 1;
+
 
 /**
 * @brief retire le caractere \n lors d'une saisie de login avec fgets
@@ -23,10 +24,12 @@ void enlever_retour_ligne(char *chaine){
     chaine[taille-1] = '\0';
 }
 
+
 /**
-* @brief cherche dans une chaine de caractere si un caractere est present
-* @param char* chaine a traiter , char carac a detecer dans la chaine
-* @return int : 0 si caractere pas present ,  1 sinon
+* @brief Cherche dans une chaine de caractere si un caractere est present
+* @param char* chaine : chaine a traiter
+* @param char carac : caractere a detecer dans la chaine
+* @return int : 0 si caractere pas present,  1 sinon
 */
 int caractere_present(char* chaine , char carac){
   int taille = strlen(chaine);
@@ -38,7 +41,13 @@ int caractere_present(char* chaine , char carac){
   return 0;
 }
 
-void credit(){
+
+/**
+* @brief Fonction bonus, credite les programmeurs
+* @param void
+* @return void
+*/
+void credit(void){
   printf ("\033[H\033[J");
   disp_design_os(true);
 
@@ -50,15 +59,15 @@ void credit(){
   printf("Caelan Hehir\n\n");
   printf("Thomas Lebrun\n\n");
   printf("\033[0m"); //couleur
-
 }
+
 
 /**
 * @brief Affiche la liste des utilisateurs du systeme
-* @param NULL
+* @param void
 * @return void
 **/
-void listusers(){
+void listusers(void){
 
   printf("Nombre d'utilisateurs : %d\n" , virtual_disk_sos->super_block.number_of_users );
   for(uint i = 0 ; i<virtual_disk_sos->super_block.number_of_users ; i++){
@@ -72,11 +81,11 @@ void listusers(){
 
 /**
 * @brief Affiche la liste des fichiers et leurs descriptions
-* @note affichage de toutes les donnes de l'inode
-* @param NULL
+* @param void
 * @return void
+* @note affichage de toutes les donnees de l'inode
 **/
-void ls_l(){
+void ls_l(void){
   char uright[4];
   char oright[4];
 
@@ -130,9 +139,9 @@ void ls_l(){
 
 /**
 * @brief Affiche le contenu d'un fichier du systeme
-* @param char* filename : Nom du fichier à ecire sur stdout
-* @note utilise la fonction read_file de la couche 4 pour afficher le contenu du fichier filename
+* @param cmd_t* commande : commande[1] nom du fichier
 * @return int : 1 si le fichier a été trouvé et affiché, 0 en cas d'erreur
+* @note utilise la fonction read_file de la couche 4 pour afficher le contenu du fichier filename
 **/
 int cat(cmd_t *commande){
 
@@ -159,26 +168,27 @@ int cat(cmd_t *commande){
   return 1;
 }
 
+
 /**
 * @brief vide le terminal
-* @param aucun
+* @param void
+* @return void
 * @note utilise un printf specifique pour effacer le terminal
-* @return : void
 **/
-void clear(){
+void clear(void){
   printf ("\033[H\033[J");
   disp_design_os(false);
 
 }
 
+
 /**
 * @brief ajoute un utilisateur au systeme
-* @param NULL
-* @note demande un login a l'utilisateur root et si ce login n'est pas dans la table , l'user est ajouté
-* @note  seul root a acces a cette commande
-* @return int
+* @param cmd_t* commande : commande[1] est le login de l'utilisateur
+* @return int : 1 si tout c'est bien passe, 0 sinon
+* @note Si le login n'est pas dans la table, l'utilisateur est ajouté
+*       Seul root a acces a cette commande
 **/
-
 int adduser(cmd_t* commande){
   if(commande->nbArgs != 2){
     printf("Usage : %s <nom de login>\n", commande->tabArgs[0]);
@@ -253,16 +263,16 @@ int adduser(cmd_t* commande){
       return 1;
 
     }
-
   }
-  return 0;
+  return 1;
 }
 
+
 /**
-* @brief affiche le proprietaire et les droits du fichier en parametre
-* @note  fonction inutile mais pratique pour avoir un apercu
+* @brief Affiche le proprietaire et les droits du fichier en parametre
 * @param char* : nom de fichier
 * @return int 1 si tout se passe bien (si le fichier existe)
+* @note Fonction inutile mais pratique pour avoir un apercu
 **/
 int getdroit(char* nom_fichier){
   int pos = search_file_inode(nom_fichier);
@@ -282,11 +292,11 @@ int getdroit(char* nom_fichier){
   return 1;
 }
 
+
 /**
-* @brief cree le fichier nom_fichier , s'il depasse la taille max on renvoie une erreur
-* @param char* : nom de fichier
-* @note ajouter de la valeur 3 au debut pour simplifier la verification java
-* @return int 1 si tout se passe bien , 0 si le fichier ne peut pas etre crée
+* @brief Cree le fichier nom_fichier, s'il depasse la taille max on renvoie une erreur
+* @param cmd_t *commande : commande[1] nom de fichier
+* @return int : 1 si tout se passe bien, 0 si le fichier ne peut pas etre crée
 **/
 int cr(cmd_t *commande){
 
@@ -311,17 +321,16 @@ int cr(cmd_t *commande){
   printf("\033[0;34m"); //couleur
   printf("Creation du fichier %s reussi\n" , nom_fichier);
   printf("\033[0m"); //couleur
-  getdroit(nom_fichier);
   return 1;
 
 }
 
 
 /**
-* @brief modifie le fichier s'il existe , ou le crée et ecrit dedans il existe pas
-* @note  2048 caracteres max a ecrire , saisir @@ pour quitter
-* @param char* : nom de fichier
+* @brief Modifie le fichier s'il existe , ou le crée et ecrit dedans il existe pas
+* @param cmd_t *commande : commande[1] nom de fichier
 * @return int 1 si tout se passe bien (si le fichier existe)
+* @note 2048 caracteres max a ecrire, saisir @ pour quitter
 **/
 int edit_file(cmd_t *commande){
   file_t file ;
@@ -394,13 +403,14 @@ int edit_file(cmd_t *commande){
 
   return 1;
 }
-/**
-* @brief supprimer un user du systeme
-* @note  utilisable que par root et si le login existe
-* @param char* nom de login
-* @return int 1 si tout se passe bien (si l'user connecte est le root et si le login existe) , 0 sinon
-**/
 
+
+/**
+* @brief Supprimer un user du systeme
+* @param cmd_t* commande : commande[1] nom de login
+* @return int : 1 si tout se passe bien (si l'user connecte est le root et si le login existe), 0 sinon
+* @note  utilisable que par root et si le login existe
+**/
 int rmuser(cmd_t* commande){
   int pos;
   char* login = commande->tabArgs[1];
@@ -440,23 +450,22 @@ int rmuser(cmd_t* commande){
 
 /**
 * @brief deconnecte l'user
-* @note : l'user se deconnecte et met son id a -1
-* @param NULL
+* @param void
 * @return int 1 si tout se passe bien
+* @note : l'user se deconnecte et met son id a -1
 **/
-
-int deconnexion(){
+int deconnexion(void){
   del_session();
   return 1;
 }
 
+
 /**
 * @brief Affiche la liste des fichiers et leurs descriptions
-* @note n'affiche que le nom du fichier et sa taille
-* @param void
+* @param cmd_t *commande : commande[1] [-l]
 * @return void
+* @note N'affiche que le nom du fichier et sa taille
 **/
-
 void ls(cmd_t *commande){
 
   if(commande->nbArgs == 2 && strcmp(commande->tabArgs[1],"-l") == 0){
@@ -474,12 +483,12 @@ void ls(cmd_t *commande){
 
 }
 
+
 /**
-* @brief ferme l'interprete et sauvegarde le systeme sur le disque
-* @param NULL
+* @brief Ferme l'interprete et sauvegarde le systeme sur le disque
+* @param void
 * @return void
 **/
-
 void quit(){
   interprete = 0;
   printf("\033[0;31m"); //couleur
@@ -488,15 +497,13 @@ void quit(){
   save_disk_sos();
 }
 
+
 /**
-* @brief efface un fichier du systeme si l'user connecte a les droits (root ou proprietaire du fichier)
+* @brief Efface un fichier du systeme si l'user connecte a les droits (root ou proprietaire du fichier)
+* @param cmd_t *commande : commande[1] nom_fichier
+* @return int 1 si l'user a les droits et le fichier existe, 0 sinon
 * @note impossible d'effacer le fichier de quelqu'un d'autre
-* @param char* nom_fichier
-* @return int 1 si l'user a les droits et le fichier existe , 0 sinon
 **/
-
-
-
 int rm(cmd_t *commande){
   uint user = get_session();
   if(commande->nbArgs != 2){
@@ -554,13 +561,13 @@ int rm(cmd_t *commande){
   return 0;
 }
 
-/**
-* @brief change les droits pour les autres utilisateurs si l'user connecte a les droits (root ou proprietaire)
-* @note: impossible de changer les droits si le fichier ne nous appartient pas .
-* @param char* nom du fichier , int droit (0 , 1 , 2 , 3)
-* @return int 1 si l'user connecte a les droits et que le fichier existe , 0 sinon
-**/
 
+/**
+* @brief Change les droits pour les autres utilisateurs si l'user connecte a les droits (root ou proprietaire)
+* @param cmd_t *commande : commande[1] nom du fichier, commande[2] droit (0 , 1 , 2 , 3)
+* @return int 1 si l'user connecte a les droits et que le fichier existe, 0 sinon
+* @note: impossible de changer les droits si le fichier ne nous appartient pas.
+**/
 int chmod(cmd_t *commande){
   char *nom_fichier = commande->tabArgs[1];
   int droit = atoi(commande->tabArgs[2]);
@@ -606,13 +613,13 @@ int chmod(cmd_t *commande){
   return 0;
 }
 
-/**
-* @brief change le proprietaire d'un fichier si l'user connecte a les droits (root ou proprietaire)
-* @note impossible de changer le proprietaire si l'user connecte ne l'est pas ou si l'user connecte n'est pas root
-* @param char * nom du fichier , char* login du nouveau proprietaire
-* @return int si l'user est le root ou le proprietaire du fichier , si le fichier existe et si le login existe , 0 sinon
-**/
 
+/**
+* @brief Change le proprietaire d'un fichier si l'user connecte a les droits (root ou proprietaire)
+* @param cmd_t* commande : commande[1] nom du fichier, commande[2] login du nouveau proprietaire
+* @return int : 1 si l'user est le root ou le proprietaire du fichier, si le fichier existe et si le login existe, 0 sinon
+* @note impossible de changer le proprietaire si l'user connecte ne l'est pas ou si l'user connecte n'est pas root
+**/
 int chown(cmd_t* commande){
   char *nom_fichier = commande->tabArgs[1];
   char* login = commande->tabArgs[2];
@@ -635,7 +642,6 @@ int chown(cmd_t* commande){
     printf("\033[0;31m"); //couleur
     printf("%s est déja le proprietaire du fichier\n" , login);
     printf("\033[0m"); //couleur
-
     return 0;
   }
 
@@ -648,21 +654,20 @@ int chown(cmd_t* commande){
 
   if(virtual_disk_sos->inodes[pos].uid==user || user==0){
     virtual_disk_sos->inodes[pos].uid=log;
-    getdroit(nom_fichier);
     return 1;
   }
 
-  return 0;
+  return 1;
 }
+
 
 /**
 * @brief Affiche la liste des commandes executables
-* @note: a taper a tout moment pour obtenir la liste
 * @param void
 * @return void
+* @note: a taper a tout moment pour obtenir la liste
 **/
-
-void help(){
+void help(void){
   printf("\n");
   printf("cat <nom de fichier> : affiche a  l ecran le contenu d un fichier si l utilisateur a les droits\n");
   printf("\n");
@@ -694,13 +699,13 @@ void help(){
   printf("\n");
 }
 
-/**
-* @brief charge un fichier du systeme sur l'ordinateur de l'host_file
-* @note: le fichier aura le meme nom que le fichier du systeme
-* @param char* nom_du_fichier a transferer
-* @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
-**/
 
+/**
+* @brief Charge un fichier du systeme sur l'ordinateur de l'host_file
+* @param cmd_t* commande : commande[0] nom_du_fichier a transferer
+* @return int : 1 si le fichier existe et que le transfert s'est bien passé, 0 sinon
+* @note: le fichier aura le meme nom que le fichier du systeme
+**/
 int store(cmd_t* commande){
   char *filename = commande->tabArgs[1];
   if(commande->nbArgs != 2){
@@ -723,13 +728,13 @@ int store(cmd_t* commande){
   return 1;
 }
 
-/**
-* @brief charge un fichier de l'ordinateur hote sur le systeme
-* @note: le fichier aura le meme nom que le fichier transfere
-* @param char* nom_du_fichier a transferer
-* @return int si le fichier existe et que le transfert s'est bien passé , 0 sinon
-**/
 
+/**
+* @brief Charge un fichier de l'ordinateur hote sur le systeme
+* @param cmd_t* commande : commande[1] nom_du_fichier a transferer
+* @return int : 1 si le fichier existe et que le transfert s'est bien passé, 0 sinon
+* @note: le fichier aura le meme nom que le fichier transfere
+**/
 int load(cmd_t* commande){
 
   if(commande->nbArgs != 2){
@@ -751,14 +756,14 @@ int load(cmd_t* commande){
   return 1;
 }
 
+
 /**
-* @brief demande a l'user un login et un mdp , cherche une correspondance dans le fichier passwd , et si une correspondance existe , l'user se connecte
-* @note: l'user aura acces a chaque commande du systeme
+* @brief Demande a l'user un login et un mdp , cherche une correspondance dans le fichier passwd , et si une correspondance existe , l'user se connecte
 * @param void
 * @return int : 1 si l'user a pu se connecter , 0 sinon
+* @note: l'user aura acces a chaque commande du systeme
 **/
-
-int connexion(){
+int connexion(void){
   char password[FILENAME_MAX_SIZE];
   char login[FILENAME_MAX_SIZE];
   int erreur = 0;
@@ -826,14 +831,14 @@ int connexion(){
   return 0;
 }
 
+
 /**
-* @brief interprete de commande qui va executer les cpommandes saisies par l'user connecte
-* @note contient un tableau de chaine de caractere commande qui contient les arguments de la commande
+* @brief interprete de commande qui va executer les commandes saisies par l'user connecte
 * @param void
 * @return void
+* @note contient un tableau de chaine de caractere commande qui contient les arguments de la commande
 **/
-
-void interprete_commande(){
+void interprete_commande(void){
 
   /* On cherche à récupérer, un à un, tous les mots (token) de la phrase
   et on commence par le premier.
@@ -873,7 +878,7 @@ void interprete_commande(){
             fgets(str, 50 , stdin);
             printf("\n");
         }
-      
+
     } while(strcmp(str, "\n") == 0);
 
     enlever_retour_ligne(str);
@@ -971,8 +976,9 @@ void interprete_commande(){
   }
   free(commande->tabArgs);
   free(commande);
+  }
 }
-}
+
 
 int main(int argc, char* argv[]) {
 

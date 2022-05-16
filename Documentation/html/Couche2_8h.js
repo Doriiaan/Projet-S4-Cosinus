@@ -9,6 +9,6 @@ var Couche2_8h =
     [ "get_unused_inode", "Couche2_8h.html#a575b86f424ea83720340a6359c10156b", null ],
     [ "init_inode", "Couche2_8h.html#a0ea9df8fc525c42304be01d61097130d", null ],
     [ "search_file_inode", "Couche2_8h.html#a9db4755bc8815e6e1aeda575f14e3861", null ],
-    [ "init_first_time_super_block", "Couche2_8h.html#a7a3853116cbb25b4772cd1df8d692ea0", null ],
-    [ "init_first_time_inodes_tables", "Couche2_8h.html#a1d932e1735f77ec156cc2556e93cfac3", null ]
+    [ "init_first_time_super_block", "Couche2_8h.html#a28781830c329397445a59105d8fab819", null ],
+    [ "init_first_time_inodes_tables", "Couche2_8h.html#a145cc8db54fa03986cf5425c3eb54208", null ]
 ];

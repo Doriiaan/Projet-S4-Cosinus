@@ -2,7 +2,7 @@
 \label{Couche2_8h}\index{Couche2.h@{Couche2.h}}
 
 
-Header de li\+Implémentation de la couche 2.  
+Header de li\+Implementation de la couche 2.  
 
 
 {\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
@@ -12,31 +12,31 @@ Header de li\+Implémentation de la couche 2.
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{Couche2_8h_a21010ac245c8076a7f441aa3c6bacbbe}{write\+\_\+super\+\_\+block}} (void)
-\begin{DoxyCompactList}\small\item\em Ecrit le super bloc de la variable systeme sur le disque. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Ecrit le super bloc de la variable systemesur le disque. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_a49dbd70d07c45b1c054c89fef22f335e}{read\+\_\+super\+\_\+block}} (void)
-\begin{DoxyCompactList}\small\item\em Lis la valeur du super bloc sur le disque et l\textquotesingle{}écrit sur la variable systeme. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Lis la valeur du super bloc sur le disque et l\textquotesingle{}ecrit sur la variable systeme. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{Couche2_8h_ac285c8e8f0927379fd6c9e792f7e2ec6}{update\+\_\+first\+\_\+free\+\_\+byte\+\_\+super\+\_\+block}} (\mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} byte)
-\begin{DoxyCompactList}\small\item\em Met à jour le premier octet libre du super bloc dans la variable du systeme et non sur le disque. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Met a jour le premier octet libre du super bloc dans la variable du systeme et non sur le disque. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_aae9a6ce26b7c10156edff96e3ebdcb73}{read\+\_\+inodes\+\_\+table}} (void)
-\begin{DoxyCompactList}\small\item\em Lis la valeur de la table d\textquotesingle{}inodes sur le disque et l\textquotesingle{}écrit sur la variable systeme. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Lis la valeur de la table d\textquotesingle{}inodes sur le disque et l\textquotesingle{}ecrit sur la variable systeme. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_aa951478f0d744ff866cfb33082956565}{write\+\_\+inodes\+\_\+table}} (void)
 \begin{DoxyCompactList}\small\item\em Ecrit la table d\textquotesingle{}inodes de la variable systeme sur le disque. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_ab5fa8058839137ed296e9dab3c88e59d}{delete\+\_\+inode}} (char $\ast$name\+\_\+of\+\_\+file)
-\begin{DoxyCompactList}\small\item\em Supprime une inode de la table d\textquotesingle{}inode et met à jour le super bloc. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Supprime une inode de la table d\textquotesingle{}inode et met a jour le super bloc. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_a575b86f424ea83720340a6359c10156b}{get\+\_\+unused\+\_\+inode}} (void)
 \begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}indice dans la table d\textquotesingle{}inode du premier inode libre. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_a0ea9df8fc525c42304be01d61097130d}{init\+\_\+inode}} (char $\ast$name\+\_\+of\+\_\+file, \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} size, \mbox{\hyperlink{header_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} first\+\_\+byte)
-\begin{DoxyCompactList}\small\item\em Ecrit un nouvel inode à la suite des autres sur la table d\textquotesingle{}inode. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Ecrit un nouvel inode a la suite des autres sur la table d\textquotesingle{}inode. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{Couche2_8h_a9db4755bc8815e6e1aeda575f14e3861}{search\+\_\+file\+\_\+inode}} (char $\ast$name\+\_\+of\+\_\+file)
 \begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}indice de l\textquotesingle{}inode qui pointe vers un fichier de nom name\+\_\+of\+\_\+file. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{Couche2_8h_a7a3853116cbb25b4772cd1df8d692ea0}{init\+\_\+first\+\_\+time\+\_\+super\+\_\+block}} (void)
-\begin{DoxyCompactList}\small\item\em Cette fonction initialise le super bloc pour la première fois. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{Couche2_8h_a1d932e1735f77ec156cc2556e93cfac3}{init\+\_\+first\+\_\+time\+\_\+inodes\+\_\+tables}} (void)
-\begin{DoxyCompactList}\small\item\em Cette fonction initialise la table d\textquotesingle{}inodes pour la première fois. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \mbox{\hyperlink{Couche2_8h_a28781830c329397445a59105d8fab819}{init\+\_\+first\+\_\+time\+\_\+super\+\_\+block}} (void)
+\begin{DoxyCompactList}\small\item\em Cette fonction initialise le super bloc pour la premiere fois. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Couche2_8h_a145cc8db54fa03986cf5425c3eb54208}{init\+\_\+first\+\_\+time\+\_\+inodes\+\_\+tables}} (void)
+\begin{DoxyCompactList}\small\item\em Cette fonction initialise la table d\textquotesingle{}inodes pour la premiere fois. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Header de li\+Implémentation de la couche 2. 
+Header de li\+Implementation de la couche 2. 
 
 \begin{DoxyAuthor}{Author}
 Groupe Cosinus 
@@ -45,7 +45,7 @@ Groupe Cosinus
 Avril 2022 
 \end{DoxyDate}
 \begin{DoxyNote}{Note}
-La table d\textquotesingle{}inode contient 10 inodes. Les inodes sont soit utilisé, ils ont une position first\+\_\+byte !=0, soit libre ils ont une postion first\+\_\+byte == 0. Les fonctions de lectures et ecrire du super bloc et de la table d\textquotesingle{}inodes n\textquotesingle{}initialise rien, ils ne font que lire et ecrire sur le disque et sur la variable systeme. Les fonctions qui touchent au super bloc et à la table d\textquotesingle{}inode, actualisent ces derniers sur le disque et sur la variable systeme sauf si le contraire est précisé. 
+La table d\textquotesingle{}inode contient 10 inodes. Les inodes sont soit utilise, ils ont une position first\+\_\+byte !=0, soit libre ils ont une postion first\+\_\+byte == 0. Les fonctions de lectures et ecrire du super bloc et de la table d\textquotesingle{}inodes n\textquotesingle{}initialise rien, ils ne font que lire et ecrire sur le disque et sur la variable systeme. Les fonctions qui touchent au super bloc et a la table d\textquotesingle{}inode, actualisent ces derniers sur le disque et sur la variable systeme sauf si le contraire est precise. 
 \end{DoxyNote}
 
 
@@ -58,7 +58,7 @@ La table d\textquotesingle{}inode contient 10 inodes. Les inodes sont soit utili
 
 
 
-Ecrit le super bloc de la variable systeme sur le disque. 
+Ecrit le super bloc de la variable systemesur le disque. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -66,10 +66,10 @@ Ecrit le super bloc de la variable systeme sur le disque.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche2_8h_a49dbd70d07c45b1c054c89fef22f335e}\label{Couche2_8h_a49dbd70d07c45b1c054c89fef22f335e}} 
 \index{Couche2.h@{Couche2.h}!read\_super\_block@{read\_super\_block}}
@@ -79,7 +79,7 @@ variable systeme déjà initialisé
 
 
 
-Lis la valeur du super bloc sur le disque et l\textquotesingle{}écrit sur la variable systeme. 
+Lis la valeur du super bloc sur le disque et l\textquotesingle{}ecrit sur la variable systeme. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -87,10 +87,10 @@ Lis la valeur du super bloc sur le disque et l\textquotesingle{}écrit sur la va
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche2_8h_ac285c8e8f0927379fd6c9e792f7e2ec6}\label{Couche2_8h_ac285c8e8f0927379fd6c9e792f7e2ec6}} 
 \index{Couche2.h@{Couche2.h}!update\_first\_free\_byte\_super\_block@{update\_first\_free\_byte\_super\_block}}
@@ -100,21 +100,21 @@ variable systeme déjà initialisé
 
 
 
-Met à jour le premier octet libre du super bloc dans la variable du systeme et non sur le disque. 
+Met a jour le premier octet libre du super bloc dans la variable du systeme et non sur le disque. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em uint} & byte \+: octet à mettre à jour \\
+{\em uint} & byte \+: octet a mettre a jour \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \begin{DoxyNote}{Note}
-Aucun test de vérification d\textquotesingle{}espace disque n\textquotesingle{}est effectué 
+Aucun test de verification d\textquotesingle{}espace disque n\textquotesingle{}est effectue, ajoute le first\+\_\+free\+\_\+byte au debut d\textquotesingle{}un nouveau bloc 
 \end{DoxyNote}
 \mbox{\Hypertarget{Couche2_8h_aae9a6ce26b7c10156edff96e3ebdcb73}\label{Couche2_8h_aae9a6ce26b7c10156edff96e3ebdcb73}} 
 \index{Couche2.h@{Couche2.h}!read\_inodes\_table@{read\_inodes\_table}}
@@ -124,7 +124,7 @@ Aucun test de vérification d\textquotesingle{}espace disque n\textquotesingle{}
 
 
 
-Lis la valeur de la table d\textquotesingle{}inodes sur le disque et l\textquotesingle{}écrit sur la variable systeme. 
+Lis la valeur de la table d\textquotesingle{}inodes sur le disque et l\textquotesingle{}ecrit sur la variable systeme. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -132,10 +132,10 @@ Lis la valeur de la table d\textquotesingle{}inodes sur le disque et l\textquote
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche2_8h_aa951478f0d744ff866cfb33082956565}\label{Couche2_8h_aa951478f0d744ff866cfb33082956565}} 
 \index{Couche2.h@{Couche2.h}!write\_inodes\_table@{write\_inodes\_table}}
@@ -153,14 +153,11 @@ Ecrit la table d\textquotesingle{}inodes de la variable systeme sur le disque.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
-\begin{DoxyNote}{Note}
-exit(1) -\/\texorpdfstring{$>$}{>} erreur curseur \+: exit(2) -\/\texorpdfstring{$>$}{>} erreur écriture 
-\end{DoxyNote}
 \mbox{\Hypertarget{Couche2_8h_ab5fa8058839137ed296e9dab3c88e59d}\label{Couche2_8h_ab5fa8058839137ed296e9dab3c88e59d}} 
 \index{Couche2.h@{Couche2.h}!delete\_inode@{delete\_inode}}
 \index{delete\_inode@{delete\_inode}!Couche2.h@{Couche2.h}}
@@ -169,21 +166,21 @@ exit(1) -\/\texorpdfstring{$>$}{>} erreur curseur \+: exit(2) -\/\texorpdfstring
 
 
 
-Supprime une inode de la table d\textquotesingle{}inode et met à jour le super bloc. 
+Supprime une inode de la table d\textquotesingle{}inode et met a jour le super bloc. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em int} & indice\+\_\+inode \+: indice de l\textquotesingle{}inode à supprimer \\
+{\em int} & indice\+\_\+inode \+: indice de l\textquotesingle{}inode a supprimer \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 s\textquotesingle{}il y a eu une erreur, 2 si l\textquotesingle{}inode est déjà libre 
+int \+: 0 si tout s\textquotesingle{}est bien passe, 1 s\textquotesingle{}il y a eu une erreur, 2 si l\textquotesingle{}inode est deja libre 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
 \begin{DoxyNote}{Note}
-La fonction gère si un indice qui correspond à aucun fichier est donné en paramètre 
+La fonction gere si un indice qui correspond a aucun fichier est donne en parametre 
 \end{DoxyNote}
 \mbox{\Hypertarget{Couche2_8h_a575b86f424ea83720340a6359c10156b}\label{Couche2_8h_a575b86f424ea83720340a6359c10156b}} 
 \index{Couche2.h@{Couche2.h}!get\_unused\_inode@{get\_unused\_inode}}
@@ -201,10 +198,10 @@ Retourne l\textquotesingle{}indice dans la table d\textquotesingle{}inode du pre
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-indice du premier inode libre ou -\/1 si tous les inodes sont occupés 
+indice du premier inode libre ou -\/1 si tous les inodes sont occupes 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{Couche2_8h_a0ea9df8fc525c42304be01d61097130d}\label{Couche2_8h_a0ea9df8fc525c42304be01d61097130d}} 
 \index{Couche2.h@{Couche2.h}!init\_inode@{init\_inode}}
@@ -214,11 +211,11 @@ variable systeme déjà initialisé
 
 
 
-Ecrit un nouvel inode à la suite des autres sur la table d\textquotesingle{}inode. 
+Ecrit un nouvel inode a la suite des autres sur la table d\textquotesingle{}inode. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em char\mbox{[}\+FILENAME\+\_\+\+MAX\+\_\+\+SIZE\mbox{]}} & inclut \textbackslash{}\textquotesingle{}0\textquotesingle{} name\+\_\+of\+\_\+file \+: nom du fichier \\
+{\em name\+\_\+of\+\_\+file} & \+: nom du fichier \\
 \hline
 {\em uint} & size \+: taille du fichier \\
 \hline
@@ -226,13 +223,13 @@ Ecrit un nouvel inode à la suite des autres sur la table d\textquotesingle{}ino
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int \+: 0 si tout s\textquotesingle{}est bien passé, 1 sinon (ex \+: taille max table inode attteinte) 
+int \+: indice du nouvel inode, -\/1 si erreurs (ex \+: taille max table inode atteinte) 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<} FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
 \begin{DoxyNote}{Note}
-Met à jour le la table d\textquotesingle{}inode et le super bloc first\+\_\+free\+\_\+byte, nblock et number\+\_\+of\+\_\+files. 
+Met a jour le super bloc first\+\_\+free\+\_\+byte, nblock et number\+\_\+of\+\_\+files. 
 \end{DoxyNote}
 \mbox{\Hypertarget{Couche2_8h_a9db4755bc8815e6e1aeda575f14e3861}\label{Couche2_8h_a9db4755bc8815e6e1aeda575f14e3861}} 
 \index{Couche2.h@{Couche2.h}!search\_file\_inode@{search\_file\_inode}}
@@ -246,24 +243,24 @@ Retourne l\textquotesingle{}indice de l\textquotesingle{}inode qui pointe vers u
 
 
 \begin{DoxyParams}{Parameters}
-{\em char} & name\+\_\+of\+\_\+file\mbox{[}MAX\+\_\+\+FILE\+\_\+\+SIZE\mbox{]} \+: nom du fichier à chercher \\
+{\em char} & name\+\_\+of\+\_\+file\mbox{[}MAX\+\_\+\+FILE\+\_\+\+SIZE\mbox{]} \+: nom du fichier a chercher \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 int \+: indice de l\textquotesingle{}inode ou -\/1 s\textquotesingle{}il n\textquotesingle{}existe pas 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<}= FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
+variable systeme deja initialisee \&\& len(name\+\_\+of\+\_\+file) \texorpdfstring{$<$}{<}= FILENAME\+\_\+\+MAX\+\_\+\+SIZE 
 \end{DoxyPrecond}
-\mbox{\Hypertarget{Couche2_8h_a7a3853116cbb25b4772cd1df8d692ea0}\label{Couche2_8h_a7a3853116cbb25b4772cd1df8d692ea0}} 
+\mbox{\Hypertarget{Couche2_8h_a28781830c329397445a59105d8fab819}\label{Couche2_8h_a28781830c329397445a59105d8fab819}} 
 \index{Couche2.h@{Couche2.h}!init\_first\_time\_super\_block@{init\_first\_time\_super\_block}}
 \index{init\_first\_time\_super\_block@{init\_first\_time\_super\_block}!Couche2.h@{Couche2.h}}
 \doxysubsubsection{\texorpdfstring{init\_first\_time\_super\_block()}{init\_first\_time\_super\_block()}}
-{\footnotesize\ttfamily void init\+\_\+first\+\_\+time\+\_\+super\+\_\+block (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int init\+\_\+first\+\_\+time\+\_\+super\+\_\+block (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
-Cette fonction initialise le super bloc pour la première fois. 
+Cette fonction initialise le super bloc pour la premiere fois. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -271,20 +268,20 @@ Cette fonction initialise le super bloc pour la première fois.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-void 
+0 si tout c\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}
-\mbox{\Hypertarget{Couche2_8h_a1d932e1735f77ec156cc2556e93cfac3}\label{Couche2_8h_a1d932e1735f77ec156cc2556e93cfac3}} 
+\mbox{\Hypertarget{Couche2_8h_a145cc8db54fa03986cf5425c3eb54208}\label{Couche2_8h_a145cc8db54fa03986cf5425c3eb54208}} 
 \index{Couche2.h@{Couche2.h}!init\_first\_time\_inodes\_tables@{init\_first\_time\_inodes\_tables}}
 \index{init\_first\_time\_inodes\_tables@{init\_first\_time\_inodes\_tables}!Couche2.h@{Couche2.h}}
 \doxysubsubsection{\texorpdfstring{init\_first\_time\_inodes\_tables()}{init\_first\_time\_inodes\_tables()}}
-{\footnotesize\ttfamily void init\+\_\+first\+\_\+time\+\_\+inodes\+\_\+tables (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int init\+\_\+first\+\_\+time\+\_\+inodes\+\_\+tables (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
-Cette fonction initialise la table d\textquotesingle{}inodes pour la première fois. 
+Cette fonction initialise la table d\textquotesingle{}inodes pour la premiere fois. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -292,8 +289,8 @@ Cette fonction initialise la table d\textquotesingle{}inodes pour la première f
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-void 
+0 si tout c\textquotesingle{}est bien passe, 1 sinon 
 \end{DoxyReturn}
 \begin{DoxyPrecond}{Precondition}
-variable systeme déjà initialisé 
+variable systeme deja initialisee 
 \end{DoxyPrecond}

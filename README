@@ -12,7 +12,7 @@ $ ./install
 
 $ cd Code
 $ make
-$ ./os_program
+$ ./os_program <dossier du disque> (par défaut mettre  "Dossier_Disque/Disque")
 
 
 
@@ -36,5 +36,6 @@ $ java -jar SOS.jar
 
 # Usage programme JAVA
 
-L'application graphique vous permet de défragmenter le disque, de vérifier les données du super bloc ainsi que de la table d'inodes. Vous pourrez en plus de cela visionner ces données.
+L'application graphique vous permet de défragmenter le disque, de vérifier les données du super bloc ainsi que de la table d'inodes. 
+Vous pourrez en plus de cela visionner les données.
 Important : Le programme C "os_program" doit être fermé !

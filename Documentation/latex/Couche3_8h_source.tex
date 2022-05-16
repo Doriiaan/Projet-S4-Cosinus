@@ -2,46 +2,46 @@
 \mbox{\hyperlink{Couche3_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef \_\_COUCHE3\_H\_\_}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#define \_\_COUCHE3\_H\_\_}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{header_8h}{header.h}}"{}}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche1_8h}{Couche1.h}}"{}}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#define USERS\_START ((SUPER\_BLOCK\_SIZE + INODE\_TABLE\_SIZE*(INODE\_SIZE))*BLOCK\_SIZE + 1) }\textcolor{comment}{// en octets}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#define USER\_SIZE ((FILENAME\_MAX\_SIZE + SHA256\_BLOCK\_SIZE*2 + 1)/BLOCK\_SIZE + 1)}\textcolor{comment}{// login + hash + 1 pour le \(\backslash\)0 dans le hash = 25}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#define ROOT UID 0}}
-\DoxyCodeLine{18 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef \_\_COUCHE3\_H\_\_}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define \_\_COUCHE3\_H\_\_}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{header_8h}{header.h}}"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche1_8h}{Couche1.h}}"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Couche4_8h}{Couche4.h}}"{}}}
 \DoxyCodeLine{19 }
-\DoxyCodeLine{26 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ab2295e5e2940bdfb6c0acd6b3f785ef8}{write\_users\_table}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{27 }
+\DoxyCodeLine{20 }
+\DoxyCodeLine{27 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ab2295e5e2940bdfb6c0acd6b3f785ef8}{write\_users\_table}}(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{28 }
-\DoxyCodeLine{35 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ac50e75d26c2b9bf1bcfe5b6a669ed040}{read\_users\_table}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{36 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ac50e75d26c2b9bf1bcfe5b6a669ed040}{read\_users\_table}}(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{44 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a4a7dfdd501efee019bd1ad8a5a67734f}{get\_unused\_user}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{45 }
+\DoxyCodeLine{38 }
+\DoxyCodeLine{45 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a4a7dfdd501efee019bd1ad8a5a67734f}{get\_unused\_user}}(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{46 }
-\DoxyCodeLine{53 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_af80cb35770d0b0daef1b2b2dfb83c463}{search\_login}}(\textcolor{keywordtype}{char} *login);}
-\DoxyCodeLine{54 }
+\DoxyCodeLine{47 }
+\DoxyCodeLine{54 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_af80cb35770d0b0daef1b2b2dfb83c463}{search\_login}}(\textcolor{keywordtype}{char} *login);}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{65 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_adebb96ff6f6cf40c4aa168f69b847c05}{add\_user}}(\textcolor{keywordtype}{char} *login, \textcolor{keywordtype}{char} *password\_clair);}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67 }
-\DoxyCodeLine{76 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ac9eb3e131be425b25807ba1c33b39a7c}{delete\_user}}(\textcolor{keywordtype}{char} *login);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{63 \textcolor{keywordtype}{char}* \mbox{\hyperlink{Couche3_8h_a6dba4ceb58ee992167e1c70c617e9e09}{search\_id}}(\textcolor{keywordtype}{int} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 }
+\DoxyCodeLine{75 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_adebb96ff6f6cf40c4aa168f69b847c05}{add\_user}}(\textcolor{keywordtype}{char} *login, \textcolor{keywordtype}{char} *password\_clair);}
+\DoxyCodeLine{76 }
 \DoxyCodeLine{77 }
-\DoxyCodeLine{78 }
-\DoxyCodeLine{85 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche3_8h_a599dc920da29541177e42b7bf07c9cf3}{init\_first\_time\_user\_table}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{86 }
+\DoxyCodeLine{86 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_ac9eb3e131be425b25807ba1c33b39a7c}{delete\_user}}(\textcolor{keywordtype}{char} *login);}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{94 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a13ead678e08c9c9f704b413c6e227ab2}{new\_session}}(\textcolor{keywordtype}{char} *login);}
-\DoxyCodeLine{95 }
+\DoxyCodeLine{88 }
+\DoxyCodeLine{95 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a292e1fff07db2193967337aa23ebdb3b}{init\_first\_time\_user\_table}}(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{96 }
-\DoxyCodeLine{103 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche3_8h_a3722df00f4359aec439d03c0a71694f3}{del\_session}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{104 }
+\DoxyCodeLine{97 }
+\DoxyCodeLine{104 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a13ead678e08c9c9f704b413c6e227ab2}{new\_session}}(\textcolor{keywordtype}{char} *login);}
 \DoxyCodeLine{105 }
-\DoxyCodeLine{112 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a10efc172fe6040930259a1c47f70241b}{get\_session}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{113 }
-\DoxyCodeLine{114 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{113 \textcolor{keywordtype}{void} \mbox{\hyperlink{Couche3_8h_a3722df00f4359aec439d03c0a71694f3}{del\_session}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 }
+\DoxyCodeLine{122 \textcolor{keywordtype}{int} \mbox{\hyperlink{Couche3_8h_a10efc172fe6040930259a1c47f70241b}{get\_session}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
