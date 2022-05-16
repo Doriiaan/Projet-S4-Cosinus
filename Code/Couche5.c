@@ -318,7 +318,6 @@ int cr(cmd_t *commande){
 * @param char* : nom de fichier
 * @return int 1 si tout se passe bien (si le fichier existe)
 **/
-
 int edit_file(cmd_t *commande){
   file_t file ;
   uint user = get_session();
@@ -478,7 +477,9 @@ void ls(cmd_t *commande){
 
 void quit(){
   interprete = 0;
+  printf("\033[0;31m"); //couleur
   printf("Sauvegarde effectue\n");
+    printf("\033[0m");
   save_disk_sos();
 }
 
@@ -499,7 +500,9 @@ int rm(cmd_t *commande){
   }
   char *nom_fichier = commande->tabArgs[1];
   if(strlen(nom_fichier)>FILENAME_MAX_SIZE){
+     printf("\033[0;31m"); //couleur
     printf("Un fichier ne peut contenir que %d caractere maximum\n" , FILENAME_MAX_SIZE);
+    printf("\033[0m");
     return 0;
   }
   int pos = search_file_inode(nom_fichier);
@@ -855,9 +858,17 @@ void interprete_commande(){
 
     //taper la commande
     do {
-      printf("\n[%s] Saisissez une commande $ " , pseudo );
-      fgets(str, 50 , stdin);
-      printf("\n");
+        if(user==0){
+            printf("\n[\033[0;31m%s\033[0m] Saisissez une commande $ " , pseudo );
+            fgets(str, 50 , stdin);
+            printf("\n");
+        }
+        else{
+             printf("\n[\033[0;34m%s\033[0m] Saisissez une commande $ " , pseudo );
+            fgets(str, 50 , stdin);
+            printf("\n");
+        }
+      
     } while(strcmp(str, "\n") == 0);
 
     enlever_retour_ligne(str);
@@ -955,7 +966,7 @@ void interprete_commande(){
   }
   free(commande->tabArgs);
   free(commande);
-  }
+}
 }
 
 int main(int argc, char* argv[]) {
