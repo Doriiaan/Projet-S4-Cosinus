@@ -301,8 +301,8 @@ int cr(cmd_t *commande){
 
   file_t file;
   file.size = 1;
-  file.data[0]=3;
-  write_file(nom_fichier , file);
+  file.data[0]= (char) 3;
+  write_file(nom_fichier, file);
   printf("\033[0;34m"); //couleur
   printf("Creation du fichier %s reussi\n" , nom_fichier);
   printf("\033[0m"); //couleur
@@ -330,8 +330,12 @@ int edit_file(cmd_t *commande){
     printf("\033[0m"); //couleur
     return 0;
   }
-    int pos = search_file_inode(filename);
+  int pos = search_file_inode(filename);
 
+  if(pos != -1 && virtual_disk_sos->inodes[pos].uid!=user && (virtual_disk_sos->inodes[pos].oright==2 || virtual_disk_sos->inodes[pos].oright==0) && user!=0 ){
+    printf("Vous n'avez pas les droits d'ecriture\n");
+    return 0;
+  }
   if(pos==-1){
     if(cr(commande)!=1){
       printf("\033[0;31m"); //couleur
@@ -339,13 +343,11 @@ int edit_file(cmd_t *commande){
       printf("\033[0m"); //couleur
       return 0;
     }
+    pos = search_file_inode(filename);
   }
-  if(virtual_disk_sos->inodes[pos].uid!=user && (virtual_disk_sos->inodes[pos].oright==2 || virtual_disk_sos->inodes[pos].oright==0) && user!=0 ){
-    printf("Vous n'avez pas les droits d'ecriture\n");
-    return 0;
-  }
+
   read_file(filename , &file);
-  printf("%s" , (char*)file.data);
+  file.size--;
   if(!Term_non_canonique())
     return 0;
 
@@ -377,12 +379,14 @@ int edit_file(cmd_t *commande){
         file.size++;
     }
 
-  } while(!fin && file.size < MAX_FILE_SIZE);
+  } while(!fin && file.size < (MAX_FILE_SIZE-1));
 
   write_file(filename , file);
-
+  file.data[file.size] = (char) 3;
+  file.size++;
   if(!Term_canonique())
     return 0;
+  clear();
 
   return 1;
 }
